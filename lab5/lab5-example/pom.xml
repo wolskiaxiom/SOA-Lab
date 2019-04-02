@@ -38,9 +38,24 @@
       <version>5.4.2.Final</version>
     </dependency>
 
+    <dependency>
+      <groupId>postgresql</groupId>
+      <artifactId>postgresql</artifactId>
+      <version>9.1-901-1.jdbc4</version>
+    </dependency>
+
   </dependencies>
 
   <build>
+    <resources>
+      <resource>
+        <directory>src/main/resources/META-INF</directory>
+        <targetPath>META-INF</targetPath>
+        <includes>
+          <include>persistence.xml</include>
+        </includes>
+      </resource>
+    </resources>
     <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
       <plugins>
         <!-- clean lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#clean_Lifecycle -->
@@ -85,4 +100,7 @@
       </plugins>
     </pluginManagement>
   </build>
+
+
+
 </project>
