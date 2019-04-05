@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "student")
+@Table()
 public class Student {
     private int id;
     private String firstName;
@@ -25,7 +25,7 @@ public class Student {
 
     @Id
     @GeneratedValue
-    @Column(name = "id", nullable = false)
+    @Column(nullable = false)
     public int getId() {
         return id;
     }
@@ -38,7 +38,7 @@ public class Student {
         return firstName;
     }
 
-    @Column(name = "firstName",nullable = false)
+    @Column(nullable = false)
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
