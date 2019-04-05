@@ -26,5 +26,12 @@ public class BooksManager {
         return databaseServiceInstance.readBooks();
     }
 
+    public void deleteBookWithId(long idbook){
+        databaseServiceInstance.delete(idbook);
+    }
+    public void updateBook(Book book){
+        databaseServiceInstance.updateBook(book);
+
+    }
 
 }

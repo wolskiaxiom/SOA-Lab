@@ -25,4 +25,28 @@ public class DatabaseService {
     public ArrayList<Book> readBooks(){
         return (ArrayList<Book>) entityManager.createQuery("Select t from " + Book.class.getSimpleName()+" t").getResultList();
     }
+
+    public void delete(long idbook){
+        entityManager.getTransaction().begin();
+        Book book = entityManager.find(Book.class, idbook);
+        entityManager.remove(book);
+        entityManager.getTransaction().commit();
+    }
+
+    public void updateBook(Book book){
+        Book edited = entityManager.find(Book.class, book.getIdBook());
+
+        entityManager.getTransaction().begin();
+        edited.setTitle(book.getTitle());
+        edited.setAuthorFirstName(book.getAuthorFirstName());
+        edited.setAuthorLastName(book.getAuthorLastName());
+        edited.setIsbn(book.getIsbn());
+        edited.setIssueYear(book.getIssueYear());
+        edited.setType(book.getType());
+        edited.setPrice(book.getPrice());
+        edited.setOriginPrice(book.getOriginPrice());
+        edited.setCurrency(book.getCurrency());
+        edited.setIfChecked(book.getIfChecked());
+        entityManager.getTransaction().commit();
+    }
 }

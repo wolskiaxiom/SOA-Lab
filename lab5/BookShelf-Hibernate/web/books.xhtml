@@ -98,8 +98,8 @@
 
         <h:column >
             <f:facet name="header">Actions</f:facet>
-            <h:commandButton image="buttons/edit-button-blue-hi.png"  styleClass="edit_button_class" />
-            <h:commandButton image="buttons/delete-button.png" styleClass="button_class"/>
+            <h:commandButton image="buttons/edit-button-blue-hi.png"  styleClass="edit_button_class"  action="#{shelf.goToUpdatePage(book)}"/>
+            <h:commandButton image="buttons/delete-button.png" styleClass="button_class" action="#{shelf.deleteBook(book)}"/>
         </h:column>
 
     </h:dataTable>

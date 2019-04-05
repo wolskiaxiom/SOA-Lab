@@ -13,6 +13,21 @@ public class Shelf implements Serializable {
     private double minPrice=0;
     private double maxPrice=1000;
 
+    //to use in updating, no better idea
+    private long idBookE;
+    private String titleE;
+    private String authorFirstNameE;
+    private String authorLastNameE;
+    private String isbnE;
+    private Integer issueYearE;
+    private String typeE;
+    private double priceE;
+    private double originPriceE;
+    private String currencyE;
+    private Boolean ifCheckedE;
+
+
+
     private Vector<Book> chosenBooks = new Vector<>();
 
     private Double sumOfPrices;
@@ -50,6 +65,30 @@ public class Shelf implements Serializable {
             }
         }
         return books;
+    }
+
+    public void deleteBook(Book book){
+        booksManager.deleteBookWithId(book.getIdBook());
+    }
+
+    public String goToUpdatePage(Book book){
+        idBookE=book.getIdBook();
+        titleE=book.getTitle();
+        authorFirstNameE=book.getAuthorFirstName();
+        authorLastNameE=book.getAuthorLastName();
+        isbnE=book.getIsbn();
+        issueYearE=book.getIssueYear();
+        typeE=book.getType();
+        priceE=book.getPrice();
+        originPriceE=book.getOriginPrice();
+        currencyE=book.getCurrency();
+        ifCheckedE=book.getIfChecked();
+        return "update_book";
+    }
+
+    public String updateBook(){
+        booksManager.updateBook(new Book(idBookE,titleE,authorFirstNameE,authorLastNameE,isbnE,issueYearE,typeE,priceE,originPriceE,currencyE,ifCheckedE));
+        return "books";
     }
 
     public Double getSumOfPrices() {
@@ -96,4 +135,91 @@ public class Shelf implements Serializable {
         this.maxPrice = maxPrice;
     }
 
+    public long getIdBookE() {
+        return idBookE;
+    }
+
+    public void setIdBookE(long idBookE) {
+        this.idBookE = idBookE;
+    }
+
+    public String getTitleE() {
+        return titleE;
+    }
+
+    public void setTitleE(String titleE) {
+        this.titleE = titleE;
+    }
+
+    public String getAuthorFirstNameE() {
+        return authorFirstNameE;
+    }
+
+    public void setAuthorFirstNameE(String authorFirstNameE) {
+        this.authorFirstNameE = authorFirstNameE;
+    }
+
+    public String getAuthorLastNameE() {
+        return authorLastNameE;
+    }
+
+    public void setAuthorLastNameE(String authorLastNameE) {
+        this.authorLastNameE = authorLastNameE;
+    }
+
+    public String getIsbnE() {
+        return isbnE;
+    }
+
+    public void setIsbnE(String isbnE) {
+        this.isbnE = isbnE;
+    }
+
+    public Integer getIssueYearE() {
+        return issueYearE;
+    }
+
+    public void setIssueYearE(Integer issueYearE) {
+        this.issueYearE = issueYearE;
+    }
+
+    public String getTypeE() {
+        return typeE;
+    }
+
+    public void setTypeE(String typeE) {
+        this.typeE = typeE;
+    }
+
+    public double getPriceE() {
+        return priceE;
+    }
+
+    public void setPriceE(double priceE) {
+        this.priceE = priceE;
+    }
+
+    public double getOriginPriceE() {
+        return originPriceE;
+    }
+
+    public void setOriginPriceE(double originPriceE) {
+        this.originPriceE = originPriceE;
+    }
+
+    public String getCurrencyE() {
+        return currencyE;
+    }
+
+    public void setCurrencyE(String currencyE) {
+        this.currencyE = currencyE;
+    }
+
+    public Boolean getIfCheckedE() {
+        return ifCheckedE;
+    }
+
+    public void setIfCheckedE(Boolean ifCheckedE) {
+        this.ifCheckedE = ifCheckedE;
+    }
 }

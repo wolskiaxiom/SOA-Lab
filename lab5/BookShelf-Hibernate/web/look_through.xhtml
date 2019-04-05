@@ -3,13 +3,21 @@
         PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core" xml:lang="en" lang="en">
+      xmlns:f="http://xmlns.jcp.org/jsf/core" xml:lang="en" lang="pl">
 <h:head>
     <style type="text/css">
         td {
-            width: 12vw;
             border: 1px solid black;
-            margin: 0;
+            margin: 2px;
+            padding: 3px;
+        }
+        .button_class{
+            width: 60px;
+            height: 30px;
+        }
+        .edit_button_class{
+            width: 65px;
+            height: 35px;
         }
     </style>
 
@@ -17,25 +25,6 @@
 </h:head>
 <body>
 
-
-<h:form>
-    <h3>Choose what to show</h3>
-    <h:selectBooleanCheckbox itemValue = "1" itemLabel = "Title" id="titleCB" value="#{shelf.ifTitle}"/>
-    Title
-    <h:selectBooleanCheckbox itemValue = "2" itemLabel = "Author" id="authorCB" value="#{shelf.ifAuthor}"/>
-    Author
-    <h:selectBooleanCheckbox itemValue = "3" itemLabel = "Type" id="typeCB" value="#{shelf.ifType}"/>
-    Type
-    <h:selectBooleanCheckbox itemValue = "4" itemLabel = "Price" id="priceCB" value="#{shelf.ifPrice}"/>
-    Price
-    <h:selectBooleanCheckbox itemValue = "5" itemLabel = "Currency" id="currencyCB" value="#{shelf.ifCurrency}"/>
-    Currency
-    <h:selectBooleanCheckbox itemValue = "6" itemLabel = "Number of pages" id="numberCB" value="#{shelf.ifNumber}"/>
-    Number of Pages
-    <h:commandButton value = "Submit">
-        <f:ajax execute="authorCB typeCB priceCB currencyCB numberCB titleCB" render="ajaxOutputBooks formm"/>
-    </h:commandButton>
-</h:form>
 
 <h:form style="margin-left: 32px;">
     <br/>
@@ -56,43 +45,63 @@
 </h:form>
 
 
-
+<br/>
+<br/>
 
 <h:form id="formm">
-    <h:dataTable value="#{shelf.books}" id="ajaxOutputBooks" var="book" border="1">
-        <h:column >
+    <h:dataTable value="#{shelf.getBooks()}" id="ajaxOutputBooks" var="book" border="1" >
+        <h:column>
             <h:selectBooleanCheckbox value="#{book.ifChecked}"/>
         </h:column>
 
-        <h:column rendered="#{shelf.ifTitle}">
+        <h:column >
             <f:facet name="header">Title</f:facet>
             #{book.title}
         </h:column>
 
-        <h:column rendered="#{shelf.ifAuthor}">
-            <f:facet name="header">Author</f:facet>
-            #{book.author}
+        <h:column>
+            <f:facet name="header">First Name</f:facet>
+            #{book.authorFirstName}
         </h:column>
 
-        <h:column rendered="#{shelf.ifType}">
+        <h:column>
+            <f:facet name="header">Last Name</f:facet>
+            #{book.authorLastName}
+        </h:column>
+
+
+        <h:column >
             <f:facet name="header">Type</f:facet>
             #{book.type}
         </h:column>
 
-        <h:column rendered="#{shelf.ifPrice}">
+        <h:column >
+            <f:facet name="header">Issue Year</f:facet>
+            #{book.issueYear}
+        </h:column>
+
+        <h:column>
             <f:facet name="header" id="ajaxPrice">Price</f:facet>
             #{book.originPrice}
         </h:column>
 
-        <h:column rendered="#{shelf.ifCurrency}">
+        <h:column >
             <f:facet name="header">Currency</f:facet>
             #{book.currency}
         </h:column>
 
-        <h:column rendered="#{shelf.ifNumber}">
-            <f:facet name="header">Number of Pages</f:facet>
-            #{book.numberOfPages}
+
+        <h:column >
+            <f:facet name="header">ISBN</f:facet>
+            #{book.isbn}
         </h:column>
+
+        <h:column >
+            <f:facet name="header">Actions</f:facet>
+            <h:commandButton image="buttons/edit-button-blue-hi.png"  styleClass="edit_button_class"  action="#{shelf.goToUpdatePage(book)}"/>
+            <h:commandButton image="buttons/delete-button.png" styleClass="button_class" action="#{shelf.deleteBook(book)}"/>
+        </h:column>
+
     </h:dataTable>
     <h:commandButton value = "Submit" action = "#{shelf.createChosenBooks}"/>
 </h:form>
