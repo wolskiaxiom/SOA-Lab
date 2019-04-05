@@ -9,39 +9,48 @@
 </head>
 <body>
 <h:dataTable value = "#{shelf.chosenBooks}" var = "book" border="1">
-
-    <h:column id="column">
-        <f:facet name = "header">Title</f:facet>
+    <h:column >
+        <f:facet name="header">Title</f:facet>
         #{book.title}
     </h:column>
 
     <h:column>
-        <f:facet name = "header">Author</f:facet>
-        #{book.author}
+        <f:facet name="header">First Name</f:facet>
+        #{book.authorFirstName}
     </h:column>
 
     <h:column>
-        <f:facet name = "header">Type</f:facet>
+        <f:facet name="header">Last Name</f:facet>
+        #{book.authorLastName}
+    </h:column>
+
+
+    <h:column >
+        <f:facet name="header">Type</f:facet>
         #{book.type}
     </h:column>
 
-    <h:column>
-        <f:facet name = "header">Price in PLN</f:facet>
-        #{book.price}
-    </h:column>
-    <h:column>
-        <f:facet name = "header">Price</f:facet>
-        #{book.originPrice}
+    <h:column >
+        <f:facet name="header">Issue Year</f:facet>
+        #{book.issueYear}
     </h:column>
 
     <h:column>
-        <f:facet name = "header">Currency</f:facet>
+        <f:facet name="header" id="ajaxPrice">Price</f:facet>
+        #{book.originPrice}
+    </h:column>
+
+    <h:column >
+        <f:facet name="header">Currency</f:facet>
         #{book.currency}
     </h:column>
-    <h:column>
-        <f:facet name = "header">Number of pages</f:facet>
-        #{book.numberOfPages}
+
+
+    <h:column >
+        <f:facet name="header">ISBN</f:facet>
+        #{book.isbn}
     </h:column>
+
 </h:dataTable>
 
 <p>Summary price of all books: #{shelf.sumOfPrices}</p>

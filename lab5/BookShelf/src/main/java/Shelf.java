@@ -1,6 +1,5 @@
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 import java.io.Serializable;
 import java.util.*;
 
@@ -19,14 +18,15 @@ public class Shelf implements Serializable {
 
     private Vector<Book> books;
 
+    private BooksManager booksManager = new BooksManager();
 
     public String createChosenBooks(){
-        chosenBooks.clear();
-        sumOfPrices =0.0;
+        this.chosenBooks.clear();
+        this.sumOfPrices =0.0;
         for (Book book: books) {
             if(book.getIfChecked()){
-                sumOfPrices += book.getPrice();
-                chosenBooks.add(book);
+                this.sumOfPrices += book.getPrice();
+                this.chosenBooks.add(book);
             }
         }
         return "success";
@@ -37,15 +37,13 @@ public class Shelf implements Serializable {
         return b.getOriginPrice() * currencies.get(b.getCurrency());
     }
 
-    public Shelf() {
-        this.books = BooksManager.getBooks();
-        for (Book book: this.books) {
-            book.setPrice(toPLN(book));
-        }
-    }
-    public  Vector<Book> getBooks() {
+    public Shelf() {}
+    public  Vector<Book> getBooks()  {
+        Vector<Book> booksFromManager = booksManager.getBooks();
         Vector<Book> books = new Vector<>();
-        for(Book book:this.books){
+        for(Book book:booksFromManager){
+            book.setPrice(toPLN(book));
+            System.out.println(book.getTitle());
             if (book.getPrice() >= minPrice && book.getPrice() <= maxPrice && categories.contains(book.getType())) {
                 books.add(book);
             }
@@ -53,6 +51,13 @@ public class Shelf implements Serializable {
         return books;
     }
 
+    public Double getSumOfPrices() {
+        return sumOfPrices;
+    }
+
+    public void setSumOfPrices(Double sumOfPrices) {
+        this.sumOfPrices = sumOfPrices;
+    }
 
     public Vector<Book> getChosenBooks() {
         return chosenBooks;
