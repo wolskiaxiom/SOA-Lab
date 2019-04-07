@@ -39,7 +39,7 @@ public class Shelf implements Serializable {
     public String createChosenBooks(){
         this.chosenBooks.clear();
         this.sumOfPrices =0.0;
-        for (Book book: books) {
+        for (Book book: this.getBooks()) {
             if(book.getIfChecked()){
                 this.sumOfPrices += book.getPrice();
                 this.chosenBooks.add(book);

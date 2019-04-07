@@ -1,9 +1,6 @@
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 
 @RequestScoped
@@ -23,6 +20,7 @@ public class Book implements Serializable {
     private double price;
     private double originPrice;
     private String currency;
+    @Column(name = "ififcheched")
     private Boolean ifChecked;
 
     public Book(){}
