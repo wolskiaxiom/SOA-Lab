@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core" xml:lang="en" lang="pl">
+<h:head>
+    <style type="text/css">
+        td {
+            border: 1px solid black;
+            margin: 2px;
+            padding: 3px;
+        }
+        .button_class{
+            width: 60px;
+            height: 30px;
+        }
+        .edit_button_class{
+            width: 65px;
+            height: 35px;
+        }
+    </style>
+
+    <title>Look through</title>
+</h:head>
+<body>
+
+
+<h:form style="margin-left: 32px;">
+    <br/>
+    <h3>Books from category?</h3>
+    <h:selectManyCheckbox id="ajaxType" value="#{shelf.categories}">
+        <f:selectItem itemValue="Fantaza" itemLabel="Fantaza" />
+        <f:selectItem itemValue="Nauka" itemLabel="Nauka" />
+        <f:selectItem itemValue="Bajka" itemLabel="Bajka" />
+        <f:selectItem itemValue="Dramat" itemLabel="Dramat" />
+    </h:selectManyCheckbox>
+    <br/>
+    Min Price <h:inputText id="ajaxMin" label="Min price" value="#{shelf.minPrice}"> </h:inputText> <br/>
+    Max Price <h:inputText id="ajaxMax" label="Max price" value="#{shelf.maxPrice}"> </h:inputText> <br/>
+
+    <h:commandButton value="filter">
+        <f:ajax execute="ajaxMin ajaxMax ajaxType ajaxTitle ajaxAuthor ajaxPrice ajaxCurrency" render="ajaxOutputBooks formm"/>
+    </h:commandButton>
+</h:form>
+
+
+<br/>
+<br/>
+
+<h:form id="formm">
+    <h:dataTable value="#{shelf.getBooks()}" id="ajaxOutputBooks" var="book" border="1" >
+        <h:column>
+            <h:selectBooleanCheckbox value="#{book.ifChecked}"/>
+        </h:column>
+
+        <h:column >
+            <f:facet name="header">Title</f:facet>
+            #{book.title}
+        </h:column>
+
+        <h:column>
+            <f:facet name="header">First Name</f:facet>
+            #{book.authorFirstName}
+        </h:column>
+
+        <h:column>
+            <f:facet name="header">Last Name</f:facet>
+            #{book.authorLastName}
+        </h:column>
+
+
+        <h:column >
+            <f:facet name="header">Type</f:facet>
+            #{book.type}
+        </h:column>
+
+        <h:column >
+            <f:facet name="header">Issue Year</f:facet>
+            #{book.issueYear}
+        </h:column>
+
+        <h:column>
+            <f:facet name="header" id="ajaxPrice">Price</f:facet>
+            #{book.originPrice}
+        </h:column>
+
+        <h:column >
+            <f:facet name="header">Currency</f:facet>
+            #{book.currency}
+        </h:column>
+
+
+        <h:column >
+            <f:facet name="header">ISBN</f:facet>
+            #{book.isbn}
+        </h:column>
+
+        <h:column >
+            <f:facet name="header">Actions</f:facet>
+            <h:commandButton image="buttons/edit-button-blue-hi.png"  styleClass="edit_button_class"  action="#{shelf.goToUpdatePage(book)}"/>
+            <h:commandButton image="buttons/delete-button.png" styleClass="button_class" action="#{shelf.deleteBook(book)}"/>
+        </h:column>
+
+    </h:dataTable>
+    <h:commandButton value = "Submit" action = "#{shelf.createChosenBooks}"/>
+</h:form>
+
+
+
+
+
+</body>
+</html>
