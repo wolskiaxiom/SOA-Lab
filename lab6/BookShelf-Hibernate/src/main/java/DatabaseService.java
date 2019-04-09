@@ -1,8 +1,9 @@
+import entities.Book;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import java.util.ArrayList;
-import java.util.Vector;
 
 public class DatabaseService {
     private static final DatabaseService ourInstance = new DatabaseService();
@@ -33,20 +34,10 @@ public class DatabaseService {
         entityManager.getTransaction().commit();
     }
 
-    public void updateBook(Book book){
-        Book edited = entityManager.find(Book.class, book.getIdBook());
-
-        entityManager.getTransaction().begin();
-        edited.setTitle(book.getTitle());
-        edited.setAuthorFirstName(book.getAuthorFirstName());
-        edited.setAuthorLastName(book.getAuthorLastName());
-        edited.setIsbn(book.getIsbn());
-        edited.setIssueYear(book.getIssueYear());
-        edited.setType(book.getType());
-        edited.setPrice(book.getPrice());
-        edited.setOriginPrice(book.getOriginPrice());
-        edited.setCurrency(book.getCurrency());
-        edited.setIfChecked(book.getIfChecked());
-        entityManager.getTransaction().commit();
-    }
+//    public void updateBook(Book book){
+//        Book edited = entityManager.find(Book.class, book.getIdBook());
+//
+//        entityManager.getTransaction().begin();
+//        entityManager.getTransaction().commit();
+//    }
 }

@@ -1,3 +1,5 @@
+import entities.Book;
+
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import java.util.ArrayList;
@@ -30,7 +32,7 @@ public class BooksManager {
         databaseServiceInstance.delete(idbook);
     }
     public void updateBook(Book book){
-        databaseServiceInstance.updateBook(book);
+//        databaseServiceInstance.updateBook(book);
 
     }
 
