@@ -5,6 +5,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 //@RequestScoped
 //@ManagedBean
@@ -15,6 +17,7 @@ public class Book implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idbook")
     private long idBook;
 
     @Column(name = "title")
@@ -24,6 +27,9 @@ public class Book implements Serializable {
     @JoinColumn(name = "idauthor", nullable = false)
     private Author author;
 
+    @OneToMany(mappedBy = "pk.book")
+    private List<Borrowing> borrowings = new ArrayList<>();
+
 
 
     public Book(){
@@ -31,6 +37,12 @@ public class Book implements Serializable {
 
     public Book(String title) {
         this.title = title;
+    }
+
+    public Book(String title, Author author, List<Borrowing> borrowings) {
+        this.title = title;
+        this.author = author;
+        this.borrowings = borrowings;
     }
 
     public Book(String title, Author author) {

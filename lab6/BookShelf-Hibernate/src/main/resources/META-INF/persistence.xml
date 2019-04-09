@@ -11,7 +11,9 @@
 
         <class>entities.Book</class>
         <class>entities.Author</class>
-<!--        <class>entities.Reader</class>-->
+        <class>entities.Reader</class>
+        <class>entities.Borrowing</class>
+        <class>entities.ReaderBookId</class>
         <properties>
             <property name="hibernate.connection.url" value="jdbc:postgresql://localhost:5432/lab6"/>
             <property name="hibernate.connection.driver_class" value="org.postgresql.Driver"/>
