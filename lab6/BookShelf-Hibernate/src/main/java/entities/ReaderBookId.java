@@ -1,32 +1,28 @@
 package entities;
 
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.ManyToOne;
 import java.io.Serializable;
+import java.util.Objects;
 
 @Embeddable
 public class ReaderBookId implements Serializable {
 
-    private Book book;
-    private Reader reader;
 
-    @ManyToOne
-    public Book getBook() {
-        return book;
+    @Column(name = "idreader")
+    private long idReader;
+
+    @Column(name = "idbook")
+    private long idBook;
+
+    public ReaderBookId(){}
+
+    public ReaderBookId(long idReader, long idBook) {
+        this.idReader = idReader;
+        this.idBook = idBook;
     }
 
-    public void setBook(Book book) {
-        this.book = book;
-    }
-
-    @ManyToOne
-    public Reader getReader() {
-        return reader;
-    }
-
-    public void setReader(Reader reader) {
-        this.reader = reader;
-    }
 
     @Override
     public boolean equals(Object o){
@@ -35,18 +31,27 @@ public class ReaderBookId implements Serializable {
 
         ReaderBookId that = (ReaderBookId) o;
 
-        if(reader != null? !reader.equals(that.reader) : that.reader !=null) return false;
-        if(book != null? !book.equals(that.book): that.book != null) return  false;
-
-        return true;
+        return Objects.equals(idReader, that.idReader) && Objects.equals(idBook, that.idBook);
     }
 
     @Override
     public int hashCode() {
-        int result;
-        result = (reader != null ? reader.hashCode() :0);
-        result = 31 * result + (book!=null ? book.hashCode() :0);
-        return result;
+        return Objects.hash(idReader, idBook);
     }
 
+    public long getIdReader() {
+        return idReader;
+    }
+
+    public void setIdReader(long idAuthor) {
+        this.idReader = idAuthor;
+    }
+
+    public long getIdBook() {
+        return idBook;
+    }
+
+    public void setIdBook(long idBook) {
+        this.idBook = idBook;
+    }
 }

@@ -3,6 +3,7 @@ package entities;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "reader")
@@ -18,22 +19,21 @@ public class Reader {
     @Column(name = "lastname")
     private String lastName;
 
-    @OneToMany(mappedBy = "pk.reader")
-    private List<Borrowing> borrowings = new ArrayList<>();
+    @OneToMany(mappedBy = "reader")
+    private List<Borrowing> books = new ArrayList<>();
 
 
-    public Reader() {
-    }
+    public Reader() {}
 
     public Reader(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
     }
 
-    public Reader(String firstName, String lastName, List<Borrowing> borrowings) {
+    public Reader(String firstName, String lastName, List<Borrowing> books) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.borrowings = borrowings;
+        this.books = books;
     }
 
     public long getIdReader() {
@@ -60,11 +60,27 @@ public class Reader {
         this.lastName = lastName;
     }
 
-    public List<Borrowing> getBorrowings() {
-        return borrowings;
+    public List<Borrowing> getBooks() {
+        return books;
     }
 
-    public void setBorrowings(List<Borrowing> borrowings) {
-        this.borrowings = borrowings;
+    public void setBooks(List<Borrowing> books) {
+        this.books = books;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+
+        if (o == null || getClass() != o.getClass())
+            return false;
+
+        Reader post = (Reader) o;
+        return Objects.equals(firstName, post.firstName) && Objects.equals(lastName, post.lastName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(firstName,lastName);
     }
 }

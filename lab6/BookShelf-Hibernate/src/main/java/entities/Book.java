@@ -7,6 +7,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 //@RequestScoped
 //@ManagedBean
@@ -27,13 +28,12 @@ public class Book implements Serializable {
     @JoinColumn(name = "idauthor", nullable = false)
     private Author author;
 
-    @OneToMany(mappedBy = "pk.book")
-    private List<Borrowing> borrowings = new ArrayList<>();
+    @OneToMany(mappedBy = "book")
+    private List<Borrowing> readers = new ArrayList<>();
 
 
 
-    public Book(){
-    }
+    public Book(){}
 
     public Book(String title) {
         this.title = title;
@@ -42,7 +42,7 @@ public class Book implements Serializable {
     public Book(String title, Author author, List<Borrowing> borrowings) {
         this.title = title;
         this.author = author;
-        this.borrowings = borrowings;
+        this.readers = borrowings;
     }
 
     public Book(String title, Author author) {
@@ -72,5 +72,26 @@ public class Book implements Serializable {
 
     public void setAuthor(Author author) {
         this.author = author;
+    }
+
+    public List<Borrowing> getReaders() {
+        return readers;
+    }
+
+    public void setReaders(List<Borrowing> readers) {
+        this.readers = readers;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(title);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Book book = (Book) o ;
+        return Objects.equals(book.title, title);
     }
 }
