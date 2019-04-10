@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<faces-config version="2.2" xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee 
+    http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
+
+    <navigation-rule>
+        <from-view-id>/index.xhtml</from-view-id>
+        <navigation-case>
+            <from-action>#{RandomNumber.isNumberEqual(1)}</from-action>
+            <from-outcome>YES</from-outcome>
+            <to-view-id>/hit.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-action>#{RandomNumber.isNumberEqual(1)}</from-action>
+            <from-outcome>NO</from-outcome>
+            <to-view-id>/1.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-action>#{RandomNumber.isNumberEqual(2)}</from-action>
+            <from-outcome>YES</from-outcome>
+            <to-view-id>/hit.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-action>#{RandomNumber.isNumberEqual(2)}</from-action>
+            <from-outcome>NO</from-outcome>
+            <to-view-id>/2.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-action>#{RandomNumber.isNumberEqual(3)}</from-action>
+            <from-outcome>YES</from-outcome>
+            <to-view-id>/hit.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-action>#{RandomNumber.isNumberEqual(3)}</from-action>
+            <from-outcome>NO</from-outcome>
+            <to-view-id>/3.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-action>#{RandomNumber.isNumberEqual(4)}</from-action>
+            <from-outcome>YES</from-outcome>
+            <to-view-id>/hit.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-action>#{RandomNumber.isNumberEqual(4)}</from-action>
+            <from-outcome>NO</from-outcome>
+            <to-view-id>/4.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-action>#{RandomNumber.isNumberEqual(5)}</from-action>
+            <from-outcome>YES</from-outcome>
+            <to-view-id>/hit.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-action>#{RandomNumber.isNumberEqual(5)}</from-action>
+            <from-outcome>NO</from-outcome>
+            <to-view-id>/5.xhtml</to-view-id>
+        </navigation-case>
+
+    </navigation-rule>
+  
+</faces-config>

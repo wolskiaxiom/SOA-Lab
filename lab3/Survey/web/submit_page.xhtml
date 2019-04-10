@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets" xml:lang="en" lang="en">
+<head>
+    <title>Survey Submit Page</title>
+</head>
+<h:body>
+    <h3>
+        Podsumowanie wszystkiego:
+    </h3>
+    <br/>
+    <br/>
+
+    <h:panelGroup>
+        <h:panelGrid columns="2" border="1">
+            <h:outputLabel for="name">Imię: </h:outputLabel>
+            <h:outputText value="#{person.name}" id="name"/>
+
+            <h:outputLabel for="last_name">Nazwisko: </h:outputLabel>
+            <h:outputText value="#{person.last_name}" id="last_name"/>
+
+            <h:outputLabel for="address">Adres: </h:outputLabel>
+            <h:outputText value="#{person.address}" id="address"/>
+
+            <h:outputLabel for="phoneNumber">Telefon: </h:outputLabel>
+            <h:outputText value="#{person.phoneNumber}" id="phoneNumber"/>
+
+            <h:outputLabel for="email">Email: </h:outputLabel>
+            <h:outputText value="#{person.email}" id="email"/>
+
+            <h:outputLabel for="age">Wiek: </h:outputLabel>
+            <h:outputText value="#{person.age}" id="age"/>
+
+            <h:outputLabel for="height">Wzrost: </h:outputLabel>
+            <h:outputText value="#{person.height}" id="height"/>
+
+            <h:outputLabel for="weight">Waga: </h:outputLabel>
+            <h:outputText value="#{person.weight}" id="weight"/>
+
+            <h:outputLabel for="sex">Płeć: </h:outputLabel>
+            <h:outputText value="#{person.sex}" id="sex"/>
+        </h:panelGrid>
+    </h:panelGroup>
+
+    <br/>
+
+    <!--facet-->
+    <h:panelGroup rendered="#{person.sex eq 'male'}">
+        <h:panelGrid columns="2" border="1">
+            <h:outputLabel for="chest">Klatka: </h:outputLabel>
+            <h:outputText value="#{maleModel.chest}" id="chest"/>
+
+            <h:outputLabel for="pas">Pas: </h:outputLabel>
+            <h:outputText value="#{maleModel.pas}" id="pas"/>
+
+            <h:outputLabel for="manLegLength">Długość nogi: </h:outputLabel>
+            <h:outputText value="#{maleModel.manLegLength}" id="manLegLength"/>
+        </h:panelGrid>
+    </h:panelGroup>
+
+    <!--kobieta-->
+    <h:panelGroup rendered="#{person.sex eq 'female'}">
+        <h:panelGrid columns="2" border="1">
+            <h:outputLabel for="hips">Biodra: </h:outputLabel>
+            <h:outputText value="#{femaleModel.hips}" id="hips"/>
+
+            <h:outputLabel for="bust">Obwód biustu: </h:outputLabel>
+            <h:outputText value="#{femaleModel.bust}" id="bust"/>
+
+            <h:outputLabel for="waist">Talia: </h:outputLabel>
+            <h:outputText value="#{femaleModel.waist}" id="waist"/>
+
+            <h:outputLabel for="cupSize">Wielkość miseczki: </h:outputLabel>
+            <h:outputText value="#{femaleModel.cupSize}" id="cupSize"/>
+
+            <h:outputLabel for="legLength">Długość nogi: </h:outputLabel>
+            <h:outputText value="#{femaleModel.legLength}" id="legLength"/>
+        </h:panelGrid>
+    </h:panelGroup>
+
+    <h2>Wspólne</h2>
+
+    <h:panelGroup rendered="#{person.sex eq 'female'}">
+        <h:panelGrid columns="2" border="1">
+
+            <h:outputLabel for="money">Pieniądze: </h:outputLabel>
+            <h:outputText value="#{preferences.moneyOnShopping}" id="money"/>
+
+            <h:outputLabel for="often">Częstość: </h:outputLabel>
+            <h:outputText value="#{preferences.howOften}" id="often"/>
+
+            <h:outputLabel for="color">Typ: </h:outputLabel>
+            <h:outputText value="#{preferences.preferedColor}" id="color"/>
+        </h:panelGrid>
+    </h:panelGroup>
+<h1>Preferowane ubrania</h1>
+    <ui:repeat value = "#{preferences.preferedType}" var = "s">
+        #{s} <br/>
+    </ui:repeat>
+
+    <br/>
+
+    <h:form>
+        <h:commandLink action="#{commercial.addClick()}">
+            <h:graphicImage value="commercial_image/com.png" width="220" height="133"/>
+        </h:commandLink> <br/>
+        Clicks:
+        <h:outputFormat value="#{commercial.getCounter()}"/>
+    </h:form>
+
+    <br/>
+
+</h:body>
+</html>

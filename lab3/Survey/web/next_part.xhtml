@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core" xml:lang="en" lang="en">
+<head>
+    <title>Title</title>
+</head>
+<body>
+
+<h:form>
+    <h:panelGroup>
+        <h:panelGrid columns="2">
+
+            <h:outputLabel>Ile jesteś w stanie przeznaczyć na ubrania: </h:outputLabel>
+            <h:selectOneMenu value = "#{preferences.moneyOnShopping}">
+                <f:selectItem itemValue = "do 100" itemLabel = "do 100zł" />
+                <f:selectItem itemValue = "100-500" itemLabel = "100-500zł" />
+                <f:selectItem itemValue = "500-1000" itemLabel = "500-1000zł" />
+                <f:selectItem itemValue = "ponad 1000" itemLabel = "powyżej 1000zł" />
+            </h:selectOneMenu>
+
+            <h:outputLabel>Jak często dokonujesz zakupu ubrań</h:outputLabel>
+            <h:selectOneMenu value = "#{preferences.howOften}">
+                <f:selectItem itemValue = "Codziennie" itemLabel = "Codziennie" />
+                <f:selectItem itemValue = "Raz w tygodniu" itemLabel = "Raz w tydgodniu" />
+                <f:selectItem itemValue = "Raz w miesiącu" itemLabel = "Raz w miesiącu" />
+                <f:selectItem itemValue = "Kilka razy w roku" itemLabel = "Kilka razy w roku" />
+            </h:selectOneMenu>
+
+
+            <h:outputLabel>Jakie kolory preferujesz </h:outputLabel>
+            <h:selectOneMenu value = "#{preferences.preferedColor}">
+                <f:selectItem itemValue = "Kolorowo-jaskrawe" itemLabel = "Kolorowo-jaskrawe" />
+                <f:selectItem itemValue = "Stonowane w szarosciach" itemLabel = "Stonowane w szarosciach" />
+                <f:selectItem itemValue = "W czerni i bieli" itemLabel = "W czerni i bieli" />
+                <f:selectItem itemValue = "W samej czerni" itemLabel = "W samej czerni" />
+            </h:selectOneMenu>
+
+
+            <h:outputLabel>Jaki typ ubrań preferujesz</h:outputLabel>
+
+            <h:selectManyListbox rendered="#{person.sex eq 'female'}" value="#{preferences.preferedType}" id="malePreferences">
+                <f:selectItem itemValue="garsonki" itemLabel="garsonki" />
+                <f:selectItem itemValue="bluzki" itemLabel="bluzki" />
+                <f:selectItem itemValue="spódniczki" itemLabel="spódniczki" />
+                <f:selectItem itemValue="spodnie" itemLabel="spodnie" />
+            </h:selectManyListbox>
+
+            <h:selectManyListbox rendered="#{person.sex eq 'male'}" value="#{preferences.preferedType}" id="femalePreferences">
+                <f:selectItem itemValue="spodenki" itemLabel="spodenki" />
+                <f:selectItem itemValue="garnitury" itemLabel="garnitury" />
+                <f:selectItem itemValue="koszule" itemLabel="koszule" />
+                <f:selectItem itemValue="krawaty" itemLabel="krawaty" />
+            </h:selectManyListbox>
+
+
+        </h:panelGrid>
+    </h:panelGroup>
+
+
+
+    <h:commandButton value = "Podsumuj" action = "submit_page" />
+</h:form>
+
+<br/>
+
+<h:form>
+    <h:commandLink action="#{commercial.addClick()}">
+        <h:graphicImage value="commercial_image/com.png" width="220" height="133"/>
+    </h:commandLink> <br/>
+    Clicks:
+    <h:outputFormat value="#{commercial.getCounter()}"/>
+</h:form>
+
+<br/>
+
+</body>
+</html>

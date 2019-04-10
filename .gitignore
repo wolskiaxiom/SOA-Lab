@@ -1,0 +1,6 @@
+postgres.sh
+wildfly-16.0.0.Final
+**/.idea
+**/out
+**/target
+**/lib

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html lang="en" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+    <title>Form</title>
+</h:head>
+
+<h:body>
+
+    <h:form>
+        <h:panelGroup>
+            <h:panelGrid columns="2">
+                <h:outputLabel for="name">Imię: </h:outputLabel>
+                <h:inputText value="#{person.name}" id="name" required="true"/>
+
+                <h:outputLabel for="last_name">Nazwisko: </h:outputLabel>
+                <h:inputText value="#{person.last_name}" id="last_name" required="true"/>
+
+                <h:outputLabel for="address">Adres: </h:outputLabel>
+                <h:inputText value="#{person.address}" id="address"/>
+
+                <h:outputLabel for="phoneNumber">Telefon: </h:outputLabel>
+                <h:inputText value="#{person.phoneNumber}" id="phoneNumber">
+                    <f:validateRegex pattern="^[0-9]*$"/>
+                </h:inputText>
+
+                <h:outputLabel for="email">Email: </h:outputLabel>
+                <h:inputText value="#{person.email}" id="email" required="true">
+                    <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]"/>
+                </h:inputText>
+
+                <h:outputLabel for="age">Wiek: </h:outputLabel>
+                <h:inputText value="#{person.age}" id="age">
+                    <f:convertNumber integerOnly="true" type="number"/>
+                    <f:validateLongRange minimum="1" maximum="120"/>
+                </h:inputText>
+
+                <h:outputLabel for="height">Wzrost: </h:outputLabel>
+                <h:inputText value="#{person.height}" id="height">
+                    <f:convertNumber integerOnly="true" type="number"/>
+                    <f:validateLongRange minimum="50" maximum="250"/>
+                </h:inputText>
+
+                <h:outputLabel for="weight">Waga: </h:outputLabel>
+                <h:inputText value="55" id="weight">
+                    <f:convertNumber integerOnly="true" type="number"/>
+                    <f:validateLongRange minimum="30" maximum="150"/>
+                </h:inputText>
+
+                <h:outputLabel for="sex">Płeć: </h:outputLabel>
+                <!--                <h:selectOneMenu value="#{person.sex}" id="sex">-->
+                <!--                    <f:selectItem itemValue="female" itemLabel="Kobieta"/>-->
+                <!--                    <f:selectItem itemValue="male" itemLabel="Mężczyzna"/>-->
+                <!--                    <f:ajax listener="#{person.changeSex()}" eeeexecute="sex" render="woman man"/>-->
+                <!--                </h:selectOneMenu>-->
+                <h:selectOneRadio id="sex" value="#{person.sex}" onchange="submit()" valueChangeListener="#{person.changedGenderListener}" required="true">
+                    <f:selectItem itemValue="male" itemLabel="Male" />
+                    <f:selectItem itemValue="female" itemLabel="Female" />
+                </h:selectOneRadio>
+
+            </h:panelGrid>
+        </h:panelGroup>
+
+        <h:panelGroup id="woman">
+            <h:panelGrid columns="2">
+                <h:outputLabel for="bust" rendered="#{person.sex eq 'female'}">Obwód biustu: </h:outputLabel>
+                <h:inputText value="#{femaleModel.bust}" id="bust" rendered="#{person.sex eq 'female'}"/>
+
+                <h:outputLabel for="cupSize" rendered="#{person.sex eq 'female'}">Wielkość miseczki: </h:outputLabel>
+                <h:inputText value="#{femaleModel.cupSize}" id="cupSize" rendered="#{person.sex eq 'female'}"/>
+
+                <h:outputLabel for="waist" rendered="#{person.sex eq 'female'}">Talia: </h:outputLabel>
+                <h:inputText valuse="#{femaleModel.waist}" id="waist" rendered="#{person.sex eq 'female'}"/>
+
+                <h:outputLabel for="hips" rendered="#{person.sex eq 'female'}">Biodra: </h:outputLabel>
+                <h:inputText value="#{femaleModel.hips}" id="hips" rendered="#{person.sex eq 'female'}"/>
+
+                <h:outputLabel for="legLength" rendered="#{person.sex eq 'female'}">Długość nogi: </h:outputLabel>
+                <h:inputText value="#{femaleModel.legLength}" id="legLength" rendered="#{person.sex eq 'female'}"/>
+            </h:panelGrid>
+        </h:panelGroup>
+
+        <h:panelGroup id="man">
+            <h:panelGrid columns="2">
+                <h:outputLabel for="chest" rendered="#{person.sex eq 'male'}">Klatka: </h:outputLabel>
+                <h:inputText value="#{maleModel.chest}" id="chest" rendered="#{person.sex eq 'male'}"/>
+
+                <h:outputLabel for="pas" rendered="#{person.sex eq 'male'}">Pas: </h:outputLabel>
+                <h:inputText value="#{maleModel.pas}" id="pas" rendered="#{person.sex eq 'male'}"/>
+
+                <h:outputLabel for="manLegLength" rendered="#{person.sex eq 'male'}">Długość nogi: </h:outputLabel>
+                <h:inputText value="#{maleModel.manLegLength}" id="manLegLength" rendered="#{person.sex eq 'male'}"/>
+
+            </h:panelGrid>
+        </h:panelGroup>
+
+        <h:commandButton action="next_part" value="Dalej"/>
+    </h:form>
+<br/>
+
+    <h:form>
+        <h:commandLink action="#{commercial.addClick()}">
+            <h:graphicImage value="commercial_image/com.png" width="220" height="133"/>
+        </h:commandLink> <br/>
+        Clicks:
+        <h:outputFormat value="#{commercial.getCounter()}"/>
+    </h:form>
+
+<br/>
+
+</h:body>
+</html>
