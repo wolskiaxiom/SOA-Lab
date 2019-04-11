@@ -7,10 +7,11 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-@NamedQuery(
-        name = "getAllAuthorsFirstAndLastNamesWithTheirBooks",
-        query = "Select a.firstName, a.lastName, b.title from Author a, Book b")
-
+@NamedQueries({
+        @NamedQuery(
+                name = "getAllAuthors",
+                query = "Select a from Author a")
+})
 @Entity
 @Table(name = "author")
 public class Author implements Serializable {

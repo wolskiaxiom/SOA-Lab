@@ -35,6 +35,46 @@ public class Borrowing  implements Serializable {
         this.id = new ReaderBookId(reader.getIdReader(), book.getIdBook());
     }
 
+    public ReaderBookId getId() {
+        return id;
+    }
+
+    public void setId(ReaderBookId id) {
+        this.id = id;
+    }
+
+    public Reader getReader() {
+        return reader;
+    }
+
+    public void setReader(Reader reader) {
+        this.reader = reader;
+    }
+
+    public Book getBook() {
+        return book;
+    }
+
+    public void setBook(Book book) {
+        this.book = book;
+    }
+
+    public Date getBorrowingDate() {
+        return borrowingDate;
+    }
+
+    public void setBorrowingDate(Date borrowingDate) {
+        this.borrowingDate = borrowingDate;
+    }
+
+    public Date getReturningDate() {
+        return returningDate;
+    }
+
+    public void setReturningDate(Date returningDate) {
+        this.returningDate = returningDate;
+    }
+
     public boolean equals(Object o) {
         if (this == o)
             return true;

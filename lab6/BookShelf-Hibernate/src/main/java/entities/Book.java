@@ -13,7 +13,12 @@ import java.util.Objects;
 //@ManagedBean
 @Entity
 @Table(name = "book")
-//@Embeddable
+@NamedQueries({
+        @NamedQuery(name = "getAllBooks",
+                query = "Select b from Book b"),
+        @NamedQuery(name = "getAllBooksWithAuthors",
+        query = "SELECT b, a.firstName, a.lastName from Book b, Author a")
+})
 public class Book implements Serializable {
 
     @Id

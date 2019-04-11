@@ -8,7 +8,7 @@
   <artifactId>lab6-book-shelf-exercise</artifactId>
   <version>1.0-SNAPSHOT</version>
 
-  <name>lab6-book-shelf</name>
+  <name>lab6-library</name>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -40,6 +40,11 @@
       <groupId>postgresql</groupId>
       <artifactId>postgresql</artifactId>
       <version>9.1-901-1.jdbc4</version>
+    </dependency>
+    <dependency>
+      <groupId>javax</groupId>
+      <artifactId>javaee-api</artifactId>
+      <version>7.0</version>
     </dependency>
 
   </dependencies>

@@ -1,8 +1,10 @@
+import datasources.DatabaseService;
 import entities.Book;
 
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Vector;
 
 @ApplicationScoped
@@ -24,7 +26,7 @@ public class BooksManager {
          return "success";
     }
 
-    public ArrayList<Book> getBooks() {
+    public List<Book> getBooks() {
         return databaseServiceInstance.readBooks();
     }
 
