@@ -42,7 +42,7 @@ public class Shelf implements Serializable {
 
 
     public Shelf() {}
-    public  ArrayList<Book> getBooks()  {
+    public  List<Book> getBooks()  {
         return booksManager.getBooks();
     }
 

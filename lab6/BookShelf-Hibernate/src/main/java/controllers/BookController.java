@@ -37,9 +37,11 @@ public class BookController {
     }
 
     public static void updateBook(Book book){
+        entityManager.getTransaction().begin();
         Book edited = entityManager.find(Book.class, book.getIdBook());
         edited.setAuthor(book.getAuthor());
         edited.setReaders(book.getReaders());
         edited.setTitle(book.getTitle());
+        entityManager.getTransaction().commit();
     }
 }

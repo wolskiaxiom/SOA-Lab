@@ -1,22 +1,25 @@
 package app;
 
-import entities.Author;
-import entities.Book;
-import entities.Borrowing;
-import entities.Reader;
+import controllers.AuthorController;
+import controllers.BorrowingController;
+import controllers.ReaderController;
+import datasources.DatabaseService;
+import entities.*;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 public class App {
 
     public static void main(String[] args) {
-        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("lab6_jpa");
-        EntityManager em = entityManagerFactory.createEntityManager();
+//        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("lab6_jpa");
+//        EntityManager em = entityManagerFactory.createEntityManager();
+        EntityManager em = DatabaseService.getInstance().getEntityManager();
 
         try{
             em.getTransaction().begin();
@@ -52,9 +55,13 @@ public class App {
             em.getTransaction().commit();
 
 
+            System.out.println(AuthorController.readAllAuthorBooks(mickiewicz));
+            System.out.println(ReaderController.readAllBorrowedBooksByReader(lukasz));
 
-
-
+//            lukaszPotop.setBook(panTadeusz);
+            lukaszPotop.setReturningDate(new Date(2001, Calendar.AUGUST, 22));
+            BorrowingController.updateBorrowing(lukaszPotop);
+            System.out.println(ReaderController.readAllBorrowedBooksByReader(lukasz));
 //            TypedQuery<Object []> query = (TypedQuery<Object[]>)
 //                    em.createNamedQuery("getAllAuthorsFirstAndLastNamesWithTheirBooks");
 //

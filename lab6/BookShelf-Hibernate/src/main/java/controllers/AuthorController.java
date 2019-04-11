@@ -23,8 +23,10 @@ public class AuthorController {
     }
 
 
-    public static List<Book> readAllAuthorsBooks(Author author){
-        return  (List<Book>) entityManager.createQuery("SELECT b from Author a, Book b where b.author=a").getResultList();
+    public static List<Book> readAllAuthorBooks(Author author){
+        TypedQuery<Book> query = entityManager.createQuery("SELECT b from Author a, Book b where b member of a.books and a.idAuthor = :idAuthor", Book.class);
+
+        return query.setParameter("idAuthor", author.getIdAuthor()).getResultList();
 
     }
 
@@ -35,10 +37,12 @@ public class AuthorController {
         entityManager.getTransaction().commit();
     }
 
-    public static void updateBook(Author author){
+    public static void updateAuthor(Author author){
+        entityManager.getTransaction().begin();
         Author edited = entityManager.find(Author.class, author.getIdAuthor());
         edited.setFirstName(author.getFirstName());
         edited.setLastName(author.getLastName());
         edited.setBooks(author.getBooks());
+        entityManager.getTransaction().commit();
     }
 }
