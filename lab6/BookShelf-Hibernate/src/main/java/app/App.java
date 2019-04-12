@@ -36,6 +36,7 @@ public class App {
             mickiewicz.getBooks().add(panTadeusz);
 
 
+
             Reader lukasz = new Reader("Lukasz", "Bojler");
             Reader bojler = new Reader("Bojler", "Lukasz");
 
@@ -54,6 +55,9 @@ public class App {
             em.persist(lukaszPotop);
             em.getTransaction().commit();
 
+            mickiewicz.setLastName("niemickiewicz");
+
+            AuthorController.updateAuthor(mickiewicz);
 
             System.out.println(AuthorController.readAllAuthorBooks(mickiewicz));
             System.out.println(ReaderController.readAllBorrowedBooksByReader(lukasz));

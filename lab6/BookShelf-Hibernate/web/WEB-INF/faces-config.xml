@@ -4,40 +4,40 @@
     xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee 
     http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
 
-    <navigation-rule>
-        <from-view-id>/index.xhtml</from-view-id>
-        <navigation-case>
-            <from-action>#{shelf.createChosenBooks}</from-action>
-            <from-outcome>success</from-outcome>
-            <to-view-id>/book_submit.xhtml</to-view-id>
-        </navigation-case>
-    </navigation-rule>
+<!--    <navigation-rule>-->
+<!--        <from-view-id>/index.xhtml</from-view-id>-->
+<!--        <navigation-case>-->
+<!--            <from-action>#{shelf.createChosenBooks}</from-action>-->
+<!--            <from-outcome>success</from-outcome>-->
+<!--            <to-view-id>/book_submit.xhtml</to-view-id>-->
+<!--        </navigation-case>-->
+<!--    </navigation-rule>-->
 
-    <navigation-rule>
-        <from-view-id>/look_through.xhtml</from-view-id>
-        <navigation-case>
-            <from-action>#{shelf.createChosenBooks}</from-action>
-            <from-outcome>success</from-outcome>
-            <to-view-id>/book_submit.xhtml</to-view-id>
-        </navigation-case>
-    </navigation-rule>
+<!--    <navigation-rule>-->
+<!--        <from-view-id>/look_through.xhtml</from-view-id>-->
+<!--        <navigation-case>-->
+<!--            <from-action>#{shelf.createChosenBooks}</from-action>-->
+<!--            <from-outcome>success</from-outcome>-->
+<!--            <to-view-id>/book_submit.xhtml</to-view-id>-->
+<!--        </navigation-case>-->
+<!--    </navigation-rule>-->
 
-    <navigation-rule>
-        <from-view-id>/books.xhtml</from-view-id>
-        <navigation-case>
-            <from-action>#{shelf.createChosenBooks}</from-action>
-            <from-outcome>success</from-outcome>
-            <to-view-id>/book_submit.xhtml</to-view-id>
-        </navigation-case>
-    </navigation-rule>
+<!--    <navigation-rule>-->
+<!--        <from-view-id>/books.xhtml</from-view-id>-->
+<!--        <navigation-case>-->
+<!--            <from-action>#{shelf.createChosenBooks}</from-action>-->
+<!--            <from-outcome>success</from-outcome>-->
+<!--            <to-view-id>/book_submit.xhtml</to-view-id>-->
+<!--        </navigation-case>-->
+<!--    </navigation-rule>-->
 
-    <navigation-rule>
-        <from-view-id>/add_book.xhtml</from-view-id>
-        <navigation-case>
-            <from-action>#{booksManager.addBook(book)}</from-action>
-            <from-outcome>success</from-outcome>
-            <to-view-id>/index.xhtml</to-view-id>
-        </navigation-case>
-    </navigation-rule>
+<!--    <navigation-rule>-->
+<!--        <from-view-id>/add_book.xhtml</from-view-id>-->
+<!--        <navigation-case>-->
+<!--            <from-action>#{booksManager.addBook(book)}</from-action>-->
+<!--            <from-outcome>success</from-outcome>-->
+<!--            <to-view-id>/index.xhtml</to-view-id>-->
+<!--        </navigation-case>-->
+<!--    </navigation-rule>-->
 
 </faces-config>

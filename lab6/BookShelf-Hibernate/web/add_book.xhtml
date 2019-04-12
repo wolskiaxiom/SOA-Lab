@@ -2,54 +2,59 @@
 <!DOCTYPE html
         PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core" xml:lang="en" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 <h:head>
     <title>Add book to collection</title>
 </h:head>
 <h:body>
 
-    <h:form>
-        <h:panelGroup>
-            <h:panelGrid columns="2">
-                <h:outputLabel for="titleInput">Title: </h:outputLabel>
-                <h:inputText value="#{book.title}" id="titleInput" required="true"/>
 
-                <h:outputLabel for="nameInput">entities.Author's First Name: </h:outputLabel>
-                <h:inputText value="#{book.authorFirstName}" id="nameInput" required="true"/>
 
-                <h:outputLabel for="lastNameInput">entities.Author's Last Name: </h:outputLabel>
-                <h:inputText value="#{book.authorLastName}" id="lastNameInput" required="true"/>
+    <h:form id="form">
+        <p:panel id="panel" header="Add book to Library" style="margin-bottom:10px;">
+            <p:messages id="messages" />
+            <h:panelGrid columns="3" cellpadding="5">
+                <p:outputLabel for="text1" value="Text 1:" />
+                <p:inputText id="text1" value="#{resetInputView.text1}" required="true" label="Firstname">
+                    <f:validateLength minimum="2" />
+                </p:inputText>
+                <p:message for="text1" />
 
-                <h:outputLabel for="issueYearInput">Issue Year </h:outputLabel>
-                <h:inputText value="#{book.issueYear}" id="issueYearInput" required="true"/>
-
-                <h:outputLabel for="originPriceInput">Price </h:outputLabel>
-                <h:inputText value="#{book.originPrice}" id="originPriceInput" required="true"/>
-
-                <h:outputLabel for="isbnInput">ISBN </h:outputLabel>
-                <h:inputText value="#{book.isbn}" id="isbnInput" required="true"/>
-
-                <h:outputLabel for="typeList">Type</h:outputLabel>
-                <h:selectOneMenu value="#{book.type}" id="typeList">
-                    <f:selectItem itemValue="Nauka" itemLabel="Nauka" />
-                    <f:selectItem itemValue="Drama" itemLabel="Dramat" />
-                    <f:selectItem itemValue="Bajka" itemLabel="Bajka" />
-                    <f:selectItem itemValue="Fantaza" itemLabel="Fantaza" />
-                </h:selectOneMenu>
-
-                <h:outputLabel for="currencyList">Currency </h:outputLabel>
-                <h:selectOneMenu value="#{book.currency}" id="currencyList">
-                    <f:selectItem itemValue="PLN" itemLabel="PLN" />
-                    <f:selectItem itemValue="USD" itemLabel="USD" />
-                    <f:selectItem itemValue="EUR" itemLabel="EUR" />
-                </h:selectOneMenu>
-
-                <h:outputLabel for="isbnInput">Click ------></h:outputLabel>
-                <h:commandButton value="SAVE" action="#{booksManager.addBook(book)}"/>
+                <p:outputLabel for="text2" value="Text 2:" />
+                <p:inputText id="text2" value="#{resetInputView.text2}" required="true" label="Surname"/>
+                <p:message for="text2" />
             </h:panelGrid>
-        </h:panelGroup>
+        </p:panel>
+
+        <p:toolbar>
+            <f:facet name="left">
+                <p:commandButton value="Submit" update="panel" action="#{resetInputView.save}" style="margin-right:20px;" />
+            </f:facet>
+
+            <f:facet name="right">
+                <p:commandButton value="Reset Fail" update="panel" process="@this" action="#{resetInputView.resetFail}" style="margin-right:20px;" />
+
+                <p:commandButton value="Reset Tag" update="panel" process="@this" style="margin-right:20px;" >
+                    <p:resetInput target="panel" />
+                </p:commandButton>
+
+                <p:commandButton value="Reset Code" update="panel" process="@this" action="#{resetInputView.reset}"  style="margin-right:20px;" />
+
+                <p:commandButton value="Reset Non-Ajax" action="#{resetInputView.reset}" immediate="true" ajax="false" style="margin-right:20px;">
+                    <p:resetInput target="panel" />
+                </p:commandButton>
+
+                <h:commandButton value="Reset p:ajax" style="margin-right:20px;" >
+                    <p:ajax update="panel" resetValues="true" />
+                </h:commandButton>
+            </f:facet>
+        </p:toolbar>
     </h:form>
+
+
 
 </h:body>
 </html>

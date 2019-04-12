@@ -38,11 +38,27 @@ public class AuthorController {
     }
 
     public static void updateAuthor(Author author){
-        entityManager.getTransaction().begin();
-        Author edited = entityManager.find(Author.class, author.getIdAuthor());
-        edited.setFirstName(author.getFirstName());
-        edited.setLastName(author.getLastName());
-        edited.setBooks(author.getBooks());
-        entityManager.getTransaction().commit();
+        System.out.println(author.getIdAuthor());
+        System.out.println(author.getFirstName());
+        System.out.println(author.getLastName());
+        System.out.println(author.getBooks());
+//        entityManager.getTransaction().begin();
+//        Author edited = entityManager.find(Author.class, author.getIdAuthor());
+//        System.out.println(edited.getFirstName());
+//        System.out.println(edited.getLastName());
+//        System.out.println(edited.getIdAuthor());
+//        System.out.println(edited.getBooks());
+//        edited.setFirstName(author.getFirstName());
+//        edited.setLastName(author.getLastName());
+//        edited.setBooks(author.getBooks());
+//        entityManager.getTransaction().commit();
+    }
+
+    public static void updateAuthor(Author author, long id){
+        System.out.println(author.getIdAuthor());
+        System.out.println(id);
+        System.out.println(author.getFirstName());
+        System.out.println(author.getLastName());
+        System.out.println(author.getBooks());
     }
 }

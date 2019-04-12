@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <title>Update author</title>
+</h:head>
+<h:body>
+
+    <h:form id="form">
+        <p:panel id="panel" header="Form" style="margin-bottom:10px;">
+            <p:messages id="messages" />
+            <h:panelGrid columns="3" cellpadding="5">
+                <p:outputLabel for="IdId" value="First name:" />
+                <p:outputLabel id="IdId" value="#{authorBean.idUpdatedAuthor}"  label="idid">
+                </p:outputLabel>
+                <p:message for="IdId" />
+                <p:outputLabel for="firstNameId" value="First name:" />
+                <p:inputText id="firstNameId" value="#{authorBean.updatedFirstName}" required="true" label="Firstname">
+                    <f:validateLength minimum="2" />
+                </p:inputText>
+                <p:message for="firstNameId" />
+
+                <p:outputLabel for="lastNameId" value="Last name:" />
+                <p:inputText id="lastNameId" value="#{authorBean.updatedListName}" required="true" label="Lastname"/>
+                <p:message for="lastNameId" />
+            </h:panelGrid>
+        </p:panel>
+
+        <p:toolbar>
+            <f:facet name="left">
+                <p:commandButton value="Submit" update="panel"  action="#{authorBean.updateAuthor}" style="margin-right:20px;">
+                    <f:ajax execute="firstNameId lastNameId IdId"/>
+                </p:commandButton>
+            </f:facet>
+
+            <f:facet name="right">
+                <h:commandButton value="Reset p:ajax" style="margin-right:20px;" >
+                    <p:ajax update="panel" resetValues="true" />
+                </h:commandButton>
+            </f:facet>
+        </p:toolbar>
+    </h:form>
+
+</h:body>
+</html>

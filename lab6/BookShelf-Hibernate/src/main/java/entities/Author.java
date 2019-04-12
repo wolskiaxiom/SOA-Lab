@@ -1,5 +1,7 @@
 package entities;
 
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -14,6 +16,8 @@ import java.util.Set;
 })
 @Entity
 @Table(name = "author")
+@ManagedBean(name = "author")
+@RequestScoped
 public class Author implements Serializable {
 
     @Id
