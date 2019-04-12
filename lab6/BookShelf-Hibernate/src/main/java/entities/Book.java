@@ -9,8 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-//@RequestScoped
-//@ManagedBean
 @Entity
 @Table(name = "book")
 @NamedQueries({
@@ -48,6 +46,10 @@ public class Book implements Serializable {
         this.title = title;
         this.author = author;
         this.readers = borrowings;
+    }
+
+    public Book(Author author) {
+        this.author = author;
     }
 
     public Book(String title, Author author) {

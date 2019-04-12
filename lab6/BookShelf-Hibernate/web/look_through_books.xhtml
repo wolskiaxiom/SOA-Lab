@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core" xml:lang="en" lang="pl">
+<h:head>
+    <style type="text/css">
+        td {
+            border: 1px solid black;
+            margin: 2px;
+            padding: 3px;
+        }
+        .button_class{
+            width: 60px;
+            height: 30px;
+        }
+        .edit_button_class{
+            width: 65px;
+            height: 35px;
+        }
+    </style>
+
+    <title>Look through</title>
+</h:head>
+<body>
+
+
+<h:form id="formm">
+    <h:dataTable value="#{bookBean.allBooks}" id="ajaxOutputBooks" var="book" border="1" >
+        <h:column >
+            <f:facet name="header">Id</f:facet>
+            #{book.idBook}
+        </h:column>
+
+        <h:column >
+            <f:facet name="header">Title</f:facet>
+            #{book.title}
+        </h:column>
+
+        <h:column>
+            <f:facet name="header">First Name of Author</f:facet>
+            #{book.author.firstName}
+        </h:column>
+
+        <h:column>
+            <f:facet name="header">Last Name of Author</f:facet>
+            #{book.author.lastName}
+        </h:column>
+
+        <h:column >
+            <f:facet name="header">Actions</f:facet>
+            <h:commandButton image="buttons/edit-button-blue-hi.png"  styleClass="edit_button_class"  action="#{bookBean.goToUpdateBook(book)}"/>
+            <h:commandButton image="buttons/delete-button.png" styleClass="button_class" action="#{bookBean.deleteBook(book)}"/>
+        </h:column>
+
+    </h:dataTable>
+    <h:commandButton value = "Submit" action = "#{shelf.createChosenBooks}"/>
+</h:form>
+
+
+
+
+
+</body>
+</html>

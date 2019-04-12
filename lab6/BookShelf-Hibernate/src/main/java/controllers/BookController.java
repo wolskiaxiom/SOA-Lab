@@ -2,6 +2,7 @@ package controllers;
 
 
 import datasources.DatabaseService;
+import entities.Author;
 import entities.Book;
 
 import javax.persistence.EntityManager;
@@ -14,6 +15,9 @@ public class BookController {
 
     public static void addBook(Book book){
         entityManager.getTransaction().begin();
+        Author author = entityManager.find(Author.class, book.getAuthor().getIdAuthor());
+        author.getBooks().add(book);
+        book.setAuthor(author);
         entityManager.persist(book);
         entityManager.getTransaction().commit();
     }
@@ -43,5 +47,9 @@ public class BookController {
         edited.setReaders(book.getReaders());
         edited.setTitle(book.getTitle());
         entityManager.getTransaction().commit();
+    }
+
+    public static Book getBookById(long idbook){
+        return entityManager.find(Book.class, idbook);
     }
 }
