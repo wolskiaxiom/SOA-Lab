@@ -93,8 +93,9 @@ public class AuthorController {
                 borrowingRoot.get("book").get("author").get("lastName"));
         criteriaQuery.orderBy(builder.desc(builder.count(borrowingRoot)));
         TypedQuery<Object []> objectTypedQuery = (TypedQuery<Object []>) entityManager.createQuery(criteriaQuery);
-        Object[] result = objectTypedQuery.getSingleResult();
+        List<Object[]> result = objectTypedQuery.getResultList();
+        Object[] singleResult = result.get(0);
 
-        return " "+ result[1]+ " " +result[2];
+        return " "+ singleResult[1]+ " " +singleResult[2];
     }
 }

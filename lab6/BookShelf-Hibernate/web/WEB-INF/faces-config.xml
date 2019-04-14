@@ -23,6 +23,14 @@
     </navigation-rule>
 
     <navigation-rule>
+        <from-view-id>/add_borrowing.xhtml</from-view-id>
+        <navigation-case>
+            <from-action>#{borrowingBean.addBorrowing}</from-action>
+            <to-view-id>/index.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
         <from-view-id>/look_through_readers.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>success</from-outcome>
@@ -30,4 +38,36 @@
         </navigation-case>
     </navigation-rule>
 
+
+    <navigation-rule>
+        <from-view-id>/look_through_borrowings.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/update_borrowing.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/update_borrowing.xhtml</from-view-id>
+        <navigation-case>
+            <from-action>#{borrowingBean.updateBorrowing}</from-action>
+            <to-view-id>/index.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/manage_authors.xhtml</from-view-id>
+        <navigation-case>
+            <from-action>#{authorBean.saveAuthor}</from-action>
+            <to-view-id>/index.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/add_author.xhtml</from-view-id>
+        <navigation-case>
+            <from-action>#{authorBean.saveAuthor}</from-action>
+            <to-view-id>/index.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
 </faces-config>

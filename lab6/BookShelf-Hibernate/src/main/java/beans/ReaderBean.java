@@ -3,13 +3,14 @@ package beans;
 import controllers.ReaderController;
 import entities.Reader;
 
+import javax.enterprise.context.RequestScoped;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import java.util.ArrayList;
 import java.util.List;
 
 @ManagedBean(name = "readerBean")
-@ApplicationScoped
+@RequestScoped
 public class ReaderBean {
 
     private Reader readerEntity = new Reader();
@@ -21,7 +22,7 @@ public class ReaderBean {
     public String addReader(){
         readerEntity.setBooks(new ArrayList<>());
         ReaderController.addReader(readerEntity);
-        return "index?faces-reditect=true";
+        return "success";
     }
 
     public String deleteReader(long idReader){

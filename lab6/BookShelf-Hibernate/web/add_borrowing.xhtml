@@ -26,7 +26,7 @@
 
                 <p:outputLabel for="book">Book:  </p:outputLabel>
                 <p:selectOneMenu value="#{borrowingBean.bookId}" id="book"  >
-                    <f:selectItems value="#{bookBean.availableAuthors}" />
+                    <f:selectItems value="#{borrowingBean.availableBook}" />
                 </p:selectOneMenu>
 
                 <p:outputLabel for="buttonBorrowing" value="Borrowing date" />

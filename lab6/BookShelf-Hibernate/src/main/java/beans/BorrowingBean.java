@@ -6,6 +6,7 @@ import controllers.ReaderController;
 import entities.Book;
 import entities.Borrowing;
 import entities.Reader;
+import entities.ReaderBookId;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
@@ -15,7 +16,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-@ManagedBean(name = "borrowingBean",eager = true)
+@ManagedBean(name = "borrowingBean")
 @ApplicationScoped
 public class BorrowingBean {
 
@@ -26,14 +27,18 @@ public class BorrowingBean {
     private Date borrowingDate;
     private Date returningDate;
 
+    private List<Borrowing> borrowings;
+
     private List<SelectItem> availableBook;
     private List<SelectItem> availableReader;
+
+    private Borrowing updatedBorrowing;
 
     @PostConstruct
     public void init(){
         availableBook = new ArrayList<>();
         availableReader = new ArrayList<>();
-
+        borrowings = new ArrayList<>(BorrowingController.readAllBorrowings());
         for(Reader reader: ReaderController.readAllReaders()){
             availableReader.add(new SelectItem(reader.getIdReader(), reader.getLastName()+" "+reader.getFirstName()));
         }
@@ -51,6 +56,26 @@ public class BorrowingBean {
         borrowing.setBorrowingDate(borrowingDate);
         borrowing.setReturningDate(returningDate);
         BorrowingController.addBorrowing(borrowing);
+    }
+
+    public String deleteBorrowing(long idReader, long idBook){
+        BorrowingController.deleteBorrowing(new ReaderBookId(idReader, idBook));
+        return "success";
+    }
+
+    public String editBorrowing(Borrowing borrowing, Reader reader, Book book){
+        System.out.println(borrowing.getReader().getIdReader());
+        System.out.println(borrowing.getBook().getIdBook());
+        System.out.println(borrowing.getBorrowingDate());
+        System.out.println(borrowing.getReturningDate());
+        updatedBorrowing = new Borrowing(reader, book);
+        updatedBorrowing.setBorrowingDate(borrowing.getBorrowingDate());
+        updatedBorrowing.setReturningDate(borrowing.getReturningDate());
+        return "success";
+    }
+
+    public String updateBorrowing(){
+        return "success";
     }
 
     public List<SelectItem> getAvailableBook() {
@@ -105,7 +130,24 @@ public class BorrowingBean {
         return returningDate;
     }
 
+    public List<Borrowing> getBorrowings() {
+        borrowings = BorrowingController.readAllBorrowings();
+        return borrowings;
+    }
+
+    public void setBorrowings(List<Borrowing> borrowings) {
+        this.borrowings = borrowings;
+    }
+
     public void setReturningDate(Date returningDate) {
         this.returningDate = returningDate;
+    }
+
+    public Borrowing getUpdatedBorrowing() {
+        return updatedBorrowing;
+    }
+
+    public void setUpdatedBorrowing(Borrowing updatedBorrowing) {
+        this.updatedBorrowing = updatedBorrowing;
     }
 }
