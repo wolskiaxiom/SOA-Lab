@@ -3,9 +3,15 @@ package controllers;
 import datasources.DatabaseService;
 import entities.Author;
 import entities.Book;
+import entities.Borrowing;
+import entities.Reader;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
+import javax.persistence.criteria.*;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class AuthorController {
@@ -42,16 +48,6 @@ public class AuthorController {
         System.out.println(author.getFirstName());
         System.out.println(author.getLastName());
         System.out.println(author.getBooks());
-//        entityManager.getTransaction().begin();
-//        Author edited = entityManager.find(Author.class, author.getIdAuthor());
-//        System.out.println(edited.getFirstName());
-//        System.out.println(edited.getLastName());
-//        System.out.println(edited.getIdAuthor());
-//        System.out.println(edited.getBooks());
-//        edited.setFirstName(author.getFirstName());
-//        edited.setLastName(author.getLastName());
-//        edited.setBooks(author.getBooks());
-//        entityManager.getTransaction().commit();
     }
 
     public static void updateAuthor(Author author, long id){
@@ -60,5 +56,45 @@ public class AuthorController {
         System.out.println(author.getFirstName());
         System.out.println(author.getLastName());
         System.out.println(author.getBooks());
+    }
+
+    public static List<Author> getAllAuthorsWhoseBookWasBorrowedAtSpecificTime(Date startTime, Date endTime){
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Author> criteriaQuery = cb.createQuery(Author.class);
+
+        Root<Book> bookRoot = criteriaQuery.from(Book.class);
+        Join<Book,Reader> bookReaderJoin = bookRoot.join("readers");
+        List<Predicate> conditions = new ArrayList<>();
+        conditions.add(cb.greaterThanOrEqualTo(bookReaderJoin.get("borrowingDate"),startTime));
+        conditions.add(cb.lessThanOrEqualTo(bookReaderJoin.get("borrowingDate"),endTime));
+        TypedQuery<Author> authorTypedQuery = entityManager.createQuery(criteriaQuery
+                .select(bookRoot.get("author"))
+                .where(conditions.toArray(new Predicate[]{}))
+                .distinct(true)
+        );
+        return authorTypedQuery.getResultList();
+    }
+    public static String getMostPopularAuthorByReader(long idReader){
+
+        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+
+        CriteriaQuery<Object []> criteriaQuery = builder.createQuery(Object[].class);
+
+        Root<Borrowing> borrowingRoot = criteriaQuery.from(Borrowing.class);
+        Join<Borrowing, Book> borrowingBookJoin = borrowingRoot.join("book");
+        criteriaQuery.multiselect(builder.count(borrowingRoot),
+                borrowingRoot.get("book").get("author").get("firstName"),
+                borrowingRoot.get("book").get("author").get("lastName"));
+        List<Predicate> conditions = new ArrayList<>();
+        conditions.add(builder.equal(borrowingRoot.get("reader").get("idReader"),idReader));
+        criteriaQuery.where(conditions.toArray(new Predicate[]{}));
+
+        criteriaQuery.groupBy(borrowingRoot.get("book").get("author").get("firstName"),
+                borrowingRoot.get("book").get("author").get("lastName"));
+        criteriaQuery.orderBy(builder.desc(builder.count(borrowingRoot)));
+        TypedQuery<Object []> objectTypedQuery = (TypedQuery<Object []>) entityManager.createQuery(criteriaQuery);
+        Object[] result = objectTypedQuery.getSingleResult();
+
+        return " "+ result[1]+ " " +result[2];
     }
 }

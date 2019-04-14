@@ -10,7 +10,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.*;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -54,38 +53,38 @@ public class ReaderController {
         entityManager.getTransaction().commit();
     }
 
-    public static List<Author> getAllReadersWhoBorrowedAuthorsBookAtSpecificTime(long idAuthor, Date borrowingDate, Date returningDate){
+    public static List<Reader> getAllReadersWhoReadAuthorsBookAtSpecificTime(long idAuthor, Date borrowingDate, Date returningDate){
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+
         CriteriaQuery<Reader> query = cb.createQuery(Reader.class);
-//        Root<Borrowing> borrowingRoot = query.from(Borrowing.class);
-//        Root<Book> bookRoot = query.from(Book.class);
-//        Root<Author> authorRoot = query.from(Author.class);
         Root<Reader> readerRoot = query.from(Reader.class);
-//        Root<Borrowing> borrowingRoot = query.from(Borrowing.class);
-//        Join<Reader,Borrowing> borrowingJoin = readerRoot.join("idReader");
-//        Join<Borrowing, Book> borrowingBookJoin = borrowingJoin.join("books");
-//        Join<Book, Author> bookAuthorJoin = borrowingBookJoin.join("author");
-//        List<Predicate> conditions = new ArrayList<>();
-//        conditions.add(cb.equal(bookAuthorJoin.get("idauthor"), idAuthor));
-
-//        TypedQuery<Reader> readerTypedQuery = entityManager.createQuery(query
-//                .select(readerRoot));
-//                .where(conditions.toArray(new Predicate[]{})));
-
-        CriteriaQuery<Author> criteriaQuery = cb.createQuery(Author.class);
-
-        Root<Book> bookRoot = criteriaQuery.from(Book.class);
-        Join<Book,Reader> bookReaderJoin = bookRoot.join("readers");
+        Join<Reader,Book> readerBookJoin = readerRoot.join("books");
+        Root<Book> bookRoot = query.from(Book.class);
         List<Predicate> conditions = new ArrayList<>();
-        conditions.add(cb.lessThanOrEqualTo(bookReaderJoin.get("borrowingDate"),new Date(1999, Calendar.AUGUST,1)));
-        TypedQuery<Author> authorTypedQuery = entityManager.createQuery(criteriaQuery
-                    .select(bookRoot.get("author")).where(conditions.toArray(new Predicate[]{})));
-
-//        Join<Author, Book> authorBookJoin = authorRoot.join("idAuthor");
-
-//        return readerTypedQuery.getResultList();
-
-        return authorTypedQuery.getResultList();
-
+        conditions.add(cb.greaterThanOrEqualTo(readerBookJoin.get("borrowingDate"),borrowingDate));
+        conditions.add(cb.lessThanOrEqualTo(readerBookJoin.get("returningDate"),returningDate));
+        conditions.add(cb.equal(bookRoot.get("author").get("idAuthor"), idAuthor));
+        TypedQuery<Reader> readerTypedQuery = entityManager.createQuery(query
+                    .select(readerRoot)
+                    .where(conditions.toArray(new Predicate[]{}))
+                    .distinct(true)
+        );
+        return readerTypedQuery.getResultList();
     }
+
+    public static List<Reader> getAllReadersWhoReadExactBook(long idBook){
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Reader> query = criteriaBuilder.createQuery(Reader.class);
+        Root<Borrowing> borrowingRoot = query.from(Borrowing.class);
+        List<Predicate> conditions = new ArrayList<>();
+        conditions.add(criteriaBuilder.equal(borrowingRoot.get("book").get("idBook"),idBook));
+        TypedQuery<Reader> readerTypedQuery = entityManager.createQuery(query
+                .select(borrowingRoot.get("reader"))
+                .where(conditions.toArray(new Predicate[]{}))
+                .distinct(true)
+        );
+        return readerTypedQuery.getResultList();
+    }
+
+
 }
