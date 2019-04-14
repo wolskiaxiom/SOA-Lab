@@ -15,10 +15,12 @@ public class Borrowing  implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("idReader")
+    @JoinColumn(name = "reader_idreader", referencedColumnName = "idreader")
     private Reader reader;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("idBook")
+    @JoinColumn(name = "book_idbook", referencedColumnName = "idbook")
     private Book book;
 
     @Column(name = "borrowingdate")

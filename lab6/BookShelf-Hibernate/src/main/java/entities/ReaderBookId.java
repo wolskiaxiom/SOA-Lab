@@ -2,6 +2,7 @@ package entities;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import java.io.Serializable;
 import java.util.Objects;
@@ -10,10 +11,10 @@ import java.util.Objects;
 public class ReaderBookId implements Serializable {
 
 
-    @Column(name = "idreader")
+    @JoinColumn(name = "idreader")
     private long idReader;
 
-    @Column(name = "idbook")
+    @JoinColumn(name = "idbook")
     private long idBook;
 
     public ReaderBookId(){}

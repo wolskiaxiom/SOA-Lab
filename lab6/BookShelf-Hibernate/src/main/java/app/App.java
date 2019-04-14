@@ -22,50 +22,50 @@ public class App {
         EntityManager em = DatabaseService.getInstance().getEntityManager();
 
         try{
-            em.getTransaction().begin();
-
-
-            Author mickiewicz= new Author("Adam", "Mickiewicz");
-            em.persist(mickiewicz);
-
-            Book potop = new Book("Dziady");
-            Book  panTadeusz= new Book("Pan Tadeusz");
-            potop.setAuthor(mickiewicz);
-            panTadeusz.setAuthor(mickiewicz);
-            mickiewicz.getBooks().add(potop);
-            mickiewicz.getBooks().add(panTadeusz);
-
-
-
-            Reader lukasz = new Reader("Lukasz", "Bojler");
-            Reader bojler = new Reader("Bojler", "Lukasz");
-
-
-            Borrowing lukaszPotop = new Borrowing(lukasz, potop);
-            lukaszPotop.setBorrowingDate(new Date());
-            lukaszPotop.setReturningDate(new Date());
-//            lukaszPotop.
-//            lukasz.getBooks().add(lukaszPotop);
-
-
-
-            em.persist(potop);
-            em.persist(panTadeusz);
-            em.persist(lukasz);
-            em.persist(lukaszPotop);
-            em.getTransaction().commit();
-
-            mickiewicz.setLastName("niemickiewicz");
-
-            AuthorController.updateAuthor(mickiewicz);
-
-            System.out.println(AuthorController.readAllAuthorBooks(mickiewicz));
-            System.out.println(ReaderController.readAllBorrowedBooksByReader(lukasz));
-
-//            lukaszPotop.setBook(panTadeusz);
-            lukaszPotop.setReturningDate(new Date(2001, Calendar.AUGUST, 22));
-            BorrowingController.updateBorrowing(lukaszPotop);
-            System.out.println(ReaderController.readAllBorrowedBooksByReader(lukasz));
+//            em.getTransaction().begin();
+//
+//
+//            Author mickiewicz= new Author("Adam", "Mickiewicz");
+//            em.persist(mickiewicz);
+//
+//            Book potop = new Book("Dziady");
+//            Book  panTadeusz= new Book("Pan Tadeusz");
+//            potop.setAuthor(mickiewicz);
+//            panTadeusz.setAuthor(mickiewicz);
+//            mickiewicz.getBooks().add(potop);
+//            mickiewicz.getBooks().add(panTadeusz);
+//
+//
+//
+//            Reader lukasz = new Reader("Lukasz", "Bojler");
+//            Reader bojler = new Reader("Bojler", "Lukasz");
+//
+//
+//            Borrowing lukaszPotop = new Borrowing(lukasz, potop);
+//            lukaszPotop.setBorrowingDate(new Date());
+//            lukaszPotop.setReturningDate(new Date());
+////            lukaszPotop.
+////            lukasz.getBooks().add(lukaszPotop);
+//
+//
+//
+//            em.persist(potop);
+//            em.persist(panTadeusz);
+//            em.persist(lukasz);
+//            em.persist(lukaszPotop);
+//            em.getTransaction().commit();
+//
+//            mickiewicz.setLastName("niemickiewicz");
+//
+//            AuthorController.updateAuthor(mickiewicz);
+//
+//            System.out.println(AuthorController.readAllAuthorBooks(mickiewicz));
+//            System.out.println(ReaderController.readAllBorrowedBooksByReader(lukasz));
+//
+////            lukaszPotop.setBook(panTadeusz);
+//            lukaszPotop.setReturningDate(new Date(2001, Calendar.AUGUST, 22));
+//            BorrowingController.updateBorrowing(lukaszPotop);
+//            System.out.println(ReaderController.readAllBorrowedBooksByReader(lukasz));
 //            TypedQuery<Object []> query = (TypedQuery<Object[]>)
 //                    em.createNamedQuery("getAllAuthorsFirstAndLastNamesWithTheirBooks");
 //
@@ -76,6 +76,7 @@ public class App {
 //                System.out.println("Nazwisko autora: "+o[1]);
 //                System.out.println("Tytuł książki "+o[2]);
 //            }
+;
 
         }catch (Exception e){
             e.printStackTrace();
