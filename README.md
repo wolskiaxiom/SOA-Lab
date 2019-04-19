@@ -20,3 +20,6 @@ An application to manage my collection of books that uses Hibernate to map objec
 
 ### Lab 6 
 Enhancement of lab5 application in order to be able to manage books, readers, authors and borrowings in library. (Hibernate, queries in JPQL and Criteria API, Postgres database, WildFLy, PrimeFaces)
+
+### Lab 7
+Java Message Service and Message-Driven Beans
