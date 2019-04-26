@@ -1,4 +1,5 @@
 import javax.annotation.Resource;
+import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.jms.*;
 import java.util.*;

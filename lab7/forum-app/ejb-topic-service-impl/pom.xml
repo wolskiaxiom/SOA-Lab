@@ -11,12 +11,15 @@
     </parent>
 
     <artifactId>ejb-topic-service-impl</artifactId>
+    <packaging>war</packaging>
+
 
     <dependencies>
         <dependency>
             <groupId>pl.agh.soa.wolski</groupId>
             <artifactId>ejb-topic-service</artifactId>
             <version>1.0-SNAPSHOT</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
     
