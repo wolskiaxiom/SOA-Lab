@@ -5,22 +5,31 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>pl.agh.soa.wolski</groupId>
-  <artifactId>lab7-example-app</artifactId>
+  <artifactId>forum</artifactId>
   <packaging>pom</packaging>
   <version>1.0-SNAPSHOT</version>
+
+
   <modules>
-    <module>jms-sender</module>
-    <module>jms-consumer</module>
+    <module>ejb-topic-service</module>
+    <module>ejb-topic-service-impl</module>
+    <module>webapp-publisher</module>
+    <module>webapp-consumer</module>
   </modules>
 
-  <name>lab7-example-app</name>
+  <name>forum</name>
+
+  <dependencies>
+    <dependency>
+      <groupId>javax</groupId>
+      <artifactId>javaee-api</artifactId>
+      <version>7.0</version>
+    </dependency>
+  </dependencies>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>1.11</maven.compiler.source>
-    <maven.compiler.target>1.11</maven.compiler.target>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
   </properties>
-
-
-
 </project>
