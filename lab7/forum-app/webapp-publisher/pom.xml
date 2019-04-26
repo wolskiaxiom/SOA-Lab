@@ -11,6 +11,7 @@
     </parent>
 
     <artifactId>webapp-publisher</artifactId>
+    <packaging>war</packaging>
 
 
     <dependencies>
