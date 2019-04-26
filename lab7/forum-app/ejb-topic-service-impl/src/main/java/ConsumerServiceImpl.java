@@ -1,10 +1,12 @@
 import listeners.CustomerMessageListener;
 
 import javax.annotation.Resource;
+import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.jms.*;
 
 @Stateless
+@Remote(ConsumerService.class)
 public class ConsumerServiceImpl implements ConsumerService{
 
     @Resource(mappedName = "java:/ConnectionFactory")

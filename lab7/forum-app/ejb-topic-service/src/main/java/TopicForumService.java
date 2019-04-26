@@ -1,8 +1,8 @@
-import javax.ejb.Local;
+import javax.ejb.Remote;
 import javax.jms.JMSException;
 import java.util.List;
 
-@Local
+@Remote
 public interface TopicForumService {
     void saveTopic(String topic);
     List<String> findAllTopics();

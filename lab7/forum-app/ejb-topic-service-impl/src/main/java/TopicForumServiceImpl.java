@@ -5,6 +5,7 @@ import javax.jms.*;
 import java.util.*;
 
 @Stateless
+@Remote(TopicForumService.class)
 public class TopicForumServiceImpl implements TopicForumService {
 
 

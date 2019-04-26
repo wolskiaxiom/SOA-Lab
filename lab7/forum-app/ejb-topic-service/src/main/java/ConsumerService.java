@@ -1,7 +1,7 @@
-import javax.ejb.Local;
+import javax.ejb.Remote;
 import javax.jms.JMSException;
 
-@Local
+@Remote
 public interface ConsumerService {
     void registerConsumer(String name) throws JMSException;
 }
