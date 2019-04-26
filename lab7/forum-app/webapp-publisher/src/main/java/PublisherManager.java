@@ -1,10 +1,8 @@
 import javax.ejb.EJB;
-import javax.faces.bean.ManagedBean;
 import javax.inject.Named;
 import javax.jms.JMSException;
 import java.util.List;
 
-//@ManagedBean(name = "publisher")
 @Named
 public class PublisherManager {
 
