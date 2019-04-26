@@ -1,9 +1,13 @@
 import javax.ejb.EJB;
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
 import javax.jms.JMSException;
+import javax.jms.Topic;
+import java.util.LinkedList;
 import java.util.List;
 
 @Named
+@ApplicationScoped
 public class PublisherManager {
 
     @EJB(lookup="java:global/ejb-topic-service-impl-1.0-SNAPSHOT/TopicForumServiceImpl")
@@ -13,7 +17,7 @@ public class PublisherManager {
     private String message;
     private String subscribers;
 
-    public void addTopic() {
+    public void addTopic() throws JMSException {
         topicForumService.saveTopic(newTopicName);
     }
 
@@ -21,8 +25,12 @@ public class PublisherManager {
         topicForumService.sendMessage(topic, message, subscribers);
     }
 
-    public List<String> getTopics() {
-        return topicForumService.findAllTopics();
+    public List<String> getTopics() throws JMSException {
+        List<String> topics = new LinkedList<>();
+        for(Topic topic: topicForumService.findAllTopics()){
+            topics.add(topic.getTopicName());
+        }
+        return topics;
     }
 
     public String getNewTopicName() {

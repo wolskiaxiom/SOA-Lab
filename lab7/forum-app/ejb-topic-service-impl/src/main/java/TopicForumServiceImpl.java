@@ -15,42 +15,67 @@ public class TopicForumServiceImpl implements TopicForumService {
     @Resource(mappedName = "java:/jms/topic/SOA_test")
     private Topic jmsTopic;
 
-    private Map<String, Set<String>> topics = new HashMap<>();
-
+    List<Topic> topics = new LinkedList<>();
 
 
     @Override
-    public void saveTopic(String topic) {
-        topics.put(topic, new HashSet<>());
+    public void registerConsumer(String topicName, ConsumerMessageListener listener) throws JMSException {
+        System.out.println("Registering consumer: " + listener.getConsumerName());
+        Connection connection = cf.createConnection();
+        TopicSession topicSession = (TopicSession) connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
+        for (Topic topic: topics) {
+            System.out.println(topic.getTopicName());
+            if(topic.getTopicName().equals(topicName)){
+                MessageConsumer consumer = topicSession.createSubscriber(topic);
+                consumer.setMessageListener(listener);
+                connection.start();
+            }
+        }
+    }
+
+
+    @Override
+    public void saveTopic(String topic) throws JMSException {
+        Connection connection = cf.createConnection();
+        TopicSession topicSession = (TopicSession) connection.createSession();
+        Topic newTopic = topicSession.createTopic(topic);
+        topics.add(newTopic);
+        connection.close();
     }
 
     @Override
-    public List<String> findAllTopics() {
-        return new LinkedList<>(topics.keySet());
+    public List<Topic> findAllTopics() {
+        return topics;
+    }
+
+    private Topic getJmsTopic(String topicName) throws JMSException {
+        for (Topic topic: topics) {
+            System.out.println(topic.getTopicName());
+            if(topic.getTopicName().equals(topicName)){
+                return topic;
+            }
+        }
+        return null;
     }
 
     @Override
-    public void sendMessage(String topic, String message, String subscribers) throws JMSException {
-        Connection con = null;
+    public void sendMessage(String topicName, String message, String subscribers) throws JMSException {
+        Connection connection = null;
         try {
-            con = cf.createConnection();
-            Session session = con.createSession(false, Session.AUTO_ACKNOWLEDGE);
-            MessageProducer publisher = session.createProducer(jmsTopic);
+            connection = cf.createConnection();
+            TopicSession topicSession = (TopicSession) connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
+            Message msg = topicSession.createTextMessage(message);
 
-            con.start();
-
-            MapMessage mapMessage = session.createMapMessage();
-            mapMessage.setString("topic", topic);
-            mapMessage.setString("message", message);
-            mapMessage.setString("subscribers", subscribers);
-
-            publisher.send(mapMessage);
+            TopicPublisher publisher = topicSession.createPublisher(getJmsTopic(topicName));
+            System.out.println("Sending text" + message);
+            publisher.publish(msg);
+            Thread.sleep(100);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            if (con != null) {
+            if (connection != null) {
                 try {
-                    con.close();
+                    connection.close();
                 } catch (JMSException ignored) {
                 }
             }

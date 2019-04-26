@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <style type="text/css">
+        td {
+            border: 1px solid black;
+            margin: 2px;
+            padding: 3px;
+        }
+        .button_class{
+            width: 60px;
+            height: 30px;
+        }
+        .edit_button_class{
+            width: 65px;
+            height: 35px;
+        }
+    </style>
+
+    <title>Messages</title>
+</h:head>
+<h:body>
+
+    <h:outputText value="Hello #{consumerManager.name}!"/>
+
+    <p:dataTable id="table" var="topic" value="#{consumerManager.topics}">
+        <p:column headerText="Topic name">
+            <h:outputText value="#{topic}" />
+        </p:column>
+
+        <p:column headerText="Subscribe/Unsubscribe">
+            <p:commandButton value="#{consumerManager.buttonValue}" update="table" process="@this" action="#{consumerManager.performSub(topic)}"  style="margin-right:20px;" />
+        </p:column>
+
+    </p:dataTable>
+    <h:form id="panel">
+        <p:dataTable var="message" value="#{consumerManager.messages}">
+            <p:column headerText="Message">
+                <h:outputText value="#{message}"/>
+            </p:column>
+        </p:dataTable>
+        <br/>
+        <p:commandButton value="Reset output" update="panel" process="@this" action="#{consumerManager.resetOutput}"  style="margin-right:20px;" />
+        <p:commandButton value="Refresh" update="panel" process="@this" action="#{consumerManager.refresh}"  style="margin-right:20px;" />
+    </h:form>
+
+</h:body>
+</html>
