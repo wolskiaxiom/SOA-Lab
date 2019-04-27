@@ -28,14 +28,17 @@
 <h:body>
 
     <h:outputText value="Hello #{consumerManager.name}!"/>
-
+    <p:messages id="messages" showDetail="true" closable="true">
+        <p:autoUpdate />
+    </p:messages>
     <p:dataTable id="table" var="topic" value="#{consumerManager.topics}">
         <p:column headerText="Topic name">
             <h:outputText value="#{topic}" />
         </p:column>
 
         <p:column headerText="Subscribe/Unsubscribe">
-            <p:commandButton value="#{consumerManager.buttonValue}" update="table" process="@this" action="#{consumerManager.performSub(topic)}"  style="margin-right:20px;" />
+            <p:commandButton value="Subscribe" update="table" process="@this" action="#{consumerManager.performSub(topic)}"  style="margin-right:20px;" />
+            <p:commandButton value="Unsubscribe" update="table" process="@this" action="#{consumerManager.performUnsub(topic)}"  style="margin-right:20px;" />
         </p:column>
 
     </p:dataTable>
@@ -47,7 +50,7 @@
         </p:dataTable>
         <br/>
         <p:commandButton value="Reset output" update="panel" process="@this" action="#{consumerManager.resetOutput}"  style="margin-right:20px;" />
-        <p:commandButton value="Refresh" update="panel" process="@this" action="#{consumerManager.refresh}"  style="margin-right:20px;" />
+        <p:commandButton value="Refresh" update="panel table" process="@this" action="#{consumerManager.refresh}"  style="margin-right:20px;" />
     </h:form>
 
 </h:body>

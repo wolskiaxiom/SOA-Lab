@@ -1,8 +1,11 @@
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.jms.JMSException;
 import javax.jms.Topic;
+import javax.jms.TopicSubscriber;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -14,8 +17,7 @@ import java.util.List;
 public class ConsumerManager implements Serializable {
 
     private String name;
-    private String isSubscribed = "Unsubscribed";
-    private String buttonValue = "Subscribe";
+    private ConsumerMessagesManager consumerMessagesManager = new ConsumerMessagesManager();
 //    private ArrayList<String> messages = new ArrayList<String>(Arrays.asList("Welcome in ForRum!\n"));
     private UserMessages userMessages = new UserMessages();
 
@@ -23,24 +25,32 @@ public class ConsumerManager implements Serializable {
     private TopicForumService topicForumService;
 
 
-    public void register(String topicName) throws JMSException {
-        ConsumerMessageListener listener = new ConsumerMessageListener(name,userMessages);
-        topicForumService.registerConsumer(topicName, listener);
+//    public void register(String topicName) throws JMSException {
+//        ConsumerMessageListener listener = new ConsumerMessageListener(name,userMessages);
+//        topicForumService.registerConsumer(topicName, listener);
+//    }
+
+    public void performSub(String topicName) {
+        try {
+            ConsumerMessageListener listener = new ConsumerMessageListener(name,userMessages);
+//            register(topicName);
+            consumerMessagesManager.registerConsumer(topicName, listener);
+            succesfullyRegistered();
+        } catch (JMSException e) {
+            errorAlreadyRegistered();
+        }
     }
 
-    public void performSub(String topicName) throws JMSException {
-        register(topicName);
-        switch(isSubscribed){
-            case "Unsubscribed":
-                isSubscribed = "Subscribed";
-                buttonValue = "Unsubscribe";
-                break;
-            case "Subscribed":
-                isSubscribed = "Unsubscribed";
-                buttonValue = "Subscribe";
-                break;
-            default:
-                isSubscribed = "error!";
+    public void unregister(String topicName, String consumerName) throws JMSException {
+        topicForumService.unRegisterConsumer(topicName, consumerName);
+    }
+
+    public void performUnsub(String topicName){
+        try {
+            unregister(topicName, name);
+            succesfullyUnregistered();
+        }catch (Exception e){
+            errorNotRegisteredYet();
         }
     }
 
@@ -64,21 +74,6 @@ public class ConsumerManager implements Serializable {
         this.name = name;
     }
 
-    public String getIsSubscribed() {
-        return isSubscribed;
-    }
-
-    public void setIsSubscribed(String isSubscribed) {
-        this.isSubscribed = isSubscribed;
-    }
-
-    public String getButtonValue() {
-        return buttonValue;
-    }
-
-    public void setButtonValue(String buttonValue) {
-        this.buttonValue = buttonValue;
-    }
 
     public ArrayList<String> getMessages() {
         return userMessages.getMessages();
@@ -89,5 +84,23 @@ public class ConsumerManager implements Serializable {
     }
     public void refresh(){
         System.out.println("refreshing"+userMessages.getMessages());
+    }
+
+    public void errorAlreadyRegistered() {
+        System.out.println("errorAlreadyRegistered");
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                "Error!", "You are already registered"));
+    }
+    public void errorNotRegisteredYet(){
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
+                "Warn!", "You are not registered yet"));
+    }
+    public void succesfullyRegistered(){
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
+                "Congrats!", "You are successfully registered!"));
+    }
+    public void succesfullyUnregistered(){
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
+                "Congrats!", "You are successfully unregistered!"));
     }
 }

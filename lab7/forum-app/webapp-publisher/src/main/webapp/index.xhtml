@@ -3,34 +3,40 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:f="http://xmlns.jcp.org/jsf/core"
 >
 <h:head>
+    <title>Topics</title>
 </h:head>
 <h:body>
     <h:form>
         <h:panelGroup>
-            <h:panelGrid columns="2">
-                <h:inputText id="newTopicName" value="#{publisherManager.newTopicName}" required="true"
+            <h:panelGrid columns="3">
+                Add new topic: <h:inputText id="newTopicName" value="#{publisherManager.newTopicName}" required="true"
                              requiredMessage="Provide topic name"/>
                 <h:commandButton value="Register" action="#{publisherManager.addTopic()}"/>
                 <h:message for="newTopicName" style="color: red"/>
+            </h:panelGrid>
+        </h:panelGroup>
+        <h:panelGroup>
+            <h:panelGrid columns="2">
+                <h:outputLabel value="Message: " for="pubMessageId"/>
+                <h:inputText value="#{publisherManager.message}" id="pubMessageId"/>
+
+                <h:outputLabel value="Users: " for="pubSubscribersId"/>
+                <h:inputText value="#{publisherManager.subscribers}" id="pubSubscribersId"/>
             </h:panelGrid>
         </h:panelGroup>
         <table>
             <thead>
             <tr>
                 <th>Topic</th>
-                <th>Message</th>
-                <th>Users</th>
             </tr>
             </thead>
             <tbody>
             <ui:repeat value="#{publisherManager.topics}" var="topic">
                 <tr>
                     <td>#{topic}</td>
-                    <td><h:inputText value="#{publisherManager.message}"/></td>
-                    <td><h:inputText value="#{publisherManager.subscribers}"/></td>
                     <td><h:commandButton value="Send" action="#{publisherManager.sendMessage(topic)}"/></td>
                 </tr>
             </ui:repeat>

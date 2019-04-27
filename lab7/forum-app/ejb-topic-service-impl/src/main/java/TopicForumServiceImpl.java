@@ -22,17 +22,28 @@ public class TopicForumServiceImpl implements TopicForumService {
     public void registerConsumer(String topicName, ConsumerMessageListener listener) throws JMSException {
         System.out.println("Registering consumer: " + listener.getConsumerName());
         Connection connection = cf.createConnection();
+        connection.setClientID(listener.getConsumerName()+topicName);
         TopicSession topicSession = (TopicSession) connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-        for (Topic topic: topics) {
-            System.out.println(topic.getTopicName());
-            if(topic.getTopicName().equals(topicName)){
-                MessageConsumer consumer = topicSession.createSubscriber(topic);
+        for (Topic topic : topics) {
+            if (topic.getTopicName().equals(topicName)) {
+                System.out.println("Found topic: " + topicName);
+                MessageConsumer consumer = topicSession.createDurableSubscriber(topic, listener.getConsumerName()+topicName);
+                System.out.println("Consumer: "+listener.getConsumerName()+" subscribed " +topicName +" successfully!");
                 consumer.setMessageListener(listener);
                 connection.start();
             }
         }
     }
 
+    @Override
+    public void unRegisterConsumer(String topicName, String consumerName) throws JMSException {
+        System.out.println("Unregistering consumer: " + consumerName + " from topic " + topicName);
+        Connection connection = cf.createConnection();
+        TopicSession topicSession = (TopicSession) connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
+
+        topicSession.unsubscribe(consumerName+topicName);
+        
+    }
 
     @Override
     public void saveTopic(String topic) throws JMSException {
@@ -49,9 +60,8 @@ public class TopicForumServiceImpl implements TopicForumService {
     }
 
     private Topic getJmsTopic(String topicName) throws JMSException {
-        for (Topic topic: topics) {
-            System.out.println(topic.getTopicName());
-            if(topic.getTopicName().equals(topicName)){
+        for (Topic topic : topics) {
+            if (topic.getTopicName().equals(topicName)) {
                 return topic;
             }
         }
@@ -64,11 +74,13 @@ public class TopicForumServiceImpl implements TopicForumService {
         try {
             connection = cf.createConnection();
             TopicSession topicSession = (TopicSession) connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-            Message msg = topicSession.createTextMessage(message);
 
             TopicPublisher publisher = topicSession.createPublisher(getJmsTopic(topicName));
-            System.out.println("Sending text" + message);
-            publisher.publish(msg);
+            MapMessage mapMessage = topicSession.createMapMessage();
+            mapMessage.setString("message", message);
+            mapMessage.setString("subscribers", subscribers);
+            System.out.println(topicName + " sends message: " + message + " to: "+ subscribers);
+            publisher.publish(mapMessage);
             Thread.sleep(100);
         } catch (Exception e) {
             e.printStackTrace();
@@ -81,4 +93,5 @@ public class TopicForumServiceImpl implements TopicForumService {
             }
         }
     }
+
 }
