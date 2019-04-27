@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <style type="text/css">
+        td {
+            border: 1px solid black;
+            margin: 2px;
+            padding: 3px;
+        }
+        .button_class{
+            width: 60px;
+            height: 30px;
+        }
+        .edit_button_class{
+            width: 65px;
+            height: 35px;
+        }
+    </style>
+
+    <title>Authors</title>
+</h:head>
+<h:body>
+
+    <p:dataTable id="table" var="author" value="#{authorBean.authors}">
+        <p:column headerText="id">
+            <h:outputText value="#{author.idAuthor}" />
+        </p:column>
+
+        <p:column headerText="First Name">
+            <h:outputText value="#{author.firstName}" />
+        </p:column>
+
+        <p:column headerText="Last Name">
+            <h:outputText value="#{author.lastName}" />
+        </p:column>
+
+        <p:column headerText="Actions">
+            <h:form>
+                <p:commandButton action="#{authorBean.goToUpdateAuthor(author)}"  style="margin-right:20px;" value="Edit" title="Icon Only" />
+                <p:commandButton action="#{authorBean.deleteAuthor(author.idAuthor)}"  style="margin-right:20px;" value="Delete" title="Icon Only"  update="table"/>
+
+            </h:form>
+        </p:column>
+    </p:dataTable>
+
+</h:body>
+</html>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui" xml:lang="en" lang="en">
+<h:head>
+    <title>Add book to collection</title>
+</h:head>
+<h:body>
+
+
+
+
+    <h:form id="form">
+        <p:panel id="panel" header="Form" style="margin-bottom:10px;">
+            <p:messages id="messages" />
+            <h:panelGrid columns="2" cellpadding="5">
+
+                <p:outputLabel for="titleInput">Title: </p:outputLabel>
+                <p:inputText value="#{bookBean.bookEntity.title}" id="titleInput" required="true"/>
+
+
+                <p:outputLabel for="authors">Author: </p:outputLabel>
+                <p:selectOneMenu value="#{bookBean.bookEntity.author.idAuthor}" id="authors"  >
+                    <f:selectItems value="#{bookBean.availableAuthors}" />
+                </p:selectOneMenu>
+            </h:panelGrid>
+        </p:panel>
+
+        <p:toolbar>
+            <f:facet name="left">
+                <p:commandButton value="Submit" update="panel" action="#{bookBean.saveBook}" style="margin-right:20px;" />
+            </f:facet>
+
+            <f:facet name="right">
+                <h:commandButton value="Reset" style="margin-right:20px;" >
+                    <p:ajax update="panel" resetValues="true" />
+                </h:commandButton>
+            </f:facet>
+        </p:toolbar>
+    </h:form>
+
+</h:body>
+</html>
