@@ -5,10 +5,8 @@ import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.jms.JMSException;
 import javax.jms.Topic;
-import javax.jms.TopicSubscriber;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -17,24 +15,20 @@ import java.util.List;
 public class ConsumerManager implements Serializable {
 
     private String name;
-    private ConsumerMessagesManager consumerMessagesManager = new ConsumerMessagesManager();
-//    private ArrayList<String> messages = new ArrayList<String>(Arrays.asList("Welcome in ForRum!\n"));
     private UserMessages userMessages = new UserMessages();
 
     @EJB(lookup="java:global/ejb-topic-service-impl-1.0-SNAPSHOT/TopicForumServiceImpl")
     private TopicForumService topicForumService;
 
 
-//    public void register(String topicName) throws JMSException {
-//        ConsumerMessageListener listener = new ConsumerMessageListener(name,userMessages);
-//        topicForumService.registerConsumer(topicName, listener);
-//    }
+    public void register(String topicName) throws JMSException {
+        ConsumerMessageListener listener = new ConsumerMessageListener(name,userMessages);
+        topicForumService.registerConsumer(topicName, listener);
+    }
 
     public void performSub(String topicName) {
         try {
-            ConsumerMessageListener listener = new ConsumerMessageListener(name,userMessages);
-//            register(topicName);
-            consumerMessagesManager.registerConsumer(topicName, listener);
+            register(topicName);
             succesfullyRegistered();
         } catch (JMSException e) {
             errorAlreadyRegistered();

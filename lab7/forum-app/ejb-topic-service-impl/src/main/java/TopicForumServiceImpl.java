@@ -40,9 +40,7 @@ public class TopicForumServiceImpl implements TopicForumService {
         System.out.println("Unregistering consumer: " + consumerName + " from topic " + topicName);
         Connection connection = cf.createConnection();
         TopicSession topicSession = (TopicSession) connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-
         topicSession.unsubscribe(consumerName+topicName);
-        
     }
 
     @Override
