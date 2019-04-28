@@ -1,5 +1,6 @@
 package beans;
 
+import beans.jmsbeans.PublisherBean;
 import controllers.AuthorController;
 import controllers.BookController;
 import datasources.DatabaseService;
@@ -7,6 +8,7 @@ import entities.Author;
 import entities.Book;
 
 import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.enterprise.context.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.model.SelectItem;
@@ -19,6 +21,9 @@ import java.util.List;
 public class BookBean {
     Book bookEntity = new Book(new Author());
     Book editedBook= new Book();
+
+    @EJB(lookup = "java:module/PublisherBean")
+    private PublisherBean publisherBean;
 
     private List<SelectItem> availableAuthors;
 
@@ -36,6 +41,9 @@ public class BookBean {
         Book book = new Book(bookEntity.getTitle(), author);
         System.out.println(author.getLastName());
         BookController.addBook(bookEntity);
+
+        publisherBean.publishNews("add_book", "New book in library: \"" + book.getTitle()+"\" written by: " +author.getFirstName() + " " +author.getLastName());
+
         return "index?faces-reditect=true";
     }
 

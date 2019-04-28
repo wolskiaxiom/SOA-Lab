@@ -17,7 +17,7 @@ public class DatabaseService {
     }
 
     private DatabaseService() {
-        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("lab6_jpa");
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("lab7-jms");
         entityManager = entityManagerFactory.createEntityManager();
     }
 

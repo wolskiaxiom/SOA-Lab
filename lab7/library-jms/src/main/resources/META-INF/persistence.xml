@@ -4,10 +4,10 @@
              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd"
              version="2.2">
 
-    <persistence-unit name="lab6_jpa" transaction-type="RESOURCE_LOCAL">
+    <persistence-unit name="lab7-jms" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
-<!--        <jta-data-source>java:/PostgresDS</jta-data-source>-->
+<!--        <jta-data-source>java:/PostgresDSasdasdasdsad</jta-data-source>-->
 
         <class>entities.Book</class>
         <class>entities.Author</class>
@@ -15,7 +15,7 @@
         <class>entities.Borrowing</class>
         <class>entities.ReaderBookId</class>
         <properties>
-            <property name="hibernate.connection.url" value="jdbc:postgresql://localhost:5432/lab6"/>
+            <property name="hibernate.connection.url" value="jdbc:postgresql://localhost:5432/lab7"/>
             <property name="hibernate.connection.driver_class" value="org.postgresql.Driver"/>
             <property name="hibernate.connection.username" value="postgres"/>
             <property name="hibernate.connection.password" value="password"/>
