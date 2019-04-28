@@ -20,8 +20,8 @@ public class ReceiverBean {
     @Resource(lookup = "java:comp/jms/webappQueue")
     private Queue queue;
 
-    @Resource(lookup = "java:comp/jms/Topic")
-    private Topic topic;
+//    @Resource(lookup = "java:comp/jms/Topic")
+//    private Topic topic;
 
     public ReceiverBean() {
     }

@@ -10,7 +10,30 @@
    <f:view>
       <h3>Hello in BookShelf World!</h3>
 
-      <h:form>
+      <h:form rendered="#{userBean.isUnregistered()}">
+         <h1>Sign up!</h1>
+         <p:panel id="panel"  style="margin-bottom:10px;">
+            <h:panelGrid columns="3" cellpadding="5">
+               <p:outputLabel for="login" value="Your login" />
+               <p:inputText id="login" value="#{userBean.login}" required="true" label="Login" requiredMessage="At least two characters!">
+                  <f:validateLength minimum="2" />
+               </p:inputText>
+               <p:message for="login" />
+
+               <p:outputLabel for="not" value="Notification" />
+               <p:selectBooleanCheckbox id="not" value="#{userBean.notifications}" />
+               <p:message for="not" />
+
+            </h:panelGrid>
+         </p:panel>
+
+         <p:commandButton value="Submit"  style="margin-right:20px;">
+            <f:ajax render="panel nav"/>
+         </p:commandButton>
+
+      </h:form>
+
+      <h:form id="nav" rendered="#{not userBean.unregistered}">
          <h1>Choose where to go</h1>
          <h:commandButton action = "add_book" value = "Add book" />
          <h:commandButton action = "look_through_books" value = "Look through yours book" /><br/>
@@ -19,6 +42,7 @@
          <h:commandButton action = "manage_borrowings?faces-reditect=true" value = "Manage borrowings" />
          <br/><br/>
          <h:commandButton action = "interesting_requests?faces-reditect=true" value = "Interesting requests" />
+         <h:commandButton action = "news?faces-reditect=true" value = "News for you" />
 
       </h:form>
 
