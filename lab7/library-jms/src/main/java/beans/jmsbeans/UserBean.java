@@ -1,10 +1,7 @@
 package beans.jmsbeans;
 
-import javax.annotation.ManagedBean;
-import javax.annotation.PostConstruct;
-import javax.ejb.Startup;
+import javax.ejb.EJB;
 import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
@@ -13,32 +10,21 @@ import java.util.HashSet;
 
 @Named
 @ApplicationScoped
-@Startup
 public class UserBean implements Serializable {
+
+    @EJB(lookup = "java:module/MyMessageStorage")
+    private MyMessageStorage messageStorage;
+
     private String login;
     private boolean notifications;
-    private HashSet<String> observedBooks= new HashSet<>();
 
-    private FacesContext context;
+    private HashSet<String> observedBooks= new HashSet<>();
 
     public boolean isUnregistered(){
         if (login == null || login.length()==0){
             return true;
         }
         else return false;
-    }
-
-    @PostConstruct
-    private void dupa(){
-        context = FacesContext.getCurrentInstance();
-    }
-
-    public FacesContext getContext() {
-        return context;
-    }
-
-    public void setContext(FacesContext context) {
-        this.context = context;
     }
 
     public UserBean() {
@@ -71,8 +57,15 @@ public class UserBean implements Serializable {
     public void succesfullyRegistered(){
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
                 "Congrats!", "You are successfully registered!"));
-
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
-                "Congrats!", "You are successfully registered!"));
     }
+
+    public void readNews(){
+        FacesContext context = FacesContext.getCurrentInstance();
+
+        for (String message:messageStorage.getMessages()) {
+            context.addMessage(null, new FacesMessage(message));
+        }
+        messageStorage.getMessages().clear();
+    }
+
 }
