@@ -44,7 +44,7 @@ public class MessageBean implements MessageListener {
                 logger.log(Level.INFO,
                         "MESSAGE BEAN: Message received: {0}",
                         inMessage.getBody(String.class));
-                messageStorage.addMessage(inMessage.getBody(String.class));
+                messageStorage.addMessage((TextMessage) inMessage);
 
             } else {
                 logger.log(Level.WARNING,

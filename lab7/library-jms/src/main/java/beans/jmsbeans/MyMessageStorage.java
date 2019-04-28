@@ -1,25 +1,26 @@
 package beans.jmsbeans;
 
 import javax.ejb.Singleton;
+import javax.jms.TextMessage;
 import java.io.Serializable;
 import java.util.ArrayList;
 
 @Singleton
 public class MyMessageStorage implements Serializable {
-    private ArrayList<String> messages = new ArrayList<>();
+    private ArrayList<TextMessage> messages = new ArrayList<>();
 
     public MyMessageStorage() {
     }
 
-    public ArrayList<String> getMessages() {
+    public ArrayList<TextMessage> getMessages() {
         return messages;
     }
 
-    public void setMessages(ArrayList<String> messages) {
+    public void setMessages(ArrayList<TextMessage> messages) {
         this.messages = messages;
     }
 
-    public void addMessage(String message){
+    public void addMessage(TextMessage message){
         messages.add(message);
     }
 }

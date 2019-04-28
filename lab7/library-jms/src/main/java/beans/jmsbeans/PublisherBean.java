@@ -1,9 +1,11 @@
 package beans.jmsbeans;
 
 import javax.annotation.Resource;
+import javax.ejb.Singleton;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+
 import javax.jms.JMSContext;
 import javax.jms.JMSException;
 import javax.jms.TextMessage;
@@ -11,8 +13,9 @@ import javax.jms.Topic;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-@RequestScoped
-@Named
+//@RequestScoped
+//@Named
+@Singleton
 public class PublisherBean {
 
     @Resource(lookup = "java:module/jms/newsTopic")
@@ -25,12 +28,12 @@ public class PublisherBean {
     public PublisherBean() {
     }
 
-    public void publishNews(String news) {
+    public void publishNews(String type, String news) {
         TextMessage message;
-
+        System.out.println(type + news);
         try {
             message = context.createTextMessage();
-
+            message.setStringProperty("type", type);
             message.setText(news);
             logger.log(Level.INFO,
                     "PUBLISHER: Setting message text to: {0}",
