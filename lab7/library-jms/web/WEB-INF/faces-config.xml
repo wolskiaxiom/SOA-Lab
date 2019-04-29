@@ -53,6 +53,7 @@
         <navigation-case>
             <from-action>#{borrowingBean.updateBorrowing}</from-action>
             <to-view-id>/index.xhtml</to-view-id>
+            <redirect/>
         </navigation-case>
     </navigation-rule>
 
