@@ -48,10 +48,17 @@
             #{book.author.lastName}
         </h:column>
 
+        <h:column>
+            <f:facet name="header">Is subscribed?</f:facet>
+            #{userBean.isBookSubscribed(book.idBook)}
+        </h:column>
+
         <h:column >
             <f:facet name="header">Actions</f:facet>
             <h:commandButton image="buttons/edit-button-blue-hi.png"  styleClass="edit_button_class"  action="#{bookBean.goToUpdateBook(book)}"/>
             <h:commandButton update="ajaxOutputBooks" image="buttons/delete-button.png" styleClass="button_class" action="#{bookBean.deleteBook(book)}"/>
+            <h:commandButton update="ajaxOutputBooks" value="Subscribe" rendered="#{not userBean.isBookSubscribed(book.idBook)}" action="#{userBean.subscribe(book.idBook)}"/>
+            <h:commandButton update="ajaxOutputBooks" value="Unsubscribe" rendered="#{userBean.isBookSubscribed(book.idBook)}" action="#{userBean.subscribe(book.idBook)}"/>
         </h:column>
 
     </h:dataTable>

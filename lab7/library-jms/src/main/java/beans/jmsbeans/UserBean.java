@@ -1,15 +1,21 @@
 package beans.jmsbeans;
 
+import controllers.BookController;
+
 import javax.ejb.EJB;
 import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
+import javax.jms.JMSException;
+import javax.jms.TextMessage;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.HashSet;
 
 @Named
-@ApplicationScoped
+@SessionScoped
 public class UserBean implements Serializable {
 
     @EJB(lookup = "java:module/MyMessageStorage")
@@ -18,13 +24,25 @@ public class UserBean implements Serializable {
     private String login;
     private boolean notifications;
 
-    private HashSet<String> observedBooks= new HashSet<>();
+    private HashSet<Long> observedBooks= new HashSet<>();
+
+    public void subscribe(long idBook){
+        if (isBookSubscribed(idBook)){
+            observedBooks.remove(idBook);
+        }else {
+            observedBooks.add(idBook);
+        }
+    }
 
     public boolean isUnregistered(){
         if (login == null || login.length()==0){
             return true;
         }
         else return false;
+    }
+
+    public boolean isBookSubscribed(Long bookId){
+        return observedBooks.contains(bookId);
     }
 
     public UserBean() {
@@ -38,11 +56,11 @@ public class UserBean implements Serializable {
         this.login = login;
     }
 
-    public HashSet<String> getObservedBooks() {
+    public HashSet<Long> getObservedBooks() {
         return observedBooks;
     }
 
-    public void setObservedBooks(HashSet<String> observedBooks) {
+    public void setObservedBooks(HashSet<Long> observedBooks) {
         this.observedBooks = observedBooks;
     }
 
@@ -59,11 +77,23 @@ public class UserBean implements Serializable {
                 "Congrats!", "You are successfully registered!"));
     }
 
-    public void readNews(){
+    public void readNews() throws JMSException {
         FacesContext context = FacesContext.getCurrentInstance();
 
-        for (String message:messageStorage.getMessages()) {
-            context.addMessage(null, new FacesMessage(message));
+        for (TextMessage message:messageStorage.getMessages()) {
+            if(message.getStringProperty("type").equals("add_book") && notifications){
+                context.addMessage(null, new FacesMessage(message.getText()));
+            }else if(message.getStringProperty("type").equals("book_available")){
+                try {
+                    long bookId = message.getLongProperty("bookId");
+                    if(isBookSubscribed(bookId)){
+                        String title = BookController.getBookById(bookId).getTitle();
+                        context.addMessage(null, new FacesMessage(title + " " + message.getText() + new Date()));
+                    }
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
         }
         messageStorage.getMessages().clear();
     }

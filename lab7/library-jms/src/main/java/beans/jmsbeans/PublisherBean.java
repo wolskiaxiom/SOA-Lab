@@ -28,12 +28,12 @@ public class PublisherBean {
     public PublisherBean() {
     }
 
-    public void publishNews(String type, String news) {
+    public void publishNews(String type, Long book, String news) {
         TextMessage message;
-        System.out.println(type + news);
         try {
             message = context.createTextMessage();
             message.setStringProperty("type", type);
+            message.setLongProperty("bookId", book);
             message.setText(news);
             logger.log(Level.INFO,
                     "PUBLISHER: Setting message text to: {0}",

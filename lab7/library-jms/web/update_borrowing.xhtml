@@ -28,7 +28,7 @@
 
 
                 <h:outputLabel for="actionButton">Click ------></h:outputLabel>
-                <h:commandButton value="SAVE" action="#{borrowingBean.updateBorrowing}" id="actionButton">
+                <h:commandButton value="SAVE" action="#{borrowingBean.updateBorrowing(borrowingBean.bookId)}" id="actionButton">
                 </h:commandButton>
             </h:panelGrid>
         </h:panelGroup>

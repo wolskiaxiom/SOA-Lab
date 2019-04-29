@@ -4,7 +4,7 @@ import controllers.AuthorController;
 import entities.Author;
 import entities.Book;
 
-import javax.enterprise.context.ApplicationScoped;
+import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import java.util.List;
 
@@ -12,7 +12,7 @@ import java.util.List;
 @ApplicationScoped
 public class AuthorBean {
     private Author authorEntity = new Author();
-    private long idUpdatedAuthor ;
+    private Long idUpdatedAuthor ;
     private String updatedFirstName;
     private String updatedListName;
     private List<Book> updatedBooks;

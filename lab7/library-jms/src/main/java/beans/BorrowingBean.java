@@ -11,7 +11,7 @@ import entities.ReaderBookId;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.enterprise.context.ApplicationScoped;
+import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.model.SelectItem;
 import java.util.ArrayList;
@@ -77,7 +77,8 @@ public class BorrowingBean {
         updatedBorrowing = new Borrowing(reader, book);
         updatedBorrowing.setBorrowingDate(borrowing.getBorrowingDate());
         updatedBorrowing.setReturningDate(borrowing.getReturningDate());
-        publisherBean.publishNews("book_available", bookId, " is now available for you!");
+        System.out.println(bookId);
+//        publisherBean.publishNews("book_available", bookId, " is now available for you!");
         return "success";
     }
 
@@ -138,7 +139,8 @@ public class BorrowingBean {
         return borrowings;
     }
 
-    public String updateBorrowing(){
+    public String updateBorrowing(long bookId){
+        System.out.println(bookId);
         publisherBean.publishNews("book_available", bookId, " is now available for you!");
         return "success";
     }
