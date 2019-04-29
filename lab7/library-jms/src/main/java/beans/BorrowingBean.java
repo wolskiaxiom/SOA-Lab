@@ -1,5 +1,6 @@
 package beans;
 
+import beans.jmsbeans.PublisherBean;
 import controllers.BookController;
 import controllers.BorrowingController;
 import controllers.ReaderController;
@@ -9,6 +10,7 @@ import entities.Reader;
 import entities.ReaderBookId;
 
 import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.enterprise.context.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.model.SelectItem;
@@ -19,6 +21,9 @@ import java.util.List;
 @ManagedBean(name = "borrowingBean")
 @ApplicationScoped
 public class BorrowingBean {
+
+    @EJB(lookup = "java:module/PublisherBean")
+    private PublisherBean publisherBean;
 
     private Borrowing borrowing;
 
@@ -49,13 +54,14 @@ public class BorrowingBean {
     }
 
 
-    public void addBorrowing(){
+    public String addBorrowing(){
         Reader reader = ReaderController.getReaderById(readerId);
         Book book = BookController.getBookById(bookId);
         Borrowing  borrowing = new Borrowing(reader,book);
         borrowing.setBorrowingDate(borrowingDate);
         borrowing.setReturningDate(returningDate);
         BorrowingController.addBorrowing(borrowing);
+        return "success";
     }
 
     public String deleteBorrowing(long idReader, long idBook){
@@ -71,10 +77,7 @@ public class BorrowingBean {
         updatedBorrowing = new Borrowing(reader, book);
         updatedBorrowing.setBorrowingDate(borrowing.getBorrowingDate());
         updatedBorrowing.setReturningDate(borrowing.getReturningDate());
-        return "success";
-    }
-
-    public String updateBorrowing(){
+        publisherBean.publishNews("book_available", bookId, " is now available for you!");
         return "success";
     }
 
@@ -133,6 +136,11 @@ public class BorrowingBean {
     public List<Borrowing> getBorrowings() {
         borrowings = BorrowingController.readAllBorrowings();
         return borrowings;
+    }
+
+    public String updateBorrowing(){
+        publisherBean.publishNews("book_available", bookId, " is now available for you!");
+        return "success";
     }
 
     public void setBorrowings(List<Borrowing> borrowings) {

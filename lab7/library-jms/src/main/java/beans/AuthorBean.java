@@ -24,7 +24,7 @@ public class AuthorBean {
 
     public String saveAuthor(){
         AuthorController.addAuthor(authorEntity);
-        return "index?faces-reditect=true";
+        return "success";
     }
 
     public List<Author> getAuthors(){

@@ -42,9 +42,9 @@ public class BookBean {
         System.out.println(author.getLastName());
         BookController.addBook(bookEntity);
 
-        publisherBean.publishNews("add_book", "New book in library: \"" + book.getTitle()+"\" written by: " +author.getFirstName() + " " +author.getLastName());
+        publisherBean.publishNews("add_book", 0L, "New book in library: \"" + book.getTitle()+"\" written by: " +author.getFirstName() + " " +author.getLastName());
 
-        return "index?faces-reditect=true";
+        return "success";
     }
 
 

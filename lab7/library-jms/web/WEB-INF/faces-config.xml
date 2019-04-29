@@ -27,6 +27,7 @@
         <navigation-case>
             <from-action>#{borrowingBean.addBorrowing}</from-action>
             <to-view-id>/index.xhtml</to-view-id>
+            <redirect/>
         </navigation-case>
     </navigation-rule>
 
@@ -68,6 +69,7 @@
         <navigation-case>
             <from-action>#{authorBean.saveAuthor}</from-action>
             <to-view-id>/index.xhtml</to-view-id>
+            <redirect/>
         </navigation-case>
     </navigation-rule>
 </faces-config>
