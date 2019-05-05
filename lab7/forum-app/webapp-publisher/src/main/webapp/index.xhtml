@@ -10,38 +10,50 @@
 </h:head>
 <h:body>
     <h:form>
-        <h:panelGroup>
-            <h:panelGrid columns="3">
-                Add new topic: <h:inputText id="newTopicName" value="#{publisherManager.newTopicName}" required="true"
-                             requiredMessage="Provide topic name"/>
-                <h:commandButton value="Register" action="#{publisherManager.addTopic()}"/>
-                <h:message for="newTopicName" style="color: red"/>
-            </h:panelGrid>
-        </h:panelGroup>
-        <h:panelGroup>
-            <h:panelGrid columns="2">
-                <h:outputLabel value="Message: " for="pubMessageId"/>
-                <h:inputText value="#{publisherManager.message}" id="pubMessageId"/>
+        <div style="padding: 10px; padding-bottom: 20px">
+            <h2>Create new topic</h2>
+            <h:panelGroup>
+                <h:panelGrid columns="3">
+                    Add new topic: <h:inputText id="newTopicName" value="#{publisherManager.newTopicName}" required="true"
+                                                requiredMessage="Provide topic name"/>
+                    <h:commandButton value="Register" action="#{publisherManager.addTopic()}"/>
+                    <h:message for="newTopicName" style="color: red"/>
+                </h:panelGrid>
+            </h:panelGroup>
+        </div>
+    </h:form>
+    <h:form>
+        <div style="padding: 10px;">
+            <h2>Send message to existing topic </h2>
+            <h:panelGroup>
+                <h:panelGrid columns="3">
+                    <h:outputLabel value="Message: " for="pubMessageId"/>
+                    <h:inputText value="#{publisherManager.message}" id="pubMessageId"/>
+                    <h:outputText/>
 
-                <h:outputLabel value="Users: " for="pubSubscribersId"/>
-                <h:inputText value="#{publisherManager.subscribers}" id="pubSubscribersId"/>
-            </h:panelGrid>
-        </h:panelGroup>
-        <table>
-            <thead>
-            <tr>
-                <th>Topic</th>
-            </tr>
-            </thead>
-            <tbody>
-            <ui:repeat value="#{publisherManager.topics}" var="topic">
+                    <h:outputLabel value="Users: " for="pubSubscribersId"/>
+                    <h:inputText value="#{publisherManager.subscribers}" id="pubSubscribersId"/>
+                    <h:outputLabel value="(Specify users or leave this field empty)" for="pubSubscribersId"/>
+
+                </h:panelGrid>
+            </h:panelGroup>
+            <table>
+                <thead>
                 <tr>
-                    <td>#{topic}</td>
-                    <td><h:commandButton value="Send" action="#{publisherManager.sendMessage(topic)}"/></td>
+                    <th>Topic</th>
                 </tr>
-            </ui:repeat>
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                <ui:repeat value="#{publisherManager.topics}" var="topic">
+                    <tr>
+                        <td>#{topic}</td>
+                        <td><h:commandButton value="Send" action="#{publisherManager.sendMessage(topic)}"/></td>
+                    </tr>
+                </ui:repeat>
+                </tbody>
+            </table>
+
+        </div>
     </h:form>
 </h:body>
 </html>

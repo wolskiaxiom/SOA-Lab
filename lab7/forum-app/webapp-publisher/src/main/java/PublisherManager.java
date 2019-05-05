@@ -19,16 +19,17 @@ public class PublisherManager {
 
     public void addTopic() throws JMSException {
         topicForumService.saveTopic(newTopicName);
+        newTopicName="";
     }
 
     public void sendMessage(String topic) throws JMSException {
-        topicForumService.sendMessage(topic, message, subscribers);
+        topicForumService.sendMessage("jms.topic."+topic, message, subscribers);
     }
 
     public List<String> getTopics() throws JMSException {
         List<String> topics = new LinkedList<>();
         for(Topic topic: topicForumService.findAllTopics()){
-            topics.add(topic.getTopicName());
+            topics.add(topic.getTopicName().substring(10));
         }
         return topics;
     }

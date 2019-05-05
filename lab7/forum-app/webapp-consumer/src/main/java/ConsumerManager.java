@@ -16,14 +16,17 @@ public class ConsumerManager implements Serializable {
 
     private String name;
     private UserMessages userMessages = new UserMessages();
+    ConsumerMessageListener listener;
 
     @EJB(lookup="java:global/ejb-topic-service-impl-1.0-SNAPSHOT/TopicForumServiceImpl")
     private TopicForumService topicForumService;
 
+    @EJB(lookup="java:global/ejb-topic-service-impl-1.0-SNAPSHOT/MyMessageStorageImpl")
+    private MyMessagesStorage myMessagesStorage;
 
     public void register(String topicName) throws JMSException {
-        ConsumerMessageListener listener = new ConsumerMessageListener(name,userMessages);
-        topicForumService.registerConsumer(topicName, listener);
+        listener = new ConsumerMessageListener(name);
+        topicForumService.registerConsumer("jms.topic."+topicName, listener);
     }
 
     public void performSub(String topicName) {
@@ -55,7 +58,7 @@ public class ConsumerManager implements Serializable {
     public List<String> getTopics() throws JMSException {
         List<String> topics = new LinkedList<>();
         for(Topic topic: topicForumService.findAllTopics()){
-            topics.add(topic.getTopicName());
+            topics.add(topic.getTopicName().substring(10));
         }
         return topics;
     }

@@ -27,10 +27,11 @@
 </h:head>
 <h:body>
 
-    <h:outputText value="Hello #{consumerManager.name}!"/>
+    <h3 style="padding: 10px;text-align: right">Hello, #{consumerManager.name}</h3>
     <p:messages id="messages" showDetail="true" closable="true">
         <p:autoUpdate />
     </p:messages>
+    <h2>Topics:</h2>
     <p:dataTable id="table" var="topic" value="#{consumerManager.topics}">
         <p:column headerText="Topic name">
             <h:outputText value="#{topic}" />
@@ -40,8 +41,9 @@
             <p:commandButton value="Subscribe" update="table" process="@this" action="#{consumerManager.performSub(topic)}"  style="margin-right:20px;" />
             <p:commandButton value="Unsubscribe" update="table" process="@this" action="#{consumerManager.performUnsub(topic)}"  style="margin-right:20px;" />
         </p:column>
-
     </p:dataTable>
+
+    <h2>Messages: </h2>
     <h:form id="panel">
         <p:dataTable var="message" value="#{consumerManager.messages}">
             <p:column headerText="Message">

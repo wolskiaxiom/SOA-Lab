@@ -1,15 +1,21 @@
+import javax.ejb.EJB;
 import javax.jms.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class ConsumerMessageListener implements MessageListener, Serializable {
     private String consumerName;
 
-    //    private UserMessages allMessages;
-    public ConsumerMessageListener(String consumerName, UserMessages messages) {
-        this.consumerName = consumerName;
-//        allMessages = messages;
+    @EJB(lookup="java:global/ejb-topic-service-impl-1.0-SNAPSHOT/MyMessageStorageImpl")
+    private MyMessagesStorage myMessagesStorage;
+
+    private UserMessages userMessages = new UserMessages();
+
+    public ArrayList<String> getMessages(){
+        return userMessages.getMessages();
     }
+
     public ConsumerMessageListener(String consumerName){
         this.consumerName = consumerName;
     }
@@ -20,6 +26,8 @@ public class ConsumerMessageListener implements MessageListener, Serializable {
             String message = mapMessage.getString("message");
             String subscribers = mapMessage.getString("subscribers");
             if (shouldReceiveMessage(subscribers)) {
+//                myMessagesStorage.addMessage(consumerName, message);
+//                userMessages.addMessage(message);
                 System.out.println("Consumer " + consumerName +" received message: " +message);
             }
         } catch (JMSException e) {
@@ -40,12 +48,4 @@ public class ConsumerMessageListener implements MessageListener, Serializable {
                 .anyMatch(s -> s.equals(consumerName));
     }
 
-
-//    public UserMessages getAllMessages() {
-//        return allMessages;
-//    }
-
-//    public void setAllMessages(UserMessages allMessages) {
-//        this.allMessages = allMessages;
-//    }
 }

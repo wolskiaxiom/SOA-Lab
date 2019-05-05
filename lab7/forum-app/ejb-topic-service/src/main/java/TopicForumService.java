@@ -1,6 +1,5 @@
 import javax.ejb.Remote;
 import javax.jms.JMSException;
-import javax.jms.MessageConsumer;
 import javax.jms.Topic;
 import java.util.List;
 
