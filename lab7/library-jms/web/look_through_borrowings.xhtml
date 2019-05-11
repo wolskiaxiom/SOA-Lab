@@ -48,6 +48,7 @@
             <h:form>
                 <p:commandButton update="table" action="#{borrowingBean.editBorrowing(borrowing, borrowing.reader, borrowing.book)}"  style="margin-right:20px;" value="Edit" title="Icon Only" />
                 <p:commandButton action="#{borrowingBean.deleteBorrowing(borrowing.reader.idReader, borrowing.book.idBook)}"  style="margin-right:20px;" value="Delete" title="Icon Only"  update="table"/>
+                <p:commandButton action="#{borrowingBean.notifyReaders(borrowing.book.idBook, borrowing.reader.idReader)}"  style="margin-right:20px;" value="Notify" title="Icon Only"  update="table"/>
             </h:form>
 
         </p:column>

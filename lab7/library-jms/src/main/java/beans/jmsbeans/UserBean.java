@@ -3,7 +3,6 @@ package beans.jmsbeans;
 import controllers.BookController;
 
 import javax.ejb.EJB;
-import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;

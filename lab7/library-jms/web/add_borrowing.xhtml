@@ -42,7 +42,7 @@
             </f:facet>
 
             <f:facet name="right">
-                <h:commandButton value="Reset" style="margin-right:20px;" >
+                <h:commandButton value="Reset" action="#{borrowingBean.reset}" style="margin-right:20px;" >
                     <p:ajax update="panel" resetValues="true" />
                 </h:commandButton>
             </f:facet>
