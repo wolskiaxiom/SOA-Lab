@@ -1,6 +1,7 @@
 package pl.agh.kis.soa.entity;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 import static javax.persistence.GenerationType.IDENTITY;
@@ -33,7 +34,7 @@ public class User {
                     @JoinColumn(name = "movie_id")
             }
     )
-    Set<Movie> movies;
+    Set<Movie> movies = new HashSet<>();
 
 
     public long getUserId() {
@@ -77,5 +78,20 @@ public class User {
     }
 
     public User() {
+    }
+
+    public User(long userId, String name, int age, byte[] avatar, Set<Movie> movies) {
+        this.userId = userId;
+        this.name = name;
+        this.age = age;
+        this.avatar = avatar;
+        this.movies = movies;
+    }
+
+    @Override
+    public String toString() {
+        return "User id: " + userId +
+                "name: " + name +
+                "age: " + age;
     }
 }
