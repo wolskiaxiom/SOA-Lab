@@ -26,7 +26,7 @@ public class UserController {
     @AddLinks
     @LinkResource
     @GET
-    @Path("movie/{id}")
+    @Path("user/{id}")
     public Response getUser(@PathParam("id") long id){
         User user = UserManager.getUser(id);
         return Response.status(200).entity(user).build();
@@ -34,8 +34,30 @@ public class UserController {
 
     @LinkResource
     @POST
-    @Path("movie")
-    public void addUser(User user){
+    @Path("users")
+    public Response addUser(User user){
+        UserManager.addUser(user);
+        return Response.status(201).build();
+    }
 
+    @LinkResource
+    @PUT
+    @Path("user/{id}")
+    public Response updateUser(@PathParam("id") long id, User user){
+        user.setUserId(id);
+        UserManager.updateUser(user);
+        return Response.status(201).build();
+    }
+
+    @LinkResource(value = User.class)
+    @DELETE
+    @Path("user/{id}")
+    public Response deleteUser(@PathParam("id") long id){
+        try {
+            UserManager.deleteUser(id);
+        }catch (Exception e){
+            return Response.status(405).build();
+        }
+        return Response.status(200).build();
     }
 }

@@ -3,19 +3,14 @@ package pl.agh.kis.soa.rest;
 
 import org.jboss.resteasy.links.AddLinks;
 import org.jboss.resteasy.links.LinkResource;
-import org.json.JSONObject;
 import pl.agh.kis.soa.entitiesManagers.MovieManager;
 import pl.agh.kis.soa.entity.Movie;
-import pl.agh.kis.soa.entity.User;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 import java.net.URI;
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Path("/")
 @Consumes("application/json")
@@ -45,6 +40,9 @@ public class MovieController {
     public Response getMovie(@PathParam("id") long id) {
 
         Movie movie = MovieManager.getMovie(id);
+        if(movie==null){
+            return Response.status(405).build();
+        }
 
         return Response.status(200).entity(movie).build();
     }
@@ -52,26 +50,30 @@ public class MovieController {
     @LinkResource
     @POST
     @Path("movies")
-    public void addMovie(Movie movie){
-
+    public Response addMovie(Movie movie){
+        MovieManager.addMovie(movie);
+        return Response.status(201).build();
     }
 
     @LinkResource
     @PUT
     @Path("movie/{id}")
-    public void updateMovie(@PathParam("id") long id, Movie movie){
-
+    public Response updateMovie(@PathParam("id") long id, Movie movie){
+        movie.setMovieId(id);
+        MovieManager.updateMovie(movie);
+        return Response.status(201).build();
     }
 
     @LinkResource(value = Movie.class)
     @DELETE
     @Path("movie/{id}")
-    public void deleteMovie(@PathParam("id") String id){
-
+    public Response deleteMovie(@PathParam("id") long id){
+        try{
+            MovieManager.deleteMovie(id);
+        }catch (Exception e){
+            return Response.status(405).build();
+        }
+        return Response.status(200).build();
     }
-
-
-
-
 }
 

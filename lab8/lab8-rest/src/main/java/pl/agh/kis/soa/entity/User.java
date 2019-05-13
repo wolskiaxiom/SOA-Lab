@@ -1,6 +1,7 @@
 package pl.agh.kis.soa.entity;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.*;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -8,22 +9,28 @@ import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
 @Table(name = "users")
+@XmlAccessorType(XmlAccessType.NONE)
+@XmlRootElement(name = "user")
 public class User {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
     @Column(name = "user_id")
+    @XmlAttribute(name = "userId")
     long userId;
 
     @Column(name = "name")
+    @XmlElement(name = "name")
     String name;
 
     @Column(name = "age")
+    @XmlElement(name = "age")
     int age;
 
     @Column(name = "avatar")
     byte [] avatar;
 
+    @XmlElement(name = "movies")
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "user_movie",
             joinColumns = {

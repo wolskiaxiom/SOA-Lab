@@ -12,9 +12,13 @@ public class MovieManager {
     private static EntityManager entityManager = DatabaseService.getInstance().getEntityManager();
 
     public static void addMovie(Movie movie){
-        entityManager.getTransaction().begin();
-        entityManager.persist(movie);
-        entityManager.getTransaction().commit();
+        try{
+            entityManager.getTransaction().begin();
+            entityManager.persist(movie);
+            entityManager.getTransaction().commit();
+        }catch (Exception e){
+            entityManager.getTransaction().rollback();
+        }
     }
 
     public static Movie getMovie(long idMovie){
@@ -35,7 +39,7 @@ public class MovieManager {
         entityManager.getTransaction().commit();
     }
 
-    public static void updateBook(Movie movie){
+    public static void updateMovie(Movie movie){
         entityManager.getTransaction().begin();
         Movie edited = entityManager.find(Movie.class, movie.getMovieId());
         edited.setTitle(movie.getTitle());
