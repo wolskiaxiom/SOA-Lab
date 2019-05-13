@@ -1,6 +1,7 @@
 package pl.agh.kis.soa.entity;
 
-import org.jboss.resteasy.links.RESTServiceDiscovery;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
 import javax.xml.bind.annotation.*;
@@ -32,9 +33,10 @@ public class Movie {
 
     @XmlElement(name = "users")
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "movies")
+    @JsonBackReference
     Set<User> users = new HashSet<>();
 
-    public long getMovieId() {
+    public long getMovieId() throws NullPointerException {
         return movieId;
     }
 

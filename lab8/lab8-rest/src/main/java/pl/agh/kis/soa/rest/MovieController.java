@@ -36,7 +36,7 @@ public class MovieController {
     @AddLinks
     @LinkResource
     @GET
-    @Path("movie/{id}")
+    @Path("movies/{id}")
     public Response getMovie(@PathParam("id") long id) {
 
         Movie movie = MovieManager.getMovie(id);
@@ -57,7 +57,7 @@ public class MovieController {
 
     @LinkResource
     @PUT
-    @Path("movie/{id}")
+    @Path("movies/{id}")
     public Response updateMovie(@PathParam("id") long id, Movie movie){
         movie.setMovieId(id);
         MovieManager.updateMovie(movie);
@@ -66,7 +66,7 @@ public class MovieController {
 
     @LinkResource(value = Movie.class)
     @DELETE
-    @Path("movie/{id}")
+    @Path("movies/{id}")
     public Response deleteMovie(@PathParam("id") long id){
         try{
             MovieManager.deleteMovie(id);
