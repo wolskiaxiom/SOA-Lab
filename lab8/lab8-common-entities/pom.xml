@@ -10,7 +10,7 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
     <artifactId>lab8-common-entities</artifactId>
-
+<packaging>jar</packaging>
 
     <dependencies>
         <dependency>

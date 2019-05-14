@@ -96,8 +96,38 @@
 
   <build>
     <finalName>MyRESTfulExample</finalName>
-    <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
       <plugins>
+        <plugin>
+
+          <groupId>com.sebastian-daschner</groupId>
+
+          <artifactId>jaxrs-analyzer-maven-plugin</artifactId>
+
+          <version>0.9</version>
+
+          <executions>
+
+            <execution>
+
+              <goals>
+
+                <goal>analyze-jaxrs</goal>
+
+              </goals>
+
+              <configuration>
+
+                <!-- Available backends are plaintext (default), swagger and asciidoc -->
+
+                <backend>plaintext</backend>
+
+              </configuration>
+
+            </execution>
+
+          </executions>
+
+        </plugin>
         <!-- clean lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#clean_Lifecycle -->
         <plugin>
           <artifactId>maven-clean-plugin</artifactId>
@@ -138,6 +168,5 @@
           <version>3.0.0</version>
         </plugin>
       </plugins>
-    </pluginManagement>
   </build>
 </project>
