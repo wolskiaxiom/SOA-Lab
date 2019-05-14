@@ -33,4 +33,6 @@ public class RestClient implements Serializable {
         return client.target(getStringResource(relativeUrl)).request().accept(MediaType.APPLICATION_JSON).get();
     }
 
+    public RestClient() {
+    }
 }
