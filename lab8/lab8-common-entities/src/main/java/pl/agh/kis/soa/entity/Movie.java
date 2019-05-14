@@ -19,7 +19,7 @@ public class Movie {
 
     @Id
     @Column(name = "movie_id")
-    @GeneratedValue(strategy = IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @XmlAttribute(name = "movieId")
     long movieId;
 

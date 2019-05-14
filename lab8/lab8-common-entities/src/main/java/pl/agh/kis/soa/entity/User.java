@@ -14,7 +14,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     @XmlAttribute(name = "userId")
     long userId;
