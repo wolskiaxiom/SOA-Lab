@@ -14,6 +14,7 @@
   <modules>
     <module>lab8-rest</module>
     <module>lab8-rest-client</module>
+    <module>lab8-common-entities</module>
   </modules>
 
   <properties>
