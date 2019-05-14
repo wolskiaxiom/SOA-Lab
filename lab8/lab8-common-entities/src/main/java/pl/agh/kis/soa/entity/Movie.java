@@ -90,4 +90,16 @@ public class Movie {
                 " title " + title +
                 "users: " + users.toString();
     }
+
+    @Override
+    public boolean equals(Object  obj) {
+        Movie movie = (Movie) obj;
+        if (movie==null){
+            return false;
+        }
+        if (this.movieId == movie.movieId){
+            return true;
+        }
+        return false;
+    }
 }

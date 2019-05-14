@@ -31,7 +31,7 @@ public class User {
     byte [] avatar;
 
     @XmlElement(name = "movies")
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_movie",
             joinColumns = {
                     @JoinColumn(name = "user_id")
@@ -93,6 +93,12 @@ public class User {
         this.age = age;
         this.avatar = avatar;
         this.movies = movies;
+    }
+
+    public User(String name, int age, byte[] avatar) {
+        this.name = name;
+        this.age = age;
+        this.avatar = avatar;
     }
 
     @Override
