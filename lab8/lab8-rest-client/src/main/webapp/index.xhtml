@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <style type="text/css">
+        td {
+            border: 1px solid black;
+            margin: 2px;
+            padding: 3px;
+        }
+        .button_class{
+            width: 60px;
+            height: 30px;
+        }
+        .edit_button_class{
+            width: 65px;
+            height: 35px;
+        }
+    </style>
+
+    <title>Title</title>
+</h:head>
+<h:body style="padding: 10px">
+
+    <h3>Dodaj filmomaniaka</h3>
+    <h:form id="user-form">
+
+    <h:panelGroup>
+        <p:panelGrid columns="2">
+            <h:outputLabel for="inputName" value="Imię: "/>
+            <h:inputText id="inputName" value="" style="margin-right: 10px"/>
+
+            <h:outputLabel for="inputAge" value="Wiek: "/>
+            <h:inputText id="inputAge" value=""/>
+
+            <h:outputLabel value="Dodaj zdjecie"/>
+
+            <p:fileUpload value="#{fileUploadView.file}" mode="simple" skinSimple="true"/>
+
+        </p:panelGrid>
+
+    </h:panelGroup>
+        <p:growl id="messages" showDetail="true" />
+        <h:commandButton id="submit-button" value="Dodaj" />
+
+    </h:form>
+    <br/>
+    <h3>Dodaj film</h3>
+    <h:form id="movie-form">
+
+        <h:panelGroup>
+            <p:panelGrid columns="2">
+                <h:outputLabel for="inputTitle" value="Tytuł: "/>
+                <h:inputText id="inputTitle" value="" style="margin-right: 10px"/>
+
+                <h:outputLabel for="inputUri" value="Uri: "/>
+                <h:inputText id="inputUri" value=""/>
+
+            </p:panelGrid>
+
+        </h:panelGroup>
+        <p:growl id="messages-movie" showDetail="true" />
+        <h:commandButton id="submit-movie-button" value="Dodaj" />
+
+    </h:form>
+
+    <p:dataTable id="tableUsers" var="user" value="">
+        <p:column headerText="id">
+            <h:outputText value=""/>
+        </p:column>
+        <p:column headerText="Imię">
+            <h:outputText value=""/>
+        </p:column>
+        <p:column headerText="Wiek">
+            <h:outputText value=""/>
+        </p:column>
+        <p:column headerText="Filmy">
+            <h:outputText value=""/>
+        </p:column>
+    </p:dataTable>
+</h:body>
+</html>
