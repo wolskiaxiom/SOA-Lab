@@ -60,7 +60,11 @@ public class MovieController {
     @Path("movies/{id}")
     public Response updateMovie(@PathParam("id") long id, Movie movie){
         movie.setMovieId(id);
-        MovieManager.updateMovie(movie);
+        try{
+            MovieManager.updateMovie(movie);
+        }catch (RuntimeException e){
+            return Response.status(405).build();
+        }
         return Response.status(201).build();
     }
 
