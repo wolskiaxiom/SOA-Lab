@@ -5,33 +5,17 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>pl.agh.soa.wolski</groupId>
-  <artifactId>forum</artifactId>
+  <artifactId>lab8-rest-movies</artifactId>
   <packaging>pom</packaging>
   <version>1.0-SNAPSHOT</version>
 
+  <name>rest-movies</name>
 
   <modules>
-    <module>ejb-topic-service</module>
-    <module>ejb-topic-service-impl</module>
-    <module>webapp-publisher</module>
-    <module>webapp-consumer</module>
+    <module>lab8-rest</module>
+    <module>lab8-rest-client</module>
+    <module>lab8-common-entities</module>
   </modules>
-
-  <name>forum</name>
-
-  <dependencies>
-    <dependency>
-      <groupId>javax</groupId>
-      <artifactId>javaee-api</artifactId>
-      <version>8.0</version>
-    </dependency>
-
-    <dependency>
-      <groupId>javax.faces</groupId>
-      <artifactId>javax.faces-api</artifactId>
-      <version>2.2</version>
-    </dependency>
-  </dependencies>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

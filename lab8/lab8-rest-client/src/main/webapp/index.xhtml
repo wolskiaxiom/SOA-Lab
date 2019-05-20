@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui" lang="pl">
+<h:head>
+    <style type="text/css">
+        td {
+            border: 1px solid black;
+            margin: 2px;
+            padding: 3px;
+        }
+        .button_class{
+            width: 60px;
+            height: 30px;
+        }
+        .edit_button_class{
+            width: 65px;
+            height: 35px;
+        }
+    </style>
+
+    <title>Title</title>
+</h:head>
+<h:body style="padding: 10px">
+
+    <h3>Dodaj filmomaniaka</h3>
+    <h:form id="user-form">
+        <p:messages id="addUserMessage" showDetail="true" closable="true">
+            <p:autoUpdate />
+        </p:messages>
+    <h:panelGroup>
+        <p:panelGrid columns="2">
+            <h:outputLabel for="inputName" value="Imię: "/>
+            <h:inputText id="inputName" value="#{usersBean.name}" style="margin-right: 10px"/>
+
+            <h:outputLabel for="inputAge" value="Wiek: "/>
+            <h:inputText id="inputAge" value="#{usersBean.age}"/>
+
+            <h:outputLabel value="Dodaj zdjecie"/>
+
+            <p:fileUpload value="#{usersBean.file}" mode="simple" skinSimple="true"/>
+
+        </p:panelGrid>
+
+    </h:panelGroup>
+        <p:growl id="messages" showDetail="true" />
+        <h:commandButton id="submit-button" value="Dodaj" action="#{usersBean.addUser}" />
+
+    </h:form>
+    <br/>
+    <h3>Dodaj film</h3>
+    <h:form id="movie-form">
+        <p:messages id="addMovieMessage" showDetail="true" closable="true">
+            <p:autoUpdate />
+        </p:messages>
+        <h:panelGroup>
+            <p:panelGrid columns="2">
+                <h:outputLabel for="inputTitle" value="Tytuł: "/>
+                <h:inputText id="inputTitle" value="#{movieBean.title}" style="margin-right: 10px"/>
+
+                <h:outputLabel for="inputUri" value="Uri: "/>
+                <h:inputText id="inputUri" value="#{movieBean.uri}"/>
+            </p:panelGrid>
+
+        </h:panelGroup>
+        <p:growl id="messages-movie" showDetail="true" />
+        <h:commandButton id="submit-movie-button" value="Dodaj" action="#{movieBean.addMovie}" rendered="#{not movieBean.edited}">
+        </h:commandButton>
+        <h:commandButton id="edit-movie-button" value="Edytuj" action="#{movieBean.editMovie}" rendered="#{movieBean.edited}">
+        </h:commandButton>
+
+    </h:form>
+    <br/>
+    <h:form>
+        <h:panelGroup>
+            <p:panelGrid columns="2">
+                <h:outputLabel for="inputIdUser" value="Id użytkownika: "/>
+                <h:inputText id="inputIdUser" value="#{userMovieBean.idUser}" style="margin-right: 10px"/>
+
+                <h:outputLabel for="inputIdMovie" value="Id filmu: "/>
+                <h:inputText id="inputIdMovie" value="#{userMovieBean.idMovie}"/>
+            </p:panelGrid>
+            <h:commandButton id="submit-user-movie-button" value="Dodaj film do użytkownika" type="submit" action="#{userMovieBean.addUserMovie}" >
+            </h:commandButton>
+        </h:panelGroup>
+    </h:form>
+    <br/>
+
+    <p:dataTable id="tableUsers" var="user" value="#{usersBean.users}">
+        <p:column headerText="id">
+            <h:outputText value="#{user.userId}"/>
+        </p:column>
+        <p:column headerText="Imię">
+            <h:outputText value="#{user.name}"/>
+        </p:column>
+        <p:column headerText="Wiek">
+            <h:outputText value="#{user.age}"/>
+        </p:column>
+        <p:column headerText="Filmy">
+            <p:dataTable var="movie" value="#{user.movies}">
+                <p:column headerText="id">
+                    <h:outputText value="#{movie.movieId}"/>
+                </p:column>
+                <p:column headerText="Tytuł">
+                    <h:outputText value="#{movie.title}"/>
+                </p:column>
+                <p:column headerText="URI">
+                    <h:outputText value="#{movie.uri}"/>
+                </p:column>
+                <p:column headerText="Akcje">
+                    <h:commandButton value="Usuń" action="#{usersBean.deleteUserMovie(user.userId, movie.movieId)}">
+                        <f:ajax render="tableUsers" />
+                    </h:commandButton>
+                </p:column>
+            </p:dataTable>
+        </p:column>
+    </p:dataTable>
+<br/>
+    <p:dataTable id="tableMovies" var="movie" value="#{movieBean.movies}">
+        <p:column headerText="id">
+            <h:outputText value="#{movie.movieId}"/>
+        </p:column>
+        <p:column headerText="Tytuł">
+            <h:outputText value="#{movie.title}"/>
+        </p:column>
+        <p:column headerText="URI">
+            <h:outputText value="#{movie.uri}"/>
+        </p:column>
+        <p:column headerText="Akcje">
+            <h:commandButton value="Usuń" action="#{movieBean.deleteMovie(movie.movieId)}">
+                <f:ajax render="tableMovies" />
+            </h:commandButton>
+            <h:commandButton value="Edytuj" action="#{movieBean.startEdit(movie.movieId,movie.title,movie.uri)}">
+                <f:ajax render="movie-form" />
+            </h:commandButton>
+        </p:column>
+    </p:dataTable>
+
+</h:body>
+</html>

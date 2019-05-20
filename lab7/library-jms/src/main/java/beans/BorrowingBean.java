@@ -44,6 +44,12 @@ public class BorrowingBean {
         availableBook = new ArrayList<>();
         availableReader = new ArrayList<>();
         borrowings = new ArrayList<>(BorrowingController.readAllBorrowings());
+        setupSelectors();
+    }
+
+    public String setupSelectors(){
+        availableBook.clear();
+        availableReader.clear();
         for(Reader reader: ReaderController.readAllReaders()){
             availableReader.add(new SelectItem(reader.getIdReader(), reader.getLastName()+" "+reader.getFirstName()));
         }
@@ -51,8 +57,17 @@ public class BorrowingBean {
         for (Book book : BookController.readAllBooks()){
             availableBook.add(new SelectItem(book.getIdBook(), book.getTitle()+ " of " + book.getAuthor().getLastName()));
         }
+        return "add_borrowing";
     }
 
+    public String notifyReaders(long bookId, long readerId){
+        publisherBean.publishNews("book_available", bookId, " is now available for you!");
+        return "index";
+    }
+
+    public void reset(){
+        setupSelectors();
+    }
 
     public String addBorrowing(){
         Reader reader = ReaderController.getReaderById(readerId);
