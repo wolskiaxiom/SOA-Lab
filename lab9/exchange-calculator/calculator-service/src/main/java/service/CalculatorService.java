@@ -15,10 +15,7 @@ public class CalculatorService {
 
     @WebMethod
     public double getExchangeRate(String symbol){
-//        return currencyService.getExchangeRate(symbol);
-        currencyService.getExchangeRate("chf");
-        System.out.println();
-        return 0d;
+        return currencyService.getExchangeRate("chf");
     }
 
     @WebMethod

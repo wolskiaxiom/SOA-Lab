@@ -4,15 +4,17 @@ import model.CurrencyEntity;
 import model.Rate;
 
 import javax.ejb.Stateless;
+import javax.enterprise.context.ApplicationScoped;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
+import java.io.Serializable;
 import java.net.URI;
 
-@Stateless
-public class CurrencyService {
+@ApplicationScoped
+public class CurrencyService implements Serializable {
     private Client client;
 
     public double getExchangeRate(String symbol){
