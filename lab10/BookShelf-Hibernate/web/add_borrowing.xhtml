@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui" xml:lang="en" lang="en">
+<h:head>
+    <title>Add book to collection</title>
+</h:head>
+<h:body>
+
+
+
+
+    <h:form id="form">
+        <p:panel id="panel" header="Form" style="margin-bottom:10px;">
+            <p:messages id="messages" />
+            <h:panelGrid columns="2" cellpadding="5">
+
+                <p:outputLabel for="reader">Reader </p:outputLabel>
+                <p:selectOneMenu value="#{borrowingBean.readerId}" id="reader"  >
+                    <f:selectItems value="#{borrowingBean.availableReader}" />
+                </p:selectOneMenu>
+
+                <p:outputLabel for="book">Book:  </p:outputLabel>
+                <p:selectOneMenu value="#{borrowingBean.bookId}" id="book"  >
+                    <f:selectItems value="#{borrowingBean.availableBook}" />
+                </p:selectOneMenu>
+
+                <p:outputLabel for="buttonBorrowing" value="Borrowing date" />
+                <p:calendar id="buttonBorrowing" value="#{borrowingBean.borrowingDate}" showOn="button" />
+                <p:outputLabel for="buttonReturning" value="Returning date" />
+                <p:calendar id="buttonReturning" value="#{borrowingBean.returningDate}" showOn="button" />
+            </h:panelGrid>
+        </p:panel>
+
+        <p:toolbar>
+            <f:facet name="left">
+                <p:commandButton value="Submit" update="panel" action="#{borrowingBean.addBorrowing}" style="margin-right:20px;" />
+            </f:facet>
+
+            <f:facet name="right">
+                <h:commandButton value="Reset" style="margin-right:20px;" >
+                    <p:ajax update="panel" resetValues="true" />
+                </h:commandButton>
+            </f:facet>
+        </p:toolbar>
+    </h:form>
+
+</h:body>
+</html>

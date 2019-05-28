@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<title>Welcome in BookShelf!</title>
+   <f:view>
+      <h3>Hello in BookShelf World!</h3>
+
+      <h:form>
+         <h1>Choose where to go</h1>
+         <h:commandButton action = "add_book" value = "Add book" />
+         <h:commandButton action = "look_through_books" value = "Look through yours book" /><br/>
+         <h:commandButton action = "manage_authors" value = "Manage authors" />
+         <h:commandButton action = "manage_readers?faces-reditect=true" value = "Manage readers" /> <br/><br/>
+         <h:commandButton action = "manage_borrowings?faces-reditect=true" value = "Manage borrowings" />
+         <br/><br/>
+         <h:commandButton action = "interesting_requests?faces-reditect=true" value = "Interesting requests" />
+
+      </h:form>
+
+   </f:view>
+</html>
