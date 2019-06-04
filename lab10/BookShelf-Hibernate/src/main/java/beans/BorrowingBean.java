@@ -9,9 +9,10 @@ import entities.Reader;
 import entities.ReaderBookId;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.ApplicationScoped;
+import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.model.SelectItem;
+import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -19,6 +20,9 @@ import java.util.List;
 @ManagedBean(name = "borrowingBean")
 @ApplicationScoped
 public class BorrowingBean {
+
+    @Inject
+    UserBean userBean;
 
     private Borrowing borrowing;
 

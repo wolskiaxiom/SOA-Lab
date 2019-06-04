@@ -12,13 +12,13 @@
 
       <h:form>
          <h1>Choose where to go</h1>
-         <h:commandButton action = "add_book" value = "Add book" />
-         <h:commandButton action = "look_through_books" value = "Look through yours book" /><br/>
-         <h:commandButton action = "manage_authors" value = "Manage authors" />
-         <h:commandButton action = "manage_readers?faces-reditect=true" value = "Manage readers" /> <br/><br/>
-         <h:commandButton action = "manage_borrowings?faces-reditect=true" value = "Manage borrowings" />
+         <h:button outcome="add_book" value = "Add book" />
+         <h:button outcome = "look_through_books" value = "Look through yours book" /><br/>
+         <h:button outcome= "manage_authors" value = "Manage authors" />
+         <h:button outcome= "manage_readers?faces-reditect=true" value = "Manage readers" /> <br/><br/>
+         <h:button outcome= "manage_borrowings?faces-reditect=true" value = "Manage borrowings" />
          <br/><br/>
-         <h:commandButton action = "interesting_requests?faces-reditect=true" value = "Interesting requests" />
+         <h:button outcome="interesting_requests?faces-reditect=true" value = "Interesting requests" />
 
       </h:form>
 
