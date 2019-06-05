@@ -9,7 +9,7 @@
         <artifactId>parking-meter-core</artifactId>
         <version>1.0</version>
     </parent>
-
+    <packaging>war</packaging>
     <artifactId>parking-connector</artifactId>
 
     

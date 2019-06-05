@@ -11,6 +11,6 @@
     </parent>
 
     <artifactId>notificator</artifactId>
-
+    <packaging>war</packaging>
     
 </project>
