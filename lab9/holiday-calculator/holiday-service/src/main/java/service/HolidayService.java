@@ -5,10 +5,6 @@ import javax.jws.WebService;
 import java.time.LocalDate;
 import java.time.Month;
 import java.time.temporal.ChronoUnit;
-import java.util.Calendar;
-import java.util.Date;
-
-import static java.time.temporal.ChronoUnit.DAYS;
 
 @WebService
 public class HolidayService {
