@@ -10,11 +10,7 @@
         <version>1.0</version>
     </parent>
 
-    <artifactId>connector</artifactId>
-
-    <dependencies>
-
-    </dependencies>
+    <artifactId>parking-connector</artifactId>
 
     
 </project>
