@@ -11,6 +11,8 @@
     </parent>
 
     <modules>
+        <module>parking-ejb-impl</module>
+        <module>parking-ejb-api</module>
         <module>notificator</module>
         <module>dashboard</module>
 	    <module>parking-connector</module>
