@@ -23,7 +23,7 @@ public class TicketReceiver {
     public Response addTicket(Ticket ticket){
         System.out.println(ticket.toString());
         try {
-            messagePublisher.sendMessageFromSensor(1,1,1);
+            messagePublisher.sendMessageFromParkingMeter(ticket);
         }catch (NullPointerException npe){
             npe.printStackTrace();
             return Response.status(401).build();
