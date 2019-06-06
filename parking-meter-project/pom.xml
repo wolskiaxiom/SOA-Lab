@@ -11,11 +11,11 @@
   <name>parking-meter-project</name>
 
   <modules>
+    <module>parking-meter-core</module>
     <module>parking-meter-mock</module>
     <module>sensor-mock</module>
     <module>parking-meter-model</module>
     <module>parking-mobile-mock</module>
-    <module>parking-meter-core</module>
   </modules>
 
   <packaging>pom</packaging>
