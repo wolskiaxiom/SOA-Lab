@@ -14,13 +14,13 @@ public class SensorService {
     MessagePublisher messagePublisher;
 
     @WebMethod
-    public void occupyPlace(int areaId, int sensorId){
-        SensorSignal sensorSignal = new SensorSignal(1,areaId,sensorId);
+    public void occupyPlace(int areaId, int sensorId, long detectionTime){
+        SensorSignal sensorSignal = new SensorSignal(true,areaId,sensorId, detectionTime);
         messagePublisher.sendMessage(sensorSignal);
     }
     @WebMethod
-    public void releasePlace(int areaId, int sensorId){
-        SensorSignal sensorSignal = new SensorSignal(2,areaId,sensorId);
+    public void releasePlace(int areaId, int sensorId, long detectionTime){
+        SensorSignal sensorSignal = new SensorSignal(false,areaId,sensorId, detectionTime);
         messagePublisher.sendMessage(sensorSignal);
     }
 
