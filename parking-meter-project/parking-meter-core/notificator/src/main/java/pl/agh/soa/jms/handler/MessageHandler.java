@@ -1,6 +1,8 @@
 package pl.agh.soa.jms.handler;
 
 import pl.agh.soa.ejb.api.MessageManagerInterface;
+import pl.agh.soa.ejb.exceptions.NoSuchNotificationException;
+import pl.agh.soa.ejb.exceptions.NoSuchParkingSpotException;
 import pl.agh.soa.model.JMSMessage;
 import pl.agh.soa.model.SensorSignal;
 import pl.agh.soa.model.Ticket;
@@ -31,14 +33,14 @@ public class MessageHandler implements MessageListener {
             JMSMessage jmsMessage = (JMSMessage) objectMessage.getObject();
             if(jmsMessage.isItTicket()){
                 Ticket ticket = (Ticket) jmsMessage;
-                messageManager.doSomething();
                 System.out.println(ticket);
+                messageManager.handleTicket(ticket);
             }else{
                 SensorSignal sensorSignal = (SensorSignal) jmsMessage;
                 System.out.println(sensorSignal);
             }
-        } catch (JMSException e) {
-            e.printStackTrace();
+        } catch (JMSException | NoSuchParkingSpotException | NoSuchNotificationException e) {
+            e.getMessage();
         }
     }
 }
