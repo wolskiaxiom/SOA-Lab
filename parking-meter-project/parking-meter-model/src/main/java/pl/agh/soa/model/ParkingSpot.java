@@ -1,6 +1,8 @@
 package pl.agh.soa.model;
 
-public class ParkingSpot implements Comparable<ParkingSpot> {
+import java.io.Serializable;
+
+public class ParkingSpot implements Comparable<ParkingSpot>, Serializable {
     int idArea;
     int idSensor;
     boolean isOccupied;
@@ -14,6 +16,20 @@ public class ParkingSpot implements Comparable<ParkingSpot> {
     }
 
     public ParkingSpot() {
+    }
+
+    public ParkingSpot(SensorSignal sensorSignal){
+        this.idArea = sensorSignal.getAreaId();
+        this.idSensor = sensorSignal.getSensorId();
+        this.isOccupied = sensorSignal.isOccupied();
+        this.isPaid = false;
+    }
+
+    public ParkingSpot(Ticket ticket){
+        this.idArea = ticket.getAreaId();
+        this.idSensor = ticket.getSensorId();
+        this.isOccupied = true;
+        this.isPaid = true;
     }
 
     public int getIdArea() {

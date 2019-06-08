@@ -3,24 +3,26 @@ package pl.agh.soa.model;
 import java.io.Serializable;
 
 public class SensorSignal implements Serializable, JMSMessage {
-    private int isOccupied;
+    private boolean isOccupied;
     private int areaId;
     private int sensorId;
+    private long detectionTime;
 
     public SensorSignal() {
     }
 
-    public SensorSignal(int isOccupied, int areaId, int sensorId) {
+    public SensorSignal(boolean isOccupied, int areaId, int sensorId, long detectionTime) {
         this.isOccupied = isOccupied;
         this.areaId = areaId;
         this.sensorId = sensorId;
+        this.detectionTime = detectionTime;
     }
 
-    public int isOccupied() {
+    public boolean isOccupied() {
         return isOccupied;
     }
 
-    public void setOccupied(int occupied) {
+    public void setOccupied(boolean occupied) {
         isOccupied = occupied;
     }
 
@@ -38,6 +40,14 @@ public class SensorSignal implements Serializable, JMSMessage {
 
     public void setSensorId(int sensorId) {
         this.sensorId = sensorId;
+    }
+
+    public long getDetectionTime() {
+        return detectionTime;
+    }
+
+    public void setDetectionTime(long detectionTime) {
+        this.detectionTime = detectionTime;
     }
 
     @Override
