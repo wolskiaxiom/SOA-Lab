@@ -1,6 +1,9 @@
 package pl.agh.soa.ejb.impl.storage;
 
+import pl.agh.soa.ejb.exceptions.NoSuchParkingSpotException;
 import pl.agh.soa.model.ParkingSpot;
+import pl.agh.soa.model.SensorSignal;
+import pl.agh.soa.model.Ticket;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
@@ -31,7 +34,17 @@ public class ParkingSpotsStorage {
                 new ParkingSpot(3,5,false,false),
                 new ParkingSpot(3,6,false,false)
         ));
+    }
 
+    public void updateParkingSpot(SensorSignal sensorSignal) throws NoSuchParkingSpotException {
+        ParkingSpot parkingSpot = new ParkingSpot(sensorSignal);
+        if (!exist(parkingSpot)) throw new NoSuchParkingSpotException();
+        spots.add(parkingSpot);
+    }
+
+    public void updateParkingSpot(Ticket ticket) throws NoSuchParkingSpotException {
+        ParkingSpot parkingSpot = new ParkingSpot(ticket);
+        if(!exist(parkingSpot)) throw new NoSuchParkingSpotException("There is no such parking place!");
     }
 
     public TreeSet<ParkingSpot> getSpots() {
@@ -43,7 +56,6 @@ public class ParkingSpotsStorage {
     }
 
     public boolean exist(ParkingSpot spot){
-
         return spots.contains(spot);
     }
 }
