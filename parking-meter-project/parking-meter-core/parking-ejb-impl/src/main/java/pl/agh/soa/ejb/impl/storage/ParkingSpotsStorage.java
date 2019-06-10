@@ -1,20 +1,29 @@
 package pl.agh.soa.ejb.impl.storage;
 
 import pl.agh.soa.ejb.exceptions.NoSuchParkingSpotException;
+import pl.agh.soa.ejb.storage.ParkingSpotsStorageInterface;
 import pl.agh.soa.model.ParkingSpot;
 import pl.agh.soa.model.SensorSignal;
 import pl.agh.soa.model.Ticket;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
+import javax.annotation.security.DeclareRoles;
+import javax.annotation.security.RolesAllowed;
+import javax.ejb.SessionContext;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import java.util.*;
 
 @Singleton
 @Startup
-public class ParkingSpotsStorage {
+@DeclareRoles({"Manager"})
+public class ParkingSpotsStorage  implements ParkingSpotsStorageInterface {
 
     private TreeSet<ParkingSpot> spots;
+
+    @Resource
+    SessionContext ctx;
 
     @PostConstruct
     public void initialize(){
@@ -36,26 +45,40 @@ public class ParkingSpotsStorage {
         ));
     }
 
+    @Override
     public void updateParkingSpot(SensorSignal sensorSignal) throws NoSuchParkingSpotException {
         ParkingSpot parkingSpot = new ParkingSpot(sensorSignal);
         if (!exist(parkingSpot)) throw new NoSuchParkingSpotException();
         spots.add(parkingSpot);
     }
 
+    @Override
     public void updateParkingSpot(Ticket ticket) throws NoSuchParkingSpotException {
         ParkingSpot parkingSpot = new ParkingSpot(ticket);
         if(!exist(parkingSpot)) throw new NoSuchParkingSpotException("There is no such parking place!");
     }
 
+    @Override
+    @RolesAllowed({"Manager"})
     public TreeSet<ParkingSpot> getSpots() {
         return spots;
     }
 
-    public void setSpots(TreeSet<ParkingSpot> spots) {
-        this.spots = spots;
+
+    private boolean exist(ParkingSpot spot){
+        return spots.contains(spot);
     }
 
-    public boolean exist(ParkingSpot spot){
-        return spots.contains(spot);
+    @Override
+    public TreeSet<ParkingSpot> getSpotsFromConcreteArea(int areaId){
+        TreeSet<ParkingSpot> specificAreaSpots = new TreeSet<>();
+        Iterator it = spots.iterator();
+        while (it.hasNext()){
+            ParkingSpot spot = (ParkingSpot) it.next();
+            if(spot.getIdArea()==areaId){
+                specificAreaSpots.add(spot);
+            }
+        }
+        return specificAreaSpots;
     }
 }

@@ -28,6 +28,7 @@ public class MessageManager implements MessageManagerInterface {
 
     @Override
     public void handleSensorSignal(SensorSignal signal) throws NoSuchParkingSpotException, NoSuchNotificationException {
+        System.out.println("I am in message manager");
         parkingSpotsManager.handleSensorSignal(signal);
     }
 }

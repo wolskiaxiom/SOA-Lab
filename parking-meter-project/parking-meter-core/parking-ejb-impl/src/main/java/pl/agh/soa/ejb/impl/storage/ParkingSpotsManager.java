@@ -4,6 +4,7 @@ package pl.agh.soa.ejb.impl.storage;
 import pl.agh.soa.ejb.exceptions.NoSuchNotificationException;
 import pl.agh.soa.ejb.impl.notification.NotificationsQueue;
 import pl.agh.soa.ejb.exceptions.NoSuchParkingSpotException;
+import pl.agh.soa.ejb.storage.ParkingSpotsStorageInterface;
 import pl.agh.soa.model.SensorSignal;
 import pl.agh.soa.model.Ticket;
 
@@ -18,7 +19,7 @@ import javax.ejb.Startup;
 public class ParkingSpotsManager {
 
     @EJB(lookup = "java:global/parking-ejb-impl-1.0/ParkingSpotsStorage")
-    ParkingSpotsStorage parkingSpotsStorage;
+    ParkingSpotsStorageInterface parkingSpotsStorage;
 
     @EJB(lookup = "java:global/parking-ejb-impl-1.0/NotificationsQueue")
     NotificationsQueue notificationsQueue;
@@ -26,8 +27,10 @@ public class ParkingSpotsManager {
     public void handleSensorSignal(SensorSignal sensorSignal) throws NoSuchParkingSpotException, NoSuchNotificationException {
         parkingSpotsStorage.updateParkingSpot(sensorSignal);
         if(sensorSignal.isOccupied()){
+            System.out.println("Adding notification");
             notificationsQueue.addNotification(sensorSignal);
         }else{
+            System.out.println("Deleting notification");
             notificationsQueue.deleteNotification(sensorSignal);
         }
     }
