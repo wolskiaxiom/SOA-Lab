@@ -29,7 +29,7 @@ public class SensorSenderApp {
                 System.out.println("Wprowadź numer czujnika");
                 sensorId = sc.nextInt();
 
-                service.occupyPlace(areaId,sensorId);
+                service.occupyPlace(areaId,sensorId,System.currentTimeMillis());
             }
             else if(i==2){
                 System.out.println("Wprowadź numer obszaru");
@@ -37,7 +37,7 @@ public class SensorSenderApp {
                 System.out.println("Wprowadź numer czujnika");
                 sensorId = sc.nextInt();
 
-                service.releasePlace(areaId,sensorId);
+                service.releasePlace(areaId,sensorId, System.currentTimeMillis());
             }else{
                 System.out.println("Coś poszło nie tak!");
             }

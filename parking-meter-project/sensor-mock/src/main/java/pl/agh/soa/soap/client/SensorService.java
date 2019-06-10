@@ -24,6 +24,7 @@ public interface SensorService {
 
     /**
      * 
+     * @param arg2
      * @param arg1
      * @param arg0
      */
@@ -34,10 +35,13 @@ public interface SensorService {
         @WebParam(name = "arg0", targetNamespace = "")
         int arg0,
         @WebParam(name = "arg1", targetNamespace = "")
-        int arg1);
+        int arg1,
+        @WebParam(name = "arg2", targetNamespace = "")
+        long arg2);
 
     /**
      * 
+     * @param arg2
      * @param arg1
      * @param arg0
      */
@@ -48,6 +52,8 @@ public interface SensorService {
         @WebParam(name = "arg0", targetNamespace = "")
         int arg0,
         @WebParam(name = "arg1", targetNamespace = "")
-        int arg1);
+        int arg1,
+        @WebParam(name = "arg2", targetNamespace = "")
+        long arg2);
 
 }
