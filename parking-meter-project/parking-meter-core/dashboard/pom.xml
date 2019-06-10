@@ -37,6 +37,27 @@
             <artifactId>primefaces</artifactId>
             <version>7.0</version>
         </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>5.4.2.Final</version>
+        </dependency>
+
+        <dependency>
+            <groupId>pl.agh.soa</groupId>
+            <artifactId>parking-ejb-api</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>pl.agh.soa</groupId>
+            <artifactId>parking-meter-model</artifactId>
+            <version>1.0</version>
+            <scope>compile</scope>
+        </dependency>
+
     </dependencies>
 
+    <build>
+        <finalName>dashboard</finalName>
+    </build>
 </project>
