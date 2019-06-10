@@ -38,6 +38,7 @@ public class MessageHandler implements MessageListener {
             }else{
                 SensorSignal sensorSignal = (SensorSignal) jmsMessage;
                 System.out.println(sensorSignal);
+                messageManager.handleSensorSignal(sensorSignal);
             }
         } catch (JMSException | NoSuchParkingSpotException | NoSuchNotificationException e) {
             e.getMessage();
