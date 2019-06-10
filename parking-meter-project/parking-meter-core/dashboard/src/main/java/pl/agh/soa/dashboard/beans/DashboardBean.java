@@ -4,16 +4,20 @@ import pl.agh.soa.ejb.storage.ParkingSpotsStorageInterface;
 import pl.agh.soa.model.ParkingSpot;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
 import javax.ejb.DependsOn;
 import javax.ejb.EJB;
+import javax.ejb.SessionContext;
 import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
+import java.io.Serializable;
 import java.util.TreeSet;
 
-@ApplicationScoped
+@SessionScoped
 @Named
 @DependsOn({"ParkingSpotsStorage"})
-public class DashboardBeans {
+public class DashboardBean implements Serializable {
 
     TreeSet<ParkingSpot> allSpots = new TreeSet<>();
 

@@ -8,10 +8,10 @@
 </head>
 <body>
 <h:form>
-    <h:commandButton value="asdad" action="#{dashboardBeans.doSomething}"/>
+    <h:commandButton value="asdad" action="#{dashboardBean.doSomething}" />
 </h:form>
 
-<h:dataTable value="#{dashboardBeans.allSpots}" var="spot">
+<h:dataTable value="#{dashboardBean.allSpots}" var="spot">
     <h:column>
         #{spot.idArea}
     </h:column>
