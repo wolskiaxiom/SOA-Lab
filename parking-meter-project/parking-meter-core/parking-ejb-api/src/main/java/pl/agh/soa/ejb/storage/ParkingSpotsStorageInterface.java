@@ -16,12 +16,4 @@ public interface ParkingSpotsStorageInterface {
     void updateParkingSpot(Ticket ticket) throws NoSuchParkingSpotException;
 
     TreeSet<ParkingSpot> getSpots();
-
-//    TreeSet<ParkingSpot> getSpotsFromConcreteArea(int areaId);
-
-    TreeSet<ParkingSpot> getSpotsForDashboard();
-
-    int countPlaces();
-
-    int countOccupiedPlaces();
 }
