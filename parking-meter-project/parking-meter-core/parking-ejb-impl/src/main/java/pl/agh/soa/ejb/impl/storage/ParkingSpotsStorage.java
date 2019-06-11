@@ -1,21 +1,18 @@
 package pl.agh.soa.ejb.impl.storage;
 
 import pl.agh.soa.datasource.ParkingSpotsCreator;
-import pl.agh.soa.datasource.database.UserDetailsManager;
-import pl.agh.soa.datasource.entities.UserDetails;
 import pl.agh.soa.ejb.exceptions.NoSuchParkingSpotException;
 import pl.agh.soa.ejb.storage.ParkingSpotsStorageInterface;
+import pl.agh.soa.model.Notification;
 import pl.agh.soa.model.ParkingSpot;
 import pl.agh.soa.model.SensorSignal;
 import pl.agh.soa.model.Ticket;
 
 import javax.annotation.PostConstruct;
-import javax.annotation.Resource;
 import javax.annotation.security.DeclareRoles;
 import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.*;
-import java.security.Principal;
 import java.util.*;
 
 @Singleton
@@ -64,6 +61,15 @@ public class ParkingSpotsStorage  implements ParkingSpotsStorageInterface {
         return spots.contains(spot);
     }
 
+    @Override
+    @Lock(LockType.WRITE)
+    @PermitAll
+    public void updateParkingSpot(Notification notification) throws NoSuchParkingSpotException{
+        ParkingSpot parkingSpot = new ParkingSpot(notification);
+        if(!exist(parkingSpot)) throw new NoSuchParkingSpotException("There is no such parking place!");
+        spots.remove(parkingSpot);
+        spots.add(parkingSpot);
+    }
 
     @Override
     public String toString(){

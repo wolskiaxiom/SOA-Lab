@@ -1,37 +1,49 @@
 package pl.agh.soa.ejb.impl.notification;
 
 import pl.agh.soa.ejb.exceptions.NoSuchNotificationException;
+import pl.agh.soa.ejb.exceptions.NoSuchParkingSpotException;
+import pl.agh.soa.ejb.notification.NotificationQueueInterface;
+import pl.agh.soa.ejb.storage.ParkingSpotsStorageInterface;
 import pl.agh.soa.model.Notification;
 import pl.agh.soa.model.SensorSignal;
 import pl.agh.soa.model.Ticket;
 
+import javax.ejb.DependsOn;
+import javax.ejb.EJB;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import java.util.*;
 
 @Singleton
 @Startup
-public class NotificationsQueue {
+@DependsOn({"ParkingSpotsStorage"})
+public class NotificationsQueue implements NotificationQueueInterface {
+
+    @EJB(lookup = "java:global/parking-ejb-impl-1.0/ParkingSpotsStorage")
+    ParkingSpotsStorageInterface parkingSpotsStorage;
 
     private LinkedList<Notification> notifications = new LinkedList<>();
 
-    public void addNotification(SensorSignal sensorSignal) {
+    @Override
+    public void addNotification(SensorSignal sensorSignal) throws NoSuchParkingSpotException {
         Notification newNotification = new Notification(sensorSignal);
         notifications.add(newNotification);
         this.validateNotifications();
         System.out.println(this);
     }
 
-
-    public void deleteNotification(SensorSignal sensorSignal) throws NoSuchNotificationException{
+    @Override
+    public void deleteNotification(SensorSignal sensorSignal) throws NoSuchNotificationException, NoSuchParkingSpotException {
         Notification notification = new Notification(sensorSignal);
         if(!notifications.remove(notification)){
             throw new NoSuchNotificationException("There is no notification related to specified Parking Place") ;
         }
+        updateNotPaidParkingSpots();
         deleteObsoleteNotifications();
     }
 
-    public void extendLegalStaying(Ticket ticket) throws NoSuchNotificationException{
+    @Override
+    public void extendLegalStaying(Ticket ticket) throws NoSuchNotificationException, NoSuchParkingSpotException {
         System.out.println("I am extending");
         Notification notificationFromTicket = new Notification(ticket);
         Notification foundNotification = getConcreteNotificationFromNotifications(ticket);
@@ -44,8 +56,9 @@ public class NotificationsQueue {
         System.out.println(this.toString());
     }
 
-    public void validateNotifications(){
+    private void validateNotifications() throws NoSuchParkingSpotException {
         Collections.sort(notifications);
+        updateNotPaidParkingSpots();
         this.deleteObsoleteNotifications();
     }
 
@@ -74,6 +87,25 @@ public class NotificationsQueue {
         }
     }
 
+    private void updateNotPaidParkingSpots() throws NoSuchParkingSpotException {
+        Iterator iterator = notifications.iterator();
+        while (iterator.hasNext()){
+            Notification notification = (Notification) iterator.next();
+            if(notification.getExpiryTime() < System.currentTimeMillis()){
+                parkingSpotsStorage.updateParkingSpot(notification);
+            }else {
+                break;
+            }
+        }
+
+    }
+
+    @Override
+    public LinkedList<Notification> getNotifications() throws NoSuchParkingSpotException {
+        validateNotifications();
+        return notifications;
+    }
+
     @Override
     public String toString() {
         StringBuffer buffer = new StringBuffer();
@@ -83,31 +115,4 @@ public class NotificationsQueue {
         }
         return buffer.toString();
     }
-
-    public static void main(String[] args) throws InterruptedException {
-        NotificationsQueue queue = new NotificationsQueue();
-
-        Notification n1 = new Notification(1,1,System.currentTimeMillis());
-        Thread.sleep(10);
-        Notification n2 = new Notification(2,2,System.currentTimeMillis());
-        Thread.sleep(10);
-        Notification n3 = new Notification(1,1,System.currentTimeMillis());
-//        queue.notifications.remove(n1);
-        queue.notifications.add(n1);
-//        queue.notifications.remove(n2);
-        queue.notifications.add(n2);
-//        queue.notifications.remove(n3);
-        queue.notifications.add(n3);
-        Collections.sort(queue.notifications);
-        System.out.println(queue);
-        Ticket ticket = new Ticket();
-        ticket.setAreaId(1);
-        ticket.setSensorId(1);
-        System.out.println(queue.getConcreteNotificationFromNotifications(ticket));
-//        queue.deleteNotification(new SensorSignal(false,2,2,System.currentTimeMillis()));
-//        System.out.println(queue);
-//        queue.deleteObsoleteNotifications();
-//        System.out.println(queue);
-    }
-
 }

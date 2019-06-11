@@ -1,6 +1,7 @@
 package pl.agh.soa.ejb.impl.message;
 
 import pl.agh.soa.ejb.api.MessageManagerInterface;
+import pl.agh.soa.ejb.notification.NotificationQueueInterface;
 import pl.agh.soa.ejb.exceptions.NoSuchNotificationException;
 import pl.agh.soa.ejb.impl.notification.NotificationsQueue;
 import pl.agh.soa.ejb.impl.storage.ParkingSpotsManager;
@@ -30,7 +31,7 @@ public class MessageManager implements MessageManagerInterface {
     ParkingSpotsStorageInterface parkingSpotsStorage;
 
     @EJB(lookup = "java:global/parking-ejb-impl-1.0/NotificationsQueue")
-    NotificationsQueue notificationsQueue;
+    NotificationQueueInterface notificationsQueue;
 
     @Override
     public void handleSensorSignal(SensorSignal sensorSignal) throws NoSuchParkingSpotException, NoSuchNotificationException {
