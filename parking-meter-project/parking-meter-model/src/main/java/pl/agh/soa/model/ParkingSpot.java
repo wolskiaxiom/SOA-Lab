@@ -82,4 +82,9 @@ public class ParkingSpot implements Comparable<ParkingSpot>, Serializable {
     public int compareTo(ParkingSpot parkingSpot) {
         return (this.idArea - parkingSpot.idArea)*100+this.idSensor-parkingSpot.idSensor;
     }
+
+    @Override
+    public String toString() {
+        return "Parking spot, area: " + getIdArea() + " sensor id: " + idSensor + " occupied: " + isOccupied + " is Paid " + isPaid;
+    }
 }
