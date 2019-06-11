@@ -1,6 +1,8 @@
-package pl.agh.soa.dashboard.database;
+package pl.agh.soa.datasource.database;
 
-import pl.agh.soa.dashboard.entity.UserDetails;
+
+
+import pl.agh.soa.datasource.entities.UserDetails;
 
 import javax.persistence.EntityManager;
 

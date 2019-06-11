@@ -30,11 +30,15 @@
         </web-resource-collection>
         <auth-constraint>
             <role-name>Manager</role-name>
+            <role-name>Employee</role-name>
         </auth-constraint>
     </security-constraint>
 
     <security-role>
         <role-name>Manager</role-name>
+    </security-role>
+    <security-role>
+        <role-name>Employee</role-name>
     </security-role>
 
 

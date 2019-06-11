@@ -2,29 +2,99 @@
 <!DOCTYPE html
         PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xml:lang="en" lang="en">
-<head>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui" lang="pl">
+<h:head>
+    <style type="text/css">
+        td {
+            border: 1px solid black;
+            margin: 2px;
+            padding: 3px;
+        }
+        .button_class{
+            width: 60px;
+            height: 30px;
+        }
+        .edit_button_class{
+            width: 65px;
+            height: 35px;
+        }
+        .image_icon{
+            height: 50px;
+            width: 50px;
+        }
+    </style>
+
     <title>Title</title>
-</head>
-<body>
-<h:form>
-    <h:commandButton value="asdad" action="#{dashboardBean.doSomething}" />
+</h:head>
+
+<h3>And your name is: #{userBean.userLogin}</h3>
+
+<h:body style="padding: 10px"><h:form>
+    <h:commandButton value="Wyświetl formularz zmiany hasła" action="#{userBean.showForm}">
+        <f:ajax render="allSpots changingPasswordFormId"/>
+    </h:commandButton>
 </h:form>
 
-<h:dataTable value="#{dashboardBean.allSpots}" var="spot">
-    <h:column>
-        #{spot.idArea}
-    </h:column>
-    <h:column>
-        #{spot.idSensor}
-    </h:column>
-    <h:column>
-        #{spot.isOccupied}
-    </h:column>
-    <h:column>
-        #{spot.isPaid}
-    </h:column>
-</h:dataTable>
+    <h:form id="changingPasswordFormId" rendered="#{userBean.changing}">
+        <h:panelGroup>
+            <p:panelGrid columns="2">
+                <h:outputLabel for="oldPassword" value="Stare hasło: "/>
+                <h:inputText id="oldPassword"/>
 
-</body>
+                <h:outputLabel for="newPassword" value="Nowe hasło: "/>
+                <h:inputText id="newPassword" value="#{userBean.newPassword}"/>
+            </p:panelGrid>
+            <h:commandButton value="Zatwierdź" type="submit" action="#{userBean.changePassword}"/>
+        </h:panelGroup>
+    </h:form>
+
+    <h:panelGroup>
+        <p:panelGrid columns="2">
+            <h:outputLabel for="allPlacesId" value="Liczba miejsc"/>
+            <h:outputLabel id="allPlacesId" value="#{dashboardBean.numberOfSpots}"/>
+
+            <h:outputLabel for="allOccupiedPlacesId" value="Liczba zajętych miejsc"/>
+            <h:outputLabel id="allOccupiedPlacesId" value="#{dashboardBean.numberOfOccupiedPlaces}"/>
+        </p:panelGrid>
+    </h:panelGroup>
+
+    <p:dataTable id="allSpots" value="#{dashboardBean.allSpots}" var="spot" rendered="#{request.isUserInRole('Manager')}">
+        <p:column headerText="Numer strefy">
+            #{spot.idArea}
+        </p:column>
+        <p:column headerText="Numer sensora">
+            #{spot.idSensor}
+        </p:column>
+        <p:column headerText="Czy miejsce jest zajęte?">
+            <p:graphicImage value="/icons/occupied.png" rendered="#{spot.isOccupied}" styleClass="image_icon"/>
+            <p:graphicImage value="/icons/released.png" rendered="#{!spot.isOccupied}" styleClass="image_icon"/>
+        </p:column>
+        <p:column headerText="Czy miejsce jest opłacone?">
+            <p:graphicImage value="/icons/paid.png" rendered="#{spot.isPaid}" styleClass="image_icon"/>
+            <p:graphicImage value="/icons/notPaid.png" rendered="#{!spot.isPaid}" styleClass="image_icon"/>
+        </p:column>
+    </p:dataTable>
+
+    <p:dataTable id="spots" value="#{dashboardBean.spots}" var="spot" rendered="#{request.isUserInRole('Employee')}">
+        <p:column headerText="Numer strefy">
+            #{spot.idArea}
+        </p:column>
+        <p:column headerText="Numer sensora">
+            #{spot.idSensor}
+        </p:column>
+        <p:column headerText="Czy miejsce jest zajęte?">
+            <p:graphicImage value="/icons/occupied.png" rendered="#{spot.isOccupied}" styleClass="image_icon"/>
+            <p:graphicImage value="/icons/released.png" rendered="#{!spot.isOccupied}" styleClass="image_icon"/>
+        </p:column>
+        <p:column headerText="Czy miejsce jest opłacone?">
+            <p:graphicImage value="/icons/paid.png" rendered="#{spot.isPaid}" styleClass="image_icon"/>
+            <p:graphicImage value="/icons/notPaid.png" rendered="#{!spot.isPaid}" styleClass="image_icon"/>
+        </p:column>
+    </p:dataTable>
+
+
+</h:body>
 </html>
