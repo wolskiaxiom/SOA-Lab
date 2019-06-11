@@ -48,19 +48,19 @@ public class ParkingSpot implements Comparable<ParkingSpot>, Serializable {
         this.idSensor = idSensor;
     }
 
-    public boolean isOccupied() {
+    public boolean getIsOccupied() {
         return isOccupied;
     }
 
-    public void setOccupied(boolean occupied) {
+    public void setIsOccupied(boolean occupied) {
         isOccupied = occupied;
     }
 
-    public boolean isPaid() {
+    public boolean getIsPaid() {
         return isPaid;
     }
 
-    public void setPaid(boolean paid) {
+    public void setIsPaid(boolean paid) {
         isPaid = paid;
     }
 
