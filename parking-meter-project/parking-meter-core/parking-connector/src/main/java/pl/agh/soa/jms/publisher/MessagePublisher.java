@@ -1,12 +1,10 @@
 package pl.agh.soa.jms.publisher;
 
 import pl.agh.soa.model.JMSMessage;
-import pl.agh.soa.model.Ticket;
 
 import javax.annotation.Resource;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
-import javax.ejb.Stateless;
 import javax.jms.*;
 
 @Singleton

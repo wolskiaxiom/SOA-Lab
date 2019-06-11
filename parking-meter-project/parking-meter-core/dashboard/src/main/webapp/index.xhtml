@@ -61,24 +61,7 @@
         </p:panelGrid>
     </h:panelGroup>
 
-    <p:dataTable id="allSpots" value="#{dashboardBean.allSpots}" var="spot" rendered="#{request.isUserInRole('Manager')}">
-        <p:column headerText="Numer strefy">
-            #{spot.idArea}
-        </p:column>
-        <p:column headerText="Numer sensora">
-            #{spot.idSensor}
-        </p:column>
-        <p:column headerText="Czy miejsce jest zajęte?">
-            <p:graphicImage value="/icons/occupied.png" rendered="#{spot.isOccupied}" styleClass="image_icon"/>
-            <p:graphicImage value="/icons/released.png" rendered="#{!spot.isOccupied}" styleClass="image_icon"/>
-        </p:column>
-        <p:column headerText="Czy miejsce jest opłacone?">
-            <p:graphicImage value="/icons/paid.png" rendered="#{spot.isPaid}" styleClass="image_icon"/>
-            <p:graphicImage value="/icons/notPaid.png" rendered="#{!spot.isPaid}" styleClass="image_icon"/>
-        </p:column>
-    </p:dataTable>
-
-    <p:dataTable id="spots" value="#{dashboardBean.spots}" var="spot" rendered="#{request.isUserInRole('Employee')}">
+    <p:dataTable id="spots" value="#{dashboardBean.spots}" var="spot">
         <p:column headerText="Numer strefy">
             #{spot.idArea}
         </p:column>

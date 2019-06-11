@@ -1,5 +1,6 @@
 package pl.agh.soa.dashboard.beans;
 
+import pl.agh.soa.ejb.storage.ParkingSpotsManagerInterface;
 import pl.agh.soa.ejb.storage.ParkingSpotsStorageInterface;
 import pl.agh.soa.model.ParkingSpot;
 
@@ -12,29 +13,21 @@ import java.util.TreeSet;
 
 @SessionScoped
 @Named
-@DependsOn({"ParkingSpotsStorage"})
+@DependsOn({"ParkingSpotsStorage", "ParkingSpotsManager"})
 public class DashboardBean implements Serializable {
 
-    TreeSet<ParkingSpot> allSpots = new TreeSet<>();
-    TreeSet<ParkingSpot> spots = new TreeSet<>();
-
-    @EJB(lookup = "java:global/parking-ejb-impl-1.0/ParkingSpotsStorage")
-    ParkingSpotsStorageInterface parkingSpotsStorage;
-
-    public TreeSet<ParkingSpot> getAllSpots() {
-        allSpots = parkingSpotsStorage.getSpots();
-        return allSpots;
-    }
+    @EJB(lookup = "java:global/parking-ejb-impl-1.0/ParkingSpotsManager")
+    ParkingSpotsManagerInterface parkingSpotsManager;
 
     public TreeSet<ParkingSpot> getSpots(){
-        return parkingSpotsStorage.getSpotsForDashboard();
+        return parkingSpotsManager.getSpotsForDashboard();
     }
 
     public int getNumberOfSpots(){
-        return parkingSpotsStorage.countPlaces();
+        return parkingSpotsManager.countPlaces();
     }
 
     public int getNumberOfOccupiedPlaces(){
-        return parkingSpotsStorage.countOccupiedPlaces();
+        return parkingSpotsManager.countOccupiedPlaces();
     }
 }
