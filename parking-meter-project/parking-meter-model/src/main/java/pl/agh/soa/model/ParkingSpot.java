@@ -32,6 +32,13 @@ public class ParkingSpot implements Comparable<ParkingSpot>, Serializable {
         this.isPaid = true;
     }
 
+    public ParkingSpot(Notification notification){
+        this.idArea = notification.getAreaId();
+        this.idSensor = notification.getSensorId();
+        this.isOccupied = true;
+        this.isPaid = false;
+    }
+
     public int getIdArea() {
         return idArea;
     }
