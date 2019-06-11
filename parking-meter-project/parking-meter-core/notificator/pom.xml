@@ -15,6 +15,25 @@
             <artifactId>parking-ejb-api</artifactId>
             <version>1.0</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.jboss.resteasy</groupId>
+            <artifactId>resteasy-jaxrs</artifactId>
+            <version>3.6.3.Final</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.jboss.resteasy</groupId>
+            <artifactId>resteasy-servlet-initializer</artifactId>
+            <version>3.6.3.Final</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.jboss.resteasy</groupId>
+            <artifactId>resteasy-links</artifactId>
+            <version>3.6.3.Final</version>
+        </dependency>
+
     </dependencies>
 
     <parent>
@@ -25,5 +44,7 @@
 
     <artifactId>notificator</artifactId>
     <packaging>war</packaging>
+
+
 
 </project>
