@@ -51,7 +51,7 @@ public class ParkingSpotsStorage  implements ParkingSpotsStorageInterface {
     }
 
     @Override
-    @RolesAllowed({"Manager", "Employee"})
+    @PermitAll
     @Lock(LockType.READ)
     public TreeSet<ParkingSpot> getSpots() {
         return spots;

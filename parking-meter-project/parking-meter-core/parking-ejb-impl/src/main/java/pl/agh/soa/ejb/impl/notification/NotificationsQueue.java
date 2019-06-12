@@ -44,7 +44,6 @@ public class NotificationsQueue implements NotificationQueueInterface {
 
     @Override
     public void extendLegalStaying(Ticket ticket) throws NoSuchNotificationException, NoSuchParkingSpotException {
-        System.out.println("I am extending");
         Notification notificationFromTicket = new Notification(ticket);
         Notification foundNotification = getConcreteNotificationFromNotifications(ticket);
         if (foundNotification==null)

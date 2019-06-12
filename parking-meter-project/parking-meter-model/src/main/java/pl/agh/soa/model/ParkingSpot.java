@@ -1,11 +1,14 @@
 package pl.agh.soa.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import java.io.Serializable;
 
 public class ParkingSpot implements Comparable<ParkingSpot>, Serializable {
     int idArea;
     int idSensor;
     boolean isOccupied;
+    @JsonBackReference
     boolean isPaid;
 
     public ParkingSpot(int idArea, int idSensor, boolean isOccupied, boolean isPaid) {
