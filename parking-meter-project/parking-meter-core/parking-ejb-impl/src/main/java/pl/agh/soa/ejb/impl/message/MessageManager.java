@@ -10,16 +10,11 @@ import pl.agh.soa.ejb.storage.ParkingSpotsStorageInterface;
 import pl.agh.soa.model.SensorSignal;
 import pl.agh.soa.model.Ticket;
 
-import javax.annotation.security.DeclareRoles;
 import javax.annotation.security.PermitAll;
-import javax.annotation.security.RolesAllowed;
 import javax.annotation.security.RunAs;
-import javax.ejb.DependsOn;
-import javax.ejb.EJB;
-import javax.ejb.Singleton;
-import javax.ejb.Startup;
+import javax.ejb.*;
 
-@Singleton
+@Stateless
 @Startup
 @DependsOn({"ParkingSpotsStorage"})
 @RunAs("MessageManager")

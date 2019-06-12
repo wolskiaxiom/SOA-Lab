@@ -102,7 +102,17 @@ public class NotificationsQueue implements NotificationQueueInterface {
     @Override
     public LinkedList<Notification> getNotifications() throws NoSuchParkingSpotException {
         validateNotifications();
-        return notifications;
+        LinkedList<Notification> readyNotifications = new LinkedList<>();
+        Iterator iterator = notifications.iterator();
+        while (iterator.hasNext()){
+            Notification notification = (Notification) iterator.next();
+            if (notification.getExpiryTime()<System.currentTimeMillis()){
+                readyNotifications.add(notification);
+            }else{
+                break;
+            }
+        }
+        return readyNotifications;
     }
 
     @Override
