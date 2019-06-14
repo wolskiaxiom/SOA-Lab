@@ -19,7 +19,12 @@ public class SpotsPublisher {
 
     @GET
     @Path("spots")
-    public Response getSpots() {
-        return Response.status(200).entity(parkingSpotsStorage.getSpots()).build();
+    public Response getSpots()
+    {
+        try{
+            return Response.status(200).entity(parkingSpotsStorage.getSpots()).build();
+        }catch (Exception e){
+            return Response.status(400).build();
+        }
     }
 }
