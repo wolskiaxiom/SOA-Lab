@@ -21,7 +21,11 @@ public class NotificationPublisher {
     @GET
     @Path("notifications")
     public Response getNotifications() throws NoSuchParkingSpotException {
-        return Response.status(200).entity(notificationsQueue.getNotifications()).build();
+        try {
+            return Response.status(200).entity(notificationsQueue.getNotifications()).build();
+        }catch (Exception e){
+            return Response.status(400).build();
+        }
     }
 
 }
