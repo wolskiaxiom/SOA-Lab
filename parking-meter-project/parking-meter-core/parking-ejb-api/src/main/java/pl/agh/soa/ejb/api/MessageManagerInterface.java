@@ -5,8 +5,6 @@ import pl.agh.soa.ejb.exceptions.NoSuchParkingSpotException;
 import pl.agh.soa.model.SensorSignal;
 import pl.agh.soa.model.Ticket;
 
-import javax.annotation.security.DeclareRoles;
-import javax.annotation.security.RolesAllowed;
 import javax.ejb.Remote;
 
 @Remote
